@@ -51,4 +51,10 @@
     true
   );
   console.log("Transaction expanded", transactionExpanded);
+
+  const transactionAfterAnnotation = await monzo.transactions.annotate(
+    transactionId,
+    { hi: "test" }
+  );
+  console.log("Transaction after annotation", transactionAfterAnnotation);
 })();

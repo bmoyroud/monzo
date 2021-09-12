@@ -182,6 +182,31 @@ class Monzo {
           .get(`/transactions/${transactionId}`)
           .then((response) => response.data);
       },
+
+      annotate: (transactionId, annotations) => {
+        if (!transactionId) {
+          throw new Error("Please provide the transaction id.");
+        }
+
+        if (!annotations) {
+          throw new Error("Please provide key-value annotations.");
+        }
+
+        // append metadata in front of each key
+        const entries = Object.entries(annotations);
+        const metadataEntries = entries.map(([key, value]) => [
+          `metadata['${key}']`,
+          value,
+        ]);
+        const metadata = Object.fromEntries(metadataEntries);
+
+        const data = new url.URLSearchParams(metadata);
+        console.log(data);
+
+        return this.client
+          .patch(`/transactions/${transactionId}`, data)
+          .then((response) => response.data);
+      },
     };
   }
 }
