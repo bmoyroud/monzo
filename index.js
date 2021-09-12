@@ -23,14 +23,10 @@ class Monzo {
   get accounts() {
     return {
       list: () =>
-        this.client
-          .get("/accounts")
-          .then((response) => response.data)
-          .then((data) => console.log(data))
-          .catch(console.log),
+        this.client.get("/accounts").then((response) => response.data),
     };
   }
 }
 
 const monzo = new Monzo(accessToken);
-monzo.accounts.list();
+monzo.accounts.list().then(console.log);
