@@ -138,6 +138,32 @@ class Monzo {
       },
     };
   }
+
+  get transactions() {
+    return {
+      list: (accountId, since, before) => {
+        if (!accountId) {
+          throw new Error("Please provide the account id.");
+        }
+
+        const params = {
+          account_id: accountId,
+        };
+
+        if (since) {
+          params.since = since;
+        }
+
+        if (before) {
+          params.before = before;
+        }
+
+        return this.client
+          .get("/transactions", { params })
+          .then((response) => response.data);
+      },
+    };
+  }
 }
 
 module.exports = Monzo;
