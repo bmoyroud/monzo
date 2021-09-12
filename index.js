@@ -1,5 +1,7 @@
 require("dotenv").config();
+
 const axios = require("axios").default;
+const url = require("url");
 
 const baseURL = "https://api.monzo.com";
 
@@ -70,6 +72,36 @@ class Monzo {
           })
           .then((response) => response.data);
       },
+
+      deposit: (potId, accountId, amount, dedupeId) => {
+        if (!potId) {
+          throw new Error("Please provide the pot id.");
+        }
+
+        if (!accountId) {
+          throw new Error("Please provide the account id.");
+        }
+
+        if (!amount) {
+          throw new Error("Please provide the amount to deposit.");
+        }
+
+        if (!dedupeId) {
+          throw new Error(
+            "Please provide a unique string to de-deduplicate deposits."
+          );
+        }
+
+        const data = new url.URLSearchParams({
+          source_account_id: accountId,
+          amount,
+          dedupe_id: dedupeId,
+        });
+
+        return this.client
+          .put(`/pots/${potId}/deposit`, data)
+          .then((response) => response.data);
+      },
     };
   }
 }
@@ -88,4 +120,10 @@ class Monzo {
 
   const pots = await monzo.pots.list(accountId);
   console.log("Pots", pots);
+
+  const potId = process.env.POT_ID;
+  const potAfterDeposit = await monzo.pots
+    .deposit(potId, accountId, 1, "some_unique_string")
+    .catch(console.log);
+  console.log(potAfterDeposit);
 })();
