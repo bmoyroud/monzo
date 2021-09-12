@@ -166,10 +166,10 @@ class Monzo {
     1,
     "some_unique_string"
   );
-  console.log(potAfterDeposit);
+  console.log("Pot after deposit", potAfterDeposit);
 
   const potAfterWithdrawal = await monzo.pots
     .withdraw(potId, accountId, 2, "some_unique_string")
     .catch(console.log);
-  console.log(potAfterWithdrawal);
+  console.log("Pot after withdrawal", potAfterWithdrawal);
 })();
