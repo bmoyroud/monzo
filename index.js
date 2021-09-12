@@ -11,3 +11,10 @@ const instance = axios.create({
     Authorization: `Bearer ${accessToken}`,
   },
 });
+
+// List accounts
+instance
+  .get("/accounts")
+  .then((response) => response.data)
+  .then((data) => console.log(data))
+  .catch(console.log);
