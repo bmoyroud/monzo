@@ -22,14 +22,33 @@ class Monzo {
 
   get accounts() {
     return {
-      list: () =>
-        this.client.get("/accounts").then((response) => response.data),
+      list: (accountType) => {
+        const accountTypes = ["uk_prepaid", "uk_retail", "uk_retail_joint"];
+
+        if (accountType) {
+          if (!accountTypes.includes(accountType)) {
+            throw new Error(
+              `Please provide a valid account type (${accountTypes.join(
+                ", "
+              )}).`
+            );
+          }
+          return this.client
+            .get("/accounts", {
+              params: {
+                account_type: accountType,
+              },
+            })
+            .then((response) => response.data);
+        }
+        return this.client.get("/accounts").then((response) => response.data);
+      },
     };
   }
 }
 
 (async () => {
   const monzo = new Monzo(accessToken);
-  const data = await monzo.accounts.list();
+  const data = await monzo.accounts.list("uk_prepaid");
   console.log(data);
 })();
