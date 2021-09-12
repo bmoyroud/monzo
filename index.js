@@ -28,5 +28,8 @@ class Monzo {
   }
 }
 
-const monzo = new Monzo(accessToken);
-monzo.accounts.list().then(console.log);
+(async () => {
+  const monzo = new Monzo(accessToken);
+  const data = await monzo.accounts.list();
+  console.log(data);
+})();
