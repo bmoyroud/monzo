@@ -162,6 +162,26 @@ class Monzo {
           .get("/transactions", { params })
           .then((response) => response.data);
       },
+
+      retrieve: (transactionId, expandMerchant = false) => {
+        if (!transactionId) {
+          throw new Error("Please provide the transaction id.");
+        }
+
+        if (expandMerchant) {
+          return this.client
+            .get(`/transactions/${transactionId}`, {
+              params: {
+                "expand[]": "merchant",
+              },
+            })
+            .then((response) => response.data);
+        }
+
+        return this.client
+          .get(`/transactions/${transactionId}`)
+          .then((response) => response.data);
+      },
     };
   }
 }

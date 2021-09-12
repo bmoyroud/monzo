@@ -4,6 +4,7 @@
   const accessToken = process.env.ACCESS_TOKEN;
   const accountId = process.env.ACCOUNT_ID;
   const potId = process.env.POT_ID;
+  const transactionId = process.env.TRANSACTION_ID;
 
   const monzo = new Monzo(accessToken);
 
@@ -35,10 +36,19 @@
   );
   console.log("Pot after withdrawal", potAfterWithdrawal);
 
-  const transactions = await monzo.transactions.list(
-    accountId,
-    "",
-    "2021-09-01T23:00:00Z"
+  // const transactions = await monzo.transactions.list(
+  //   accountId,
+  //   "",
+  //   "2021-09-01T23:00:00Z"
+  // );
+  // console.log("Transactions", transactions);
+
+  const transaction = await monzo.transactions.retrieve(transactionId);
+  console.log("Transaction", transaction);
+
+  const transactionExpanded = await monzo.transactions.retrieve(
+    transactionId,
+    true
   );
-  console.log("Transactions", transactions);
+  console.log("Transaction expanded", transactionExpanded);
 })();
