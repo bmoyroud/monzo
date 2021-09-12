@@ -8,6 +8,10 @@ const accessToken =
 
 class Monzo {
   constructor(accessToken) {
+    if (!accessToken) {
+      throw new Error("Please provide an access token.");
+    }
+
     this.client = axios.create({
       baseURL,
       headers: {
