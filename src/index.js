@@ -26,8 +26,8 @@ class Monzo {
   get accounts() {
     return {
       list: (accountType) => {
-        const accountTypes = ["uk_prepaid", "uk_retail", "uk_retail_joint"];
         if (accountType) {
+          const accountTypes = ["uk_prepaid", "uk_retail", "uk_retail_joint"];
           if (!accountTypes.includes(accountType)) {
             throw new Error(
               `Please provide a valid account type (${accountTypes.join(
@@ -195,7 +195,7 @@ class Monzo {
         // append metadata in front of each key
         const entries = Object.entries(annotations);
         const metadataEntries = entries.map(([key, value]) => [
-          `metadata['${key}']`,
+          `metadata[${key}]`,
           value,
         ]);
         const metadata = Object.fromEntries(metadataEntries);
@@ -205,6 +205,68 @@ class Monzo {
 
         return this.client
           .patch(`/transactions/${transactionId}`, data)
+          .then((response) => response.data);
+      },
+    };
+  }
+
+  get feed() {
+    return {
+      create: (accountId, type, feedParams, url2) => {
+        if (!accountId) {
+          throw new Error("Please provide the account id.");
+        }
+
+        if (!type) {
+          throw new Error("Please provide a type of feed item.");
+        }
+
+        const feedItemTypes = ["basic"];
+        if (!feedItemTypes.includes(type)) {
+          throw new Error(
+            `Please provide a valid feed item type (${feedItemTypes.join(
+              ", "
+            )}).`
+          );
+        }
+
+        if (!feedParams) {
+          throw new Error(
+            "Please provide a map of parameters (varies based on type)."
+          );
+        }
+
+        if (!feedParams.title) {
+          throw new Error("Please provide a title to display.");
+        }
+
+        if (!feedParams.image_url) {
+          throw new Error("Please provide a URL of the image to display.");
+        }
+
+        // append params in front of each key
+        const entries = Object.entries(feedParams);
+        const updatedEntries = entries.map(([key, value]) => [
+          `params[${key}]`,
+          value,
+        ]);
+        const updatedFeedParams = Object.fromEntries(updatedEntries);
+
+        const data = {
+          account_id: accountId,
+          type,
+          ...updatedFeedParams,
+        };
+
+        if (url2) {
+          data.url = url2;
+        }
+
+        const formattedData = new url.URLSearchParams(data);
+        console.log(formattedData);
+
+        return this.client
+          .post("/feed", formattedData)
           .then((response) => response.data);
       },
     };

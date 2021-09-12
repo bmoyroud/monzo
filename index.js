@@ -57,4 +57,13 @@
     { hi: "test" }
   );
   console.log("Transaction after annotation", transactionAfterAnnotation);
+
+  const feedItem = await monzo.feed
+    .create(accountId, "basic", {
+      title: "feed item title",
+      image_url:
+        "https://upload.wikimedia.org/wikipedia/en/e/ed/Nyan_cat_250px_frame.PNG",
+    })
+    .catch(console.log);
+  console.log(feedItem);
 })();
