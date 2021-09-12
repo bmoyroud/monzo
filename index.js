@@ -19,6 +19,10 @@ class Monzo {
     });
   }
 
+  get whoAmI() {
+    return this.client.get("/ping/whoami").then((response) => response.data);
+  }
+
   get accounts() {
     return {
       list: (accountType) => {
@@ -139,6 +143,9 @@ class Monzo {
 (async () => {
   const accessToken = process.env.ACCESS_TOKEN;
   const monzo = new Monzo(accessToken);
+
+  const whoAmI = await monzo.whoAmI;
+  console.log("Who am I", whoAmI);
 
   const accounts = await monzo.accounts.list();
   console.log("Accounts", accounts);
