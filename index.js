@@ -45,6 +45,7 @@ class Monzo {
     };
   }
 
+  // TODO: use a getter for consistency?
   balance(accountId) {
     if (!accountId) {
       throw new Error("Please provide the account id.");
@@ -57,6 +58,23 @@ class Monzo {
       })
       .then((response) => response.data);
   }
+
+  get pots() {
+    return {
+      list: (accountId) => {
+        if (!accountId) {
+          throw new Error("Please provide the account id.");
+        }
+        return this.client
+          .get("/pots", {
+            params: {
+              current_account_id: accountId,
+            },
+          })
+          .then((response) => response.data);
+      },
+    };
+  }
 }
 
 (async () => {
@@ -65,6 +83,11 @@ class Monzo {
   const accounts = await monzo.accounts.list();
   console.log("Accounts", accounts);
 
-  const balance = await monzo.balance("acc_00009GO9ZevTx6Ky3l9r7p");
+  const accountId = "acc_00009GO9ZevTx6Ky3l9r7p";
+
+  const balance = await monzo.balance(accountId);
   console.log("Balance", balance);
+
+  const pots = await monzo.pots.list(accountId);
+  console.log("Pots", pots);
 })();
