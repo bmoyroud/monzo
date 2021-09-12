@@ -24,7 +24,6 @@ class Monzo {
     return {
       list: (accountType) => {
         const accountTypes = ["uk_prepaid", "uk_retail", "uk_retail_joint"];
-
         if (accountType) {
           if (!accountTypes.includes(accountType)) {
             throw new Error(
@@ -45,10 +44,27 @@ class Monzo {
       },
     };
   }
+
+  balance(accountId) {
+    if (!accountId) {
+      throw new Error("Please provide the account id.");
+    }
+    return this.client
+      .get("/balance", {
+        params: {
+          account_id: accountId,
+        },
+      })
+      .then((response) => response.data);
+  }
 }
 
 (async () => {
   const monzo = new Monzo(accessToken);
-  const data = await monzo.accounts.list("uk_prepaid");
-  console.log(data);
+
+  const accounts = await monzo.accounts.list();
+  console.log("Accounts", accounts);
+
+  const balance = await monzo.balance("acc_00009GO9ZevTx6Ky3l9r7p");
+  console.log("Balance", balance);
 })();
