@@ -1,3 +1,4 @@
+const { buildFeedUrl } = require("../utils/urls");
 const { encodeData } = require("../utils/http");
 
 module.exports = (client) => {
@@ -32,6 +33,8 @@ module.exports = (client) => {
         throw new Error("Please provide a URL of the image to display.");
       }
 
+      const endpointUrl = buildFeedUrl();
+
       const data = {
         account_id: accountId,
         type,
@@ -43,9 +46,8 @@ module.exports = (client) => {
       }
 
       const formattedData = encodeData(data);
-      console.log(formattedData);
 
-      return client.post("/feed", formattedData);
+      return client.post(endpointUrl, formattedData);
     },
   };
 };

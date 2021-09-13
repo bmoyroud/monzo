@@ -1,3 +1,4 @@
+const { buildTransactionsUrl, buildTransactionUrl } = require("../utils/urls");
 const { encodeData } = require("../utils/http");
 
 module.exports = (client) => {
@@ -19,27 +20,29 @@ module.exports = (client) => {
         params.before = before;
       }
 
+      const endpointUrl = buildTransactionsUrl();
+
       return client
-        .get("/transactions", { params })
+        .get(endpointUrl, { params })
         .then((data) => data.transactions);
     },
 
     retrieve: (transactionId, expandMerchant = false) => {
+      const endpointUrl = buildTransactionUrl(transactionId);
+
       if (!transactionId) {
         throw new Error("Please provide the transaction id.");
       }
 
       if (expandMerchant) {
-        return client.get(`/transactions/${transactionId}`, {
+        return client.get(endpointUrl, {
           params: {
             "expand[]": "merchant",
           },
         });
       }
 
-      return client
-        .get(`/transactions/${transactionId}`)
-        .then((data) => data.transaction);
+      return client.get(endpointUrl).then((data) => data.transaction);
     },
 
     annotate: (transactionId, annotations) => {
@@ -51,11 +54,11 @@ module.exports = (client) => {
         throw new Error("Please provide key-value annotations.");
       }
 
+      const endpointUrl = buildTransactionUrl(transactionId);
+
       const data = encodeData({ metadata: annotations });
 
-      return client
-        .patch(`/transactions/${transactionId}`, data)
-        .then((data) => data.transaction);
+      return client.patch(endpointUrl, data).then((data) => data.transaction);
     },
   };
 };

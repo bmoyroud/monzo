@@ -1,3 +1,8 @@
+const {
+  buildPotsUrl,
+  buildPotsDepositUrl,
+  buildPotsWithdrawalUrl,
+} = require("../utils/urls");
 const { encodeData } = require("../utils/http");
 
 module.exports = (client) => {
@@ -6,8 +11,11 @@ module.exports = (client) => {
       if (!accountId) {
         throw new Error("Please provide the account id.");
       }
+
+      const endpointUrl = buildPotsUrl();
+
       return client
-        .get("/pots", {
+        .get(endpointUrl, {
           params: {
             current_account_id: accountId,
           },
@@ -34,13 +42,15 @@ module.exports = (client) => {
         );
       }
 
+      const endpointUrl = buildPotsDepositUrl(potId);
+
       const data = encodeData({
         source_account_id: accountId,
         amount,
         dedupe_id: dedupeId,
       });
 
-      return client.put(`/pots/${potId}/deposit`, data);
+      return client.put(endpointUrl, data);
     },
 
     withdraw: (potId, accountId, amount, dedupeId) => {
@@ -62,13 +72,15 @@ module.exports = (client) => {
         );
       }
 
+      const endpointUrl = buildPotsWithdrawalUrl(potId);
+
       const data = encodeData({
         destination_account_id: accountId,
         amount,
         dedupe_id: dedupeId,
       });
 
-      return client.put(`/pots/${potId}/withdraw`, data);
+      return client.put(endpointUrl, data);
     },
   };
 };

@@ -1,3 +1,6 @@
+const { buildWhoAmIUrl } = require("../utils/urls");
+
 module.exports = (client) => {
-  return () => client.get("/ping/whoami");
+  const endpointUrl = buildWhoAmIUrl();
+  return () => client.get(endpointUrl);
 };

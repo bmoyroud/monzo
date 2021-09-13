@@ -1,3 +1,8 @@
+const {
+  buildAttachmentUploadUrl,
+  buildAttachmentRegisterUrl,
+  buildAttachmentDeregisterUrl,
+} = require("../utils/urls");
 const { encodeData } = require("../utils/http");
 
 module.exports = (client) => {
@@ -15,13 +20,15 @@ module.exports = (client) => {
         throw new Error("Please provide content length.");
       }
 
+      const endpointUrl = buildAttachmentUploadUrl();
+
       const data = encodeData({
         file_name: fileName,
         file_type: fileType,
         content_length: contentLength,
       });
 
-      return client.post("/attachment/upload", data);
+      return client.post(endpointUrl, data);
     },
 
     register: (externalId, fileURL, fileType) => {
@@ -39,15 +46,15 @@ module.exports = (client) => {
         throw new Error("Please provide file content type.");
       }
 
+      const endpointUrl = buildAttachmentRegisterUrl();
+
       const data = encodeData({
         external_id: externalId,
         file_url: fileURL,
         file_type: fileType,
       });
 
-      return client
-        .post("/attachment/register", data)
-        .then((data) => data.attachment);
+      return client.post(endpointUrl, data).then((data) => data.attachment);
     },
 
     deregister: (id) => {
@@ -55,9 +62,11 @@ module.exports = (client) => {
         throw new Error("Please provide the id of attachment to deregister.");
       }
 
+      const endpointUrl = buildAttachmentDeregisterUrl();
+
       const data = encodeData({ id });
 
-      return client.post("/attachment/deregister", data);
+      return client.post(endpointUrl, data);
     },
   };
 };

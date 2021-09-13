@@ -1,3 +1,7 @@
+const { buildReceiptsUrl } = require("../utils/urls");
+
+const endpointUrl = buildReceiptsUrl();
+
 module.exports = (client) => {
   return {
     create: (receipt) => {
@@ -26,7 +30,7 @@ module.exports = (client) => {
         throw new Error("Please provide receipt items (can be empty array).");
       }
 
-      return client.put("/transaction-receipts", receipt);
+      return client.put(endpointUrl, receipt).catch(console.log);
     },
 
     retrieve: (externalId) => {
@@ -34,7 +38,7 @@ module.exports = (client) => {
         throw new Error("Please provide external id of receipt.");
       }
 
-      return client.get("/transaction-receipts", {
+      return client.get(endpointUrl, {
         params: {
           external_id: externalId,
         },
@@ -46,7 +50,7 @@ module.exports = (client) => {
         throw new Error("Please provide external id of receipt.");
       }
 
-      return client.delete("/transaction-receipts", {
+      return client.delete(endpointUrl, {
         params: {
           external_id: externalId,
         },

@@ -1,3 +1,4 @@
+const { buildWebhooksUrl, buildWebhookUrl } = require("../utils/urls");
 const { encodeData } = require("../utils/http");
 
 module.exports = (client) => {
@@ -13,12 +14,14 @@ module.exports = (client) => {
         throw new Error("Please provide url to send notifications to.");
       }
 
+      const endpointUrl = buildWebhooksUrl();
+
       const data = encodeData({
         account_id: accountId,
         url,
       });
 
-      return client.post("/webhooks", data).then((data) => data.webhook);
+      return client.post(endpointUrl, data).then((data) => data.webhook);
     },
 
     list: (accountId) => {
@@ -26,8 +29,10 @@ module.exports = (client) => {
         throw new Error("Please provide account id to list webhooks for.");
       }
 
+      const endpointUrl = buildWebhooksUrl();
+
       return client
-        .get("/webhooks", { params: { account_id: accountId } })
+        .get(endpointUrl, { params: { account_id: accountId } })
         .then((data) => data.webhooks);
     },
 
@@ -36,7 +41,8 @@ module.exports = (client) => {
         throw new Error("Please provide webhook id to delete.");
       }
 
-      return client.delete(`/webhooks/${webhookId}`);
+      const endpointUrl = buildWebhookUrl(webhookId);
+      return client.delete(endpointUrl);
     },
   };
 };
