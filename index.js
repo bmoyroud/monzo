@@ -99,9 +99,7 @@
   const receipt = await monzo.receipts.retrieve(receiptId).catch(console.log);
   console.log("Receipt", receipt);
 
-  await monzo.receipts
-    .delete(receiptId)
-    .catch((err) => console.log(err.response.data));
+  await monzo.receipts.delete(receiptId).catch((err) => console.log(err));
   console.log("Receipt successfully deleted.");
 
   const webhook = await monzo.webhooks.create(
