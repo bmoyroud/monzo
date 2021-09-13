@@ -6,11 +6,13 @@ module.exports = (client) => {
       if (!accountId) {
         throw new Error("Please provide the account id.");
       }
-      return client.get("/pots", {
-        params: {
-          current_account_id: accountId,
-        },
-      });
+      return client
+        .get("/pots", {
+          params: {
+            current_account_id: accountId,
+          },
+        })
+        .then((data) => data.pots);
     },
 
     deposit: (potId, accountId, amount, dedupeId) => {

@@ -78,7 +78,7 @@
   );
   console.log("Attachment", attachment);
 
-  await monzo.attachment.deregister(attachment.attachment.id);
+  await monzo.attachment.deregister(attachment.id);
   console.log("Attachment successfully deregistered.");
 
   await monzo.receipts.create({
@@ -111,8 +111,8 @@
   const webhooks = await monzo.webhooks.list(accountId);
   console.log("Webhooks", webhooks);
 
-  for (let i = 0; i < webhooks.webhooks.length; i++) {
-    const { id: webhookId } = webhooks.webhooks[i];
+  for (let i = 0; i < webhooks.length; i++) {
+    const { id: webhookId } = webhooks[i];
     await monzo.webhooks.delete(webhookId);
     console.log(`Webhook ${webhookId} successfully deleted.`);
   }

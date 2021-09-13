@@ -19,7 +19,9 @@ module.exports = (client) => {
         params.before = before;
       }
 
-      return client.get("/transactions", { params });
+      return client
+        .get("/transactions", { params })
+        .then((data) => data.transactions);
     },
 
     retrieve: (transactionId, expandMerchant = false) => {
@@ -35,7 +37,9 @@ module.exports = (client) => {
         });
       }
 
-      return client.get(`/transactions/${transactionId}`);
+      return client
+        .get(`/transactions/${transactionId}`)
+        .then((data) => data.transaction);
     },
 
     annotate: (transactionId, annotations) => {
@@ -57,7 +61,9 @@ module.exports = (client) => {
 
       const data = encodeData(metadata);
 
-      return client.patch(`/transactions/${transactionId}`, data);
+      return client
+        .patch(`/transactions/${transactionId}`, data)
+        .then((data) => data.transaction);
     },
   };
 };

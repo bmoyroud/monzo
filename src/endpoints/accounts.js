@@ -14,7 +14,7 @@ module.exports = (client) => {
           },
         });
       }
-      return client.get("/accounts");
+      return client.get("/accounts").then((data) => data.accounts);
     },
   };
 };

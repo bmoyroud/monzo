@@ -45,7 +45,9 @@ module.exports = (client) => {
         file_type: fileType,
       });
 
-      return client.post("/attachment/register", data);
+      return client
+        .post("/attachment/register", data)
+        .then((data) => data.attachment);
     },
 
     deregister: (id) => {
