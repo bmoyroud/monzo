@@ -5,6 +5,6 @@ module.exports = {
   parseResponse: (res) => res.data,
   parseError: (err) => {
     const { status, statusText, data } = err.response;
-    return { status, statusText, data };
+    return Promise.reject({ status, statusText, data });
   },
 };
