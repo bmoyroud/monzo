@@ -201,7 +201,6 @@ class Monzo {
         const metadata = Object.fromEntries(metadataEntries);
 
         const data = new url.URLSearchParams(metadata);
-        console.log(data);
 
         return this.client
           .patch(`/transactions/${transactionId}`, data)
@@ -263,7 +262,6 @@ class Monzo {
         }
 
         const formattedData = new url.URLSearchParams(data);
-        console.log(formattedData);
 
         return this.client
           .post("/feed", formattedData)
