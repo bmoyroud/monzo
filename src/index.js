@@ -269,6 +269,74 @@ class Monzo {
       },
     };
   }
+
+  get attachment() {
+    return {
+      upload: (fileName, fileType, contentLength) => {
+        if (!fileName) {
+          throw new Error("Please provide file name.");
+        }
+
+        if (!fileType) {
+          throw new Error("Please provide file content type.");
+        }
+
+        if (!contentLength) {
+          throw new Error("Please provide content length.");
+        }
+
+        const data = new url.URLSearchParams({
+          file_name: fileName,
+          file_type: fileType,
+          content_length: contentLength,
+        });
+
+        return this.client
+          .post("/attachment/upload", data)
+          .then((response) => response.data);
+      },
+
+      register: (externalId, fileURL, fileType) => {
+        if (!externalId) {
+          throw new Error(
+            "Please provide the id of the transaction to associate the attachment with."
+          );
+        }
+
+        if (!fileURL) {
+          throw new Error("Please provide URL of the uploaded attachment.");
+        }
+
+        if (!fileType) {
+          throw new Error("Please provide file content type.");
+        }
+
+        const data = new url.URLSearchParams({
+          external_id: externalId,
+          file_url: fileURL,
+          file_type: fileType,
+        });
+
+        return this.client
+          .post("/attachment/register", data)
+          .then((response) => response.data);
+      },
+
+      deregister: (id) => {
+        if (!id) {
+          throw new Error("Please provide the id of attachment to deregister.");
+        }
+
+        const data = new url.URLSearchParams({
+          id,
+        });
+
+        return this.client
+          .post("/attachment/deregister", data)
+          .then((response) => response.data);
+      },
+    };
+  }
 }
 
 module.exports = Monzo;

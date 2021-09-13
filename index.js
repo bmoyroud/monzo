@@ -6,6 +6,9 @@
   const potId = process.env.POT_ID;
   const transactionId = process.env.TRANSACTION_ID;
 
+  const imageURL =
+    "https://upload.wikimedia.org/wikipedia/en/e/ed/Nyan_cat_250px_frame.PNG";
+
   const monzo = new Monzo(accessToken);
 
   const whoAmI = await monzo.whoAmI;
@@ -58,10 +61,22 @@
   );
   console.log("Transaction after annotation", transactionAfterAnnotation);
 
-  const feedItem = await monzo.feed.create(accountId, "basic", {
+  await monzo.feed.create(accountId, "basic", {
     title: "feed item title",
-    image_url:
-      "https://upload.wikimedia.org/wikipedia/en/e/ed/Nyan_cat_250px_frame.PNG",
+    image_url: imageURL,
   });
-  console.log("Feed item", feedItem);
+  console.log("Feed item successfully created.");
+
+  const urls = await monzo.attachment.upload("receipt.png", "image/png", 1000);
+  console.log("Attachment URLs", urls);
+
+  const attachment = await monzo.attachment.register(
+    transactionId,
+    imageURL,
+    "image/png"
+  );
+  console.log("Attachment", attachment);
+
+  await monzo.attachment.deregister(attachment.attachment.id);
+  console.log("Attachment successfully deregistered.");
 })();
