@@ -5,7 +5,7 @@
   const accountId = process.env.ACCOUNT_ID;
   const potId = process.env.POT_ID;
   const transactionId = process.env.TRANSACTION_ID;
-  const receiptId = process.env.RECEIPT_ID;
+  const receiptExternalId = process.env.RECEIPT_EXTERNAL_ID;
 
   const imageURL =
     "https://upload.wikimedia.org/wikipedia/en/e/ed/Nyan_cat_250px_frame.PNG";
@@ -83,18 +83,20 @@
 
   await monzo.receipts.create({
     transaction_id: transactionId,
-    external_id: receiptId,
-    total: 10,
+    external_id: receiptExternalId,
+    total: 700,
     currency: "GBP",
     items: [
       {
-        description: "Burger",
-        amount: 539,
+        description: "Test",
+        amount: 700,
         currency: "GBP",
       },
     ],
   });
   console.log("Receipt successfully created / updated.");
+
+  const receiptId = "some_id";
 
   const receipt = await monzo.receipts.retrieve(receiptId).catch(console.log);
   console.log("Receipt", receipt);
