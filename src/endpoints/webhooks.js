@@ -18,7 +18,7 @@ module.exports = (client) => {
         url,
       });
 
-      return client.post("/webhooks", data).then((response) => response.data);
+      return client.post("/webhooks", data);
     },
 
     list: (accountId) => {
@@ -26,9 +26,7 @@ module.exports = (client) => {
         throw new Error("Please provide account id to list webhooks for.");
       }
 
-      return client
-        .get("/webhooks", { params: { account_id: accountId } })
-        .then((response) => response.data);
+      return client.get("/webhooks", { params: { account_id: accountId } });
     },
 
     delete: (webhookId) => {
@@ -36,9 +34,7 @@ module.exports = (client) => {
         throw new Error("Please provide webhook id to delete.");
       }
 
-      return client
-        .delete(`/webhooks/${webhookId}`)
-        .then((response) => response.data);
+      return client.delete(`/webhooks/${webhookId}`);
     },
   };
 };

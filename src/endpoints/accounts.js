@@ -8,15 +8,13 @@ module.exports = (client) => {
             `Please provide a valid account type (${accountTypes.join(", ")}).`
           );
         }
-        return client
-          .get("/accounts", {
-            params: {
-              account_type: accountType,
-            },
-          })
-          .then((response) => response.data);
+        return client.get("/accounts", {
+          params: {
+            account_type: accountType,
+          },
+        });
       }
-      return client.get("/accounts").then((response) => response.data);
+      return client.get("/accounts");
     },
   };
 };

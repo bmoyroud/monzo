@@ -19,9 +19,7 @@ module.exports = (client) => {
         params.before = before;
       }
 
-      return client
-        .get("/transactions", { params })
-        .then((response) => response.data);
+      return client.get("/transactions", { params });
     },
 
     retrieve: (transactionId, expandMerchant = false) => {
@@ -30,18 +28,14 @@ module.exports = (client) => {
       }
 
       if (expandMerchant) {
-        return client
-          .get(`/transactions/${transactionId}`, {
-            params: {
-              "expand[]": "merchant",
-            },
-          })
-          .then((response) => response.data);
+        return client.get(`/transactions/${transactionId}`, {
+          params: {
+            "expand[]": "merchant",
+          },
+        });
       }
 
-      return client
-        .get(`/transactions/${transactionId}`)
-        .then((response) => response.data);
+      return client.get(`/transactions/${transactionId}`);
     },
 
     annotate: (transactionId, annotations) => {
@@ -63,9 +57,7 @@ module.exports = (client) => {
 
       const data = encodeData(metadata);
 
-      return client
-        .patch(`/transactions/${transactionId}`, data)
-        .then((response) => response.data);
+      return client.patch(`/transactions/${transactionId}`, data);
     },
   };
 };

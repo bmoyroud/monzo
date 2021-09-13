@@ -52,9 +52,7 @@ module.exports = (client) => {
 
       const formattedData = encodeData(data);
 
-      return client
-        .post("/feed", formattedData)
-        .then((response) => response.data);
+      return client.post("/feed", formattedData);
     },
   };
 };

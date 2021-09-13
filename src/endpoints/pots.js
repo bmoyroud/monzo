@@ -6,13 +6,11 @@ module.exports = (client) => {
       if (!accountId) {
         throw new Error("Please provide the account id.");
       }
-      return client
-        .get("/pots", {
-          params: {
-            current_account_id: accountId,
-          },
-        })
-        .then((response) => response.data);
+      return client.get("/pots", {
+        params: {
+          current_account_id: accountId,
+        },
+      });
     },
 
     deposit: (potId, accountId, amount, dedupeId) => {
@@ -40,9 +38,7 @@ module.exports = (client) => {
         dedupe_id: dedupeId,
       });
 
-      return client
-        .put(`/pots/${potId}/deposit`, data)
-        .then((response) => response.data);
+      return client.put(`/pots/${potId}/deposit`, data);
     },
 
     withdraw: (potId, accountId, amount, dedupeId) => {
@@ -70,9 +66,7 @@ module.exports = (client) => {
         dedupe_id: dedupeId,
       });
 
-      return client
-        .put(`/pots/${potId}/withdraw`, data)
-        .then((response) => response.data);
+      return client.put(`/pots/${potId}/withdraw`, data);
     },
   };
 };

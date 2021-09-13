@@ -21,9 +21,7 @@ module.exports = (client) => {
         content_length: contentLength,
       });
 
-      return client
-        .post("/attachment/upload", data)
-        .then((response) => response.data);
+      return client.post("/attachment/upload", data);
     },
 
     register: (externalId, fileURL, fileType) => {
@@ -47,9 +45,7 @@ module.exports = (client) => {
         file_type: fileType,
       });
 
-      return client
-        .post("/attachment/register", data)
-        .then((response) => response.data);
+      return client.post("/attachment/register", data);
     },
 
     deregister: (id) => {
@@ -59,9 +55,7 @@ module.exports = (client) => {
 
       const data = encodeData({ id });
 
-      return client
-        .post("/attachment/deregister", data)
-        .then((response) => response.data);
+      return client.post("/attachment/deregister", data);
     },
   };
 };

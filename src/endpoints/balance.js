@@ -4,13 +4,11 @@ module.exports = (client) => {
       if (!accountId) {
         throw new Error("Please provide the account id.");
       }
-      return client
-        .get("/balance", {
-          params: {
-            account_id: accountId,
-          },
-        })
-        .then((response) => response.data);
+      return client.get("/balance", {
+        params: {
+          account_id: accountId,
+        },
+      });
     },
   };
 };

@@ -26,9 +26,7 @@ module.exports = (client) => {
         throw new Error("Please provide receipt items (can be empty array).");
       }
 
-      return client
-        .put("/transaction-receipts", receipt)
-        .then((response) => response.data);
+      return client.put("/transaction-receipts", receipt);
     },
 
     retrieve: (externalId) => {
@@ -36,13 +34,11 @@ module.exports = (client) => {
         throw new Error("Please provide external id of receipt.");
       }
 
-      return client
-        .get("/transaction-receipts", {
-          params: {
-            external_id: externalId,
-          },
-        })
-        .then((response) => response.data);
+      return client.get("/transaction-receipts", {
+        params: {
+          external_id: externalId,
+        },
+      });
     },
 
     delete: (externalId) => {
@@ -50,13 +46,11 @@ module.exports = (client) => {
         throw new Error("Please provide external id of receipt.");
       }
 
-      return client
-        .delete("/transaction-receipts", {
-          params: {
-            external_id: externalId,
-          },
-        })
-        .then((response) => response.data);
+      return client.delete("/transaction-receipts", {
+        params: {
+          external_id: externalId,
+        },
+      });
     },
   };
 };

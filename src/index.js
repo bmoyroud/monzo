@@ -18,6 +18,8 @@ class Monzo {
       },
     });
 
+    client.interceptors.response.use((res) => res.data);
+
     this.whoAmI = endpoints.whoAmI(client);
     this.accounts = endpoints.accounts(client);
     this.balance = endpoints.balance(client);
