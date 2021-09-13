@@ -5,6 +5,8 @@ const axios = require("axios").default;
 const baseURL = "https://api.monzo.com";
 const endpoints = require("./endpoints");
 
+const { parseError } = require("./utils/http");
+
 class Monzo {
   constructor(accessToken) {
     if (!accessToken) {
@@ -20,7 +22,7 @@ class Monzo {
 
     client.interceptors.response.use(
       (res) => res.data,
-      (err) => Promise.reject(err.response)
+      (err) => parseError(err)
     );
 
     this.whoAmI = endpoints.whoAmI(client);
