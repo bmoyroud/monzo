@@ -11,48 +11,22 @@ class Monzo {
       throw new Error("Please provide an access token.");
     }
 
-    this.client = axios.create({
+    const client = axios.create({
       baseURL,
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
     });
-  }
 
-  get whoAmI() {
-    return endpoints.whoAmI(this.client);
-  }
-
-  get accounts() {
-    return endpoints.accounts(this.client);
-  }
-
-  get balance() {
-    return endpoints.balance(this.client);
-  }
-
-  get pots() {
-    return endpoints.pots(this.client);
-  }
-
-  get transactions() {
-    return endpoints.transactions(this.client);
-  }
-
-  get feed() {
-    return endpoints.feed(this.client);
-  }
-
-  get attachment() {
-    return endpoints.attachment(this.client);
-  }
-
-  get receipts() {
-    return endpoints.receipts(this.client);
-  }
-
-  get webhooks() {
-    return endpoints.webhooks(this.client);
+    this.whoAmI = endpoints.whoAmI(client);
+    this.accounts = endpoints.accounts(client);
+    this.balance = endpoints.balance(client);
+    this.pots = endpoints.pots(client);
+    this.transactions = endpoints.transactions(client);
+    this.feed = endpoints.feed(client);
+    this.attachment = endpoints.attachment(client);
+    this.receipts = endpoints.receipts(client);
+    this.webhooks = endpoints.webhooks(client);
   }
 }
 
