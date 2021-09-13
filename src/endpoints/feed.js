@@ -1,8 +1,8 @@
-const url = require("url");
+const { encodeData } = require("../utils/http");
 
 module.exports = (client) => {
   return {
-    create: (accountId, type, feedParams, url2) => {
+    create: (accountId, type, feedParams, url) => {
       if (!accountId) {
         throw new Error("Please provide the account id.");
       }
@@ -46,11 +46,11 @@ module.exports = (client) => {
         ...updatedFeedParams,
       };
 
-      if (url2) {
-        data.url = url2;
+      if (url) {
+        data.url = url;
       }
 
-      const formattedData = new url.URLSearchParams(data);
+      const formattedData = encodeData(data);
 
       return client
         .post("/feed", formattedData)

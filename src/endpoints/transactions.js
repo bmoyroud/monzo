@@ -1,4 +1,4 @@
-const url = require("url");
+const { encodeData } = require("../utils/http");
 
 module.exports = (client) => {
   return {
@@ -61,7 +61,7 @@ module.exports = (client) => {
       ]);
       const metadata = Object.fromEntries(metadataEntries);
 
-      const data = new url.URLSearchParams(metadata);
+      const data = encodeData(metadata);
 
       return client
         .patch(`/transactions/${transactionId}`, data)

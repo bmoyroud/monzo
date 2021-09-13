@@ -1,4 +1,4 @@
-const url = require("url");
+const { encodeData } = require("../utils/http");
 
 module.exports = (client) => {
   return {
@@ -34,7 +34,7 @@ module.exports = (client) => {
         );
       }
 
-      const data = new url.URLSearchParams({
+      const data = encodeData({
         source_account_id: accountId,
         amount,
         dedupe_id: dedupeId,
@@ -64,7 +64,7 @@ module.exports = (client) => {
         );
       }
 
-      const data = new url.URLSearchParams({
+      const data = encodeData({
         destination_account_id: accountId,
         amount,
         dedupe_id: dedupeId,

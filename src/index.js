@@ -1,7 +1,6 @@
 require("dotenv").config();
 
 const axios = require("axios").default;
-const url = require("url");
 
 const baseURL = "https://api.monzo.com";
 const endpoints = require("./endpoints");

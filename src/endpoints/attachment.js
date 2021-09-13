@@ -1,4 +1,4 @@
-const url = require("url");
+const { encodeData } = require("../utils/http");
 
 module.exports = (client) => {
   return {
@@ -15,7 +15,7 @@ module.exports = (client) => {
         throw new Error("Please provide content length.");
       }
 
-      const data = new url.URLSearchParams({
+      const data = encodeData({
         file_name: fileName,
         file_type: fileType,
         content_length: contentLength,
@@ -41,7 +41,7 @@ module.exports = (client) => {
         throw new Error("Please provide file content type.");
       }
 
-      const data = new url.URLSearchParams({
+      const data = encodeData({
         external_id: externalId,
         file_url: fileURL,
         file_type: fileType,
@@ -57,9 +57,7 @@ module.exports = (client) => {
         throw new Error("Please provide the id of attachment to deregister.");
       }
 
-      const data = new url.URLSearchParams({
-        id,
-      });
+      const data = encodeData({ id });
 
       return client
         .post("/attachment/deregister", data)

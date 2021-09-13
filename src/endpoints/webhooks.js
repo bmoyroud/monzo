@@ -1,8 +1,8 @@
-const url = require("url");
+const { encodeData } = require("../utils/http");
 
 module.exports = (client) => {
   return {
-    create: (accountId, url2) => {
+    create: (accountId, url) => {
       if (!accountId) {
         throw new Error(
           "Please provide account id to receive notifications for."
@@ -13,9 +13,9 @@ module.exports = (client) => {
         throw new Error("Please provide url to send notifications to.");
       }
 
-      const data = new url.URLSearchParams({
+      const data = encodeData({
         account_id: accountId,
-        url: url2,
+        url,
       });
 
       return client.post("/webhooks", data).then((response) => response.data);
