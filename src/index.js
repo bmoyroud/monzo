@@ -2,9 +2,9 @@ require("dotenv").config();
 
 const axios = require("axios").default;
 
-const baseURL = "https://api.monzo.com";
 const endpoints = require("./endpoints");
 
+const { BASE_URL } = require("./constants/urls");
 const { parseResponse, parseError } = require("./utils/http");
 
 class Monzo {
@@ -14,7 +14,7 @@ class Monzo {
     }
 
     const client = axios.create({
-      baseURL,
+      baseURL: BASE_URL,
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
