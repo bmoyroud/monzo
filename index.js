@@ -103,4 +103,19 @@
     .delete(receiptId)
     .catch((err) => console.log(err.response.data));
   console.log("Receipt successfully deleted.");
+
+  const webhook = await monzo.webhooks.create(
+    accountId,
+    "https://requestbin.com/r/enn8nks932hpg"
+  );
+  console.log("Webhook", webhook);
+
+  const webhooks = await monzo.webhooks.list(accountId);
+  console.log("Webhooks", webhooks);
+
+  for (let i = 0; i < webhooks.webhooks.length; i++) {
+    const { id: webhookId } = webhooks.webhooks[i];
+    await monzo.webhooks.delete(webhookId);
+    console.log(`Webhook ${webhookId} successfully deleted.`);
+  }
 })();
