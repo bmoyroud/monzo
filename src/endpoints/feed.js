@@ -32,18 +32,10 @@ module.exports = (client) => {
         throw new Error("Please provide a URL of the image to display.");
       }
 
-      // append params in front of each key
-      const entries = Object.entries(feedParams);
-      const updatedEntries = entries.map(([key, value]) => [
-        `params[${key}]`,
-        value,
-      ]);
-      const updatedFeedParams = Object.fromEntries(updatedEntries);
-
       const data = {
         account_id: accountId,
         type,
-        ...updatedFeedParams,
+        params: feedParams,
       };
 
       if (url) {
@@ -51,6 +43,7 @@ module.exports = (client) => {
       }
 
       const formattedData = encodeData(data);
+      console.log(formattedData);
 
       return client.post("/feed", formattedData);
     },

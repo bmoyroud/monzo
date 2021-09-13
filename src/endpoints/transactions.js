@@ -51,15 +51,7 @@ module.exports = (client) => {
         throw new Error("Please provide key-value annotations.");
       }
 
-      // append metadata in front of each key
-      const entries = Object.entries(annotations);
-      const metadataEntries = entries.map(([key, value]) => [
-        `metadata[${key}]`,
-        value,
-      ]);
-      const metadata = Object.fromEntries(metadataEntries);
-
-      const data = encodeData(metadata);
+      const data = encodeData({ metadata: annotations });
 
       return client
         .patch(`/transactions/${transactionId}`, data)

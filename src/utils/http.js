@@ -1,7 +1,7 @@
-const url = require("url");
+const qs = require("qs");
 
 module.exports = {
-  encodeData: (data) => new url.URLSearchParams(data).toString(),
+  encodeData: (data) => qs.stringify(data),
   parseResponse: (res) => res.data,
   parseError: (err) => {
     const { status, statusText, data } = err.response;
