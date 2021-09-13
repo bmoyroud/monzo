@@ -337,6 +337,41 @@ class Monzo {
       },
     };
   }
+
+  get receipts() {
+    return {
+      create: (receipt) => {
+        if (!receipt) {
+          throw new Error("Please provide receipt.");
+        }
+
+        if (!receipt.transaction_id) {
+          throw new Error(
+            "Please provide the id of the transaction to associate the receipt with."
+          );
+        }
+        if (!receipt.external_id) {
+          throw new Error("Please provide a unique identifier.");
+        }
+
+        if (!receipt.total) {
+          throw new Error("Please provide receipt total.");
+        }
+
+        if (!receipt.currency) {
+          throw new Error("Please provide receipt currency.");
+        }
+
+        if (!receipt.items) {
+          throw new Error("Please provide receipt items (can be empty array).");
+        }
+
+        return this.client
+          .put("/transaction-receipts", receipt)
+          .then((response) => response.data);
+      },
+    };
+  }
 }
 
 module.exports = Monzo;
