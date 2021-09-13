@@ -12,7 +12,7 @@
 
   const monzo = new Monzo(accessToken);
 
-  const whoAmI = await monzo.whoAmI;
+  const whoAmI = await monzo.whoAmI();
   console.log("Who am I", whoAmI);
 
   const accounts = await monzo.accounts.list();
