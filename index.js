@@ -18,7 +18,7 @@
   const accounts = await monzo.accounts.list();
   console.log("Accounts", accounts);
 
-  const balance = await monzo.balance(accountId);
+  const balance = await monzo.balance.retrieve(accountId);
   console.log("Balance", balance);
 
   const pots = await monzo.pots.list(accountId);
