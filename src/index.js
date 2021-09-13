@@ -370,6 +370,34 @@ class Monzo {
           .put("/transaction-receipts", receipt)
           .then((response) => response.data);
       },
+
+      retrieve: (externalId) => {
+        if (!externalId) {
+          throw new Error("Please provide external id of receipt.");
+        }
+
+        return this.client
+          .get("/transaction-receipts", {
+            params: {
+              external_id: externalId,
+            },
+          })
+          .then((response) => response.data);
+      },
+
+      delete: (externalId) => {
+        if (!externalId) {
+          throw new Error("Please provide external id of receipt.");
+        }
+
+        return this.client
+          .delete("/transaction-receipts", {
+            params: {
+              external_id: externalId,
+            },
+          })
+          .then((response) => response.data);
+      },
     };
   }
 }

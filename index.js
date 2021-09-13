@@ -95,4 +95,12 @@
     ],
   });
   console.log("Receipt successfully created / updated.");
+
+  const receipt = await monzo.receipts.retrieve(receiptId).catch(console.log);
+  console.log("Receipt", receipt);
+
+  await monzo.receipts
+    .delete(receiptId)
+    .catch((err) => console.log(err.response.data));
+  console.log("Receipt successfully deleted.");
 })();
