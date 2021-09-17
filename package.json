@@ -12,6 +12,7 @@
   "dependencies": {
     "axios": "^0.21.4",
     "dotenv": "^10.0.0",
-    "qs": "^6.10.1"
+    "qs": "^6.10.1",
+    "superstruct": "^0.15.2"
   }
 }
