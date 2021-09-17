@@ -1,3 +1,14 @@
+const {
+  MISSING_ACCOUNT_ID,
+  MISSING_FEED_ITEM_TYPE,
+  MISSING_FEED_PARAMS,
+  MISSING_FEED_ITEM_TITLE,
+  MISSING_FEED_ITEM_IMAGE_URL,
+} = require("../constants/errors");
+const {
+  buildError,
+  buildInvalidFeedItemTypeError,
+} = require("../utils/errors");
 const { buildFeedUrl } = require("../utils/urls");
 const { encodeData } = require("../utils/http");
 
@@ -5,32 +16,28 @@ module.exports = (client) => {
   return {
     create: (accountId, type, feedParams, url) => {
       if (!accountId) {
-        throw new Error("Please provide the account id.");
+        throw buildError(MISSING_ACCOUNT_ID);
       }
 
       if (!type) {
-        throw new Error("Please provide a type of feed item.");
+        throw buildError(MISSING_FEED_ITEM_TYPE);
       }
 
       const feedItemTypes = ["basic"];
       if (!feedItemTypes.includes(type)) {
-        throw new Error(
-          `Please provide a valid feed item type (${feedItemTypes.join(", ")}).`
-        );
+        throw buildInvalidFeedItemTypeError(feedItemTypes);
       }
 
       if (!feedParams) {
-        throw new Error(
-          "Please provide a map of parameters (varies based on type)."
-        );
+        throw buildError(MISSING_FEED_PARAMS);
       }
 
       if (!feedParams.title) {
-        throw new Error("Please provide a title to display.");
+        throw buildError(MISSING_FEED_ITEM_TITLE);
       }
 
       if (!feedParams.image_url) {
-        throw new Error("Please provide a URL of the image to display.");
+        throw buildError(MISSING_FEED_ITEM_IMAGE_URL);
       }
 
       const endpointUrl = buildFeedUrl();

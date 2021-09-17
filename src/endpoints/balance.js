@@ -1,10 +1,12 @@
+const { MISSING_ACCOUNT_ID } = require("../constants/errors");
+const { buildError } = require("../utils/errors");
 const { buildBalanceUrl } = require("../utils/urls");
 
 module.exports = (client) => {
   return {
     retrieve: (accountId) => {
       if (!accountId) {
-        throw new Error("Please provide the account id.");
+        throw buildError(MISSING_ACCOUNT_ID);
       }
 
       const endpointUrl = buildBalanceUrl();

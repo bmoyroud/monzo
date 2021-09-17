@@ -1,4 +1,13 @@
 const {
+  MISSING_FILE_NAME,
+  MISSING_FILE_CONTENT_TYPE,
+  MISSING_CONTENT_LENGTH,
+  MISSING_ATTACHMENT_TRANSACTION_ID,
+  MISSING_FILE_URL,
+  MISSING_ID_DEREGISTER,
+} = require("../constants/errors");
+const { buildError } = require("../utils/errors");
+const {
   buildAttachmentUploadUrl,
   buildAttachmentRegisterUrl,
   buildAttachmentDeregisterUrl,
@@ -9,15 +18,15 @@ module.exports = (client) => {
   return {
     upload: (fileName, fileType, contentLength) => {
       if (!fileName) {
-        throw new Error("Please provide file name.");
+        throw buildError(MISSING_FILE_NAME);
       }
 
       if (!fileType) {
-        throw new Error("Please provide file content type.");
+        throw buildError(MISSING_FILE_CONTENT_TYPE);
       }
 
       if (!contentLength) {
-        throw new Error("Please provide content length.");
+        throw buildError(MISSING_CONTENT_LENGTH);
       }
 
       const endpointUrl = buildAttachmentUploadUrl();
@@ -33,17 +42,15 @@ module.exports = (client) => {
 
     register: (externalId, fileURL, fileType) => {
       if (!externalId) {
-        throw new Error(
-          "Please provide the id of the transaction to associate the attachment with."
-        );
+        throw buildError(MISSING_ATTACHMENT_TRANSACTION_ID);
       }
 
       if (!fileURL) {
-        throw new Error("Please provide URL of the uploaded attachment.");
+        throw buildError(MISSING_FILE_URL);
       }
 
       if (!fileType) {
-        throw new Error("Please provide file content type.");
+        throw buildError(MISSING_FILE_CONTENT_TYPE);
       }
 
       const endpointUrl = buildAttachmentRegisterUrl();
@@ -59,7 +66,7 @@ module.exports = (client) => {
 
     deregister: (id) => {
       if (!id) {
-        throw new Error("Please provide the id of attachment to deregister.");
+        throw buildError(MISSING_ID_DEREGISTER);
       }
 
       const endpointUrl = buildAttachmentDeregisterUrl();

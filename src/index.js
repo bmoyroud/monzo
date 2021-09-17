@@ -4,13 +4,15 @@ const axios = require("axios").default;
 
 const endpoints = require("./endpoints");
 
+const { MISSING_ACCESS_TOKEN } = require("./constants/errors");
 const { BASE_URL } = require("./constants/urls");
+const { buildError } = require("./utils/errors");
 const { buildHeaders, parseResponse, parseError } = require("./utils/http");
 
 class Monzo {
   constructor(accessToken) {
     if (!accessToken) {
-      throw new Error("Please provide an access token.");
+      throw buildError(MISSING_ACCESS_TOKEN);
     }
 
     const client = axios.create({

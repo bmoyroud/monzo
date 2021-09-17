@@ -1,3 +1,9 @@
+const {
+  MISSING_ACCOUNT_ID,
+  MISSING_TRANSACTION_ID,
+  MISSING_TRANSACTION_ANNOTATIONS,
+} = require("../constants/errors");
+const { buildError } = require("../utils/errors");
 const { buildTransactionsUrl, buildTransactionUrl } = require("../utils/urls");
 const { encodeData } = require("../utils/http");
 
@@ -5,7 +11,7 @@ module.exports = (client) => {
   return {
     list: (accountId, since, before) => {
       if (!accountId) {
-        throw new Error("Please provide the account id.");
+        throw buildError(MISSING_ACCOUNT_ID);
       }
 
       const params = {
@@ -31,7 +37,7 @@ module.exports = (client) => {
       const endpointUrl = buildTransactionUrl(transactionId);
 
       if (!transactionId) {
-        throw new Error("Please provide the transaction id.");
+        throw buildError(MISSING_TRANSACTION_ID);
       }
 
       if (expandMerchant) {
@@ -47,11 +53,11 @@ module.exports = (client) => {
 
     annotate: (transactionId, annotations) => {
       if (!transactionId) {
-        throw new Error("Please provide the transaction id.");
+        throw buildError(MISSING_TRANSACTION_ID);
       }
 
       if (!annotations) {
-        throw new Error("Please provide key-value annotations.");
+        throw buildError(MISSING_TRANSACTION_ANNOTATIONS);
       }
 
       const endpointUrl = buildTransactionUrl(transactionId);

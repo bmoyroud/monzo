@@ -1,3 +1,4 @@
+const { buildInvalidAccountTypeError } = require("../utils/errors");
 const { buildAccountsUrl } = require("../utils/urls");
 
 module.exports = (client) => {
@@ -8,9 +9,7 @@ module.exports = (client) => {
       if (accountType) {
         const accountTypes = ["uk_prepaid", "uk_retail", "uk_retail_joint"];
         if (!accountTypes.includes(accountType)) {
-          throw new Error(
-            `Please provide a valid account type (${accountTypes.join(", ")}).`
-          );
+          throw buildInvalidAccountTypeError(accountTypes);
         }
         return client.get(endpointUrl, {
           params: {

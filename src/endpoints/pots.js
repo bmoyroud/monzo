@@ -1,4 +1,12 @@
 const {
+  MISSING_ACCOUNT_ID,
+  MISSING_POT_ID,
+  MISSING_AMOUNT_DEPOSIT,
+  MISSING_DEDUPE_ID,
+  MISSING_AMOUNT_WITHDRAW,
+} = require("../constants/errors");
+const { buildError } = require("../utils/errors");
+const {
   buildPotsUrl,
   buildPotsDepositUrl,
   buildPotsWithdrawalUrl,
@@ -9,7 +17,7 @@ module.exports = (client) => {
   return {
     list: (accountId) => {
       if (!accountId) {
-        throw new Error("Please provide the account id.");
+        throw buildError(MISSING_ACCOUNT_ID);
       }
 
       const endpointUrl = buildPotsUrl();
@@ -25,21 +33,19 @@ module.exports = (client) => {
 
     deposit: (potId, accountId, amount, dedupeId) => {
       if (!potId) {
-        throw new Error("Please provide the pot id.");
+        throw buildError(MISSING_POT_ID);
       }
 
       if (!accountId) {
-        throw new Error("Please provide the account id.");
+        throw buildError(MISSING_ACCOUNT_ID);
       }
 
       if (!amount) {
-        throw new Error("Please provide the amount to deposit.");
+        throw buildError(MISSING_AMOUNT_DEPOSIT);
       }
 
       if (!dedupeId) {
-        throw new Error(
-          "Please provide a unique string to de-deduplicate deposits."
-        );
+        throw buildError(MISSING_DEDUPE_ID);
       }
 
       const endpointUrl = buildPotsDepositUrl(potId);
@@ -55,21 +61,19 @@ module.exports = (client) => {
 
     withdraw: (potId, accountId, amount, dedupeId) => {
       if (!potId) {
-        throw new Error("Please provide the pot id.");
+        throw buildError(MISSING_POT_ID);
       }
 
       if (!accountId) {
-        throw new Error("Please provide the account id.");
+        throw buildError(MISSING_ACCOUNT_ID);
       }
 
       if (!amount) {
-        throw new Error("Please provide the amount to deposit.");
+        throw buildError(MISSING_AMOUNT_WITHDRAW);
       }
 
       if (!dedupeId) {
-        throw new Error(
-          "Please provide a unique string to de-deduplicate deposits."
-        );
+        throw buildError(MISSING_DEDUPE_ID);
       }
 
       const endpointUrl = buildPotsWithdrawalUrl(potId);
