@@ -1,6 +1,9 @@
 const qs = require("qs");
 
 module.exports = {
+  buildHeaders: (accessToken) => ({
+    Authorization: `Bearer ${accessToken}`,
+  }),
   encodeData: (data) => qs.stringify(data),
   parseResponse: (res) => res.data,
   parseError: (err) => {

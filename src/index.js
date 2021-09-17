@@ -5,7 +5,7 @@ const axios = require("axios").default;
 const endpoints = require("./endpoints");
 
 const { BASE_URL } = require("./constants/urls");
-const { parseResponse, parseError } = require("./utils/http");
+const { buildHeaders, parseResponse, parseError } = require("./utils/http");
 
 class Monzo {
   constructor(accessToken) {
@@ -15,9 +15,7 @@ class Monzo {
 
     const client = axios.create({
       baseURL: BASE_URL,
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
+      headers: buildHeaders(accessToken),
     });
 
     client.interceptors.response.use(
