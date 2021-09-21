@@ -14,5 +14,8 @@
     "dotenv": "^10.0.0",
     "qs": "^6.10.1",
     "superstruct": "^0.15.2"
+  },
+  "devDependencies": {
+    "typescript": "^4.4.3"
   }
 }
