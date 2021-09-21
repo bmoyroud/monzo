@@ -1,30 +1,14 @@
-const {
-  MISSING_ACCOUNT_ID,
-  MISSING_TRANSACTION_ID,
-  MISSING_TRANSACTION_ANNOTATIONS,
-} = require("../constants/errors");
-const { buildError } = require("../utils/errors");
+const { assert } = require("superstruct");
+const List = require("../structs/transactions/List");
+const Retrieve = require("../structs/transactions/Retrieve");
+const Annotate = require("../structs/transactions/Annotate");
 const { buildTransactionsUrl, buildTransactionUrl } = require("../utils/urls");
 const { encodeData } = require("../utils/http");
 
 module.exports = (client) => {
   return {
-    list: (accountId, since, before) => {
-      if (!accountId) {
-        throw buildError(MISSING_ACCOUNT_ID);
-      }
-
-      const params = {
-        account_id: accountId,
-      };
-
-      if (since) {
-        params.since = since;
-      }
-
-      if (before) {
-        params.before = before;
-      }
+    list: (params) => {
+      assert(params, List);
 
       const endpointUrl = buildTransactionsUrl();
 
@@ -33,14 +17,14 @@ module.exports = (client) => {
         .then((data) => data.transactions);
     },
 
-    retrieve: (transactionId, expandMerchant = false) => {
-      const endpointUrl = buildTransactionUrl(transactionId);
+    retrieve: (params) => {
+      assert(params, Retrieve);
 
-      if (!transactionId) {
-        throw buildError(MISSING_TRANSACTION_ID);
-      }
+      const { transaction_id, expand_merchant } = params;
 
-      if (expandMerchant) {
+      const endpointUrl = buildTransactionUrl(transaction_id);
+
+      if (expand_merchant) {
         return client.get(endpointUrl, {
           params: {
             "expand[]": "merchant",
@@ -51,16 +35,12 @@ module.exports = (client) => {
       return client.get(endpointUrl).then((data) => data.transaction);
     },
 
-    annotate: (transactionId, annotations) => {
-      if (!transactionId) {
-        throw buildError(MISSING_TRANSACTION_ID);
-      }
+    annotate: (params) => {
+      assert(params, Annotate);
 
-      if (!annotations) {
-        throw buildError(MISSING_TRANSACTION_ANNOTATIONS);
-      }
+      const { transaction_id, annotations } = params;
 
-      const endpointUrl = buildTransactionUrl(transactionId);
+      const endpointUrl = buildTransactionUrl(transaction_id);
 
       const data = encodeData({ metadata: annotations });
 

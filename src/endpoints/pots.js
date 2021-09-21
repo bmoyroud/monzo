@@ -1,11 +1,7 @@
-const {
-  MISSING_ACCOUNT_ID,
-  MISSING_POT_ID,
-  MISSING_AMOUNT_DEPOSIT,
-  MISSING_DEDUPE_ID,
-  MISSING_AMOUNT_WITHDRAW,
-} = require("../constants/errors");
-const { buildError } = require("../utils/errors");
+const { assert } = require("superstruct");
+const List = require("../structs/pots/List");
+const Deposit = require("../structs/pots/Deposit");
+const Withdraw = require("../structs/pots/Withdraw");
 const {
   buildPotsUrl,
   buildPotsDepositUrl,
@@ -15,74 +11,34 @@ const { encodeData } = require("../utils/http");
 
 module.exports = (client) => {
   return {
-    list: (accountId) => {
-      if (!accountId) {
-        throw buildError(MISSING_ACCOUNT_ID);
-      }
+    list: (params) => {
+      assert(params, List);
 
       const endpointUrl = buildPotsUrl();
 
-      return client
-        .get(endpointUrl, {
-          params: {
-            current_account_id: accountId,
-          },
-        })
-        .then((data) => data.pots);
+      return client.get(endpointUrl, { params }).then((data) => data.pots);
     },
 
-    deposit: (potId, accountId, amount, dedupeId) => {
-      if (!potId) {
-        throw buildError(MISSING_POT_ID);
-      }
+    deposit: (params) => {
+      assert(params, Deposit);
 
-      if (!accountId) {
-        throw buildError(MISSING_ACCOUNT_ID);
-      }
+      const { pot_id, ...other } = params;
 
-      if (!amount) {
-        throw buildError(MISSING_AMOUNT_DEPOSIT);
-      }
+      const endpointUrl = buildPotsDepositUrl(pot_id);
 
-      if (!dedupeId) {
-        throw buildError(MISSING_DEDUPE_ID);
-      }
-
-      const endpointUrl = buildPotsDepositUrl(potId);
-
-      const data = encodeData({
-        source_account_id: accountId,
-        amount,
-        dedupe_id: dedupeId,
-      });
+      const data = encodeData(other);
 
       return client.put(endpointUrl, data);
     },
 
-    withdraw: (potId, accountId, amount, dedupeId) => {
-      if (!potId) {
-        throw buildError(MISSING_POT_ID);
-      }
+    withdraw: (params) => {
+      assert(params, Withdraw);
 
-      if (!accountId) {
-        throw buildError(MISSING_ACCOUNT_ID);
-      }
+      const { pot_id, ...other } = params;
 
-      if (!amount) {
-        throw buildError(MISSING_AMOUNT_WITHDRAW);
-      }
+      const endpointUrl = buildPotsWithdrawalUrl(pot_id);
 
-      if (!dedupeId) {
-        throw buildError(MISSING_DEDUPE_ID);
-      }
-
-      const endpointUrl = buildPotsWithdrawalUrl(potId);
-
-      const data = encodeData({
-        destination_account_id: accountId,
-        amount,
-        dedupe_id: dedupeId,
-      });
+      const data = encodeData(other);
 
       return client.put(endpointUrl, data);
     },

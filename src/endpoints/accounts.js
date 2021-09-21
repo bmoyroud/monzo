@@ -1,21 +1,17 @@
-const { buildInvalidAccountTypeError } = require("../utils/errors");
+const { assert } = require("superstruct");
+const AccountType = require("../structs/accounts/AccountType");
 const { buildAccountsUrl } = require("../utils/urls");
 
 module.exports = (client) => {
   return {
-    list: (accountType) => {
+    list: (params) => {
+      assert(params, AccountType);
+
       const endpointUrl = buildAccountsUrl();
 
-      if (accountType) {
-        const accountTypes = ["uk_prepaid", "uk_retail", "uk_retail_joint"];
-        if (!accountTypes.includes(accountType)) {
-          throw buildInvalidAccountTypeError(accountTypes);
-        }
-        return client.get(endpointUrl, {
-          params: {
-            account_type: accountType,
-          },
-        });
+      // TODO: simplify below?
+      if (params) {
+        return client.get(endpointUrl, { params });
       }
 
       return client.get(endpointUrl).then((data) => data.accounts);

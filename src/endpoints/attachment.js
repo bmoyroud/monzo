@@ -1,12 +1,7 @@
-const {
-  MISSING_FILE_NAME,
-  MISSING_FILE_CONTENT_TYPE,
-  MISSING_CONTENT_LENGTH,
-  MISSING_ATTACHMENT_TRANSACTION_ID,
-  MISSING_FILE_URL,
-  MISSING_ID_DEREGISTER,
-} = require("../constants/errors");
-const { buildError } = require("../utils/errors");
+const { assert } = require("superstruct");
+const Upload = require("../structs/attachment/Upload");
+const Register = require("../structs/attachment/Register");
+const Deregister = require("../structs/attachment/Deregister");
 const {
   buildAttachmentUploadUrl,
   buildAttachmentRegisterUrl,
@@ -16,62 +11,32 @@ const { encodeData } = require("../utils/http");
 
 module.exports = (client) => {
   return {
-    upload: (fileName, fileType, contentLength) => {
-      if (!fileName) {
-        throw buildError(MISSING_FILE_NAME);
-      }
-
-      if (!fileType) {
-        throw buildError(MISSING_FILE_CONTENT_TYPE);
-      }
-
-      if (!contentLength) {
-        throw buildError(MISSING_CONTENT_LENGTH);
-      }
+    upload: (params) => {
+      assert(params, Upload);
 
       const endpointUrl = buildAttachmentUploadUrl();
 
-      const data = encodeData({
-        file_name: fileName,
-        file_type: fileType,
-        content_length: contentLength,
-      });
+      const data = encodeData(params);
 
       return client.post(endpointUrl, data);
     },
 
-    register: (externalId, fileURL, fileType) => {
-      if (!externalId) {
-        throw buildError(MISSING_ATTACHMENT_TRANSACTION_ID);
-      }
-
-      if (!fileURL) {
-        throw buildError(MISSING_FILE_URL);
-      }
-
-      if (!fileType) {
-        throw buildError(MISSING_FILE_CONTENT_TYPE);
-      }
+    register: (params) => {
+      assert(params, Register);
 
       const endpointUrl = buildAttachmentRegisterUrl();
 
-      const data = encodeData({
-        external_id: externalId,
-        file_url: fileURL,
-        file_type: fileType,
-      });
+      const data = encodeData(params);
 
       return client.post(endpointUrl, data).then((data) => data.attachment);
     },
 
-    deregister: (id) => {
-      if (!id) {
-        throw buildError(MISSING_ID_DEREGISTER);
-      }
+    deregister: (params) => {
+      assert(params, Deregister);
 
       const endpointUrl = buildAttachmentDeregisterUrl();
 
-      const data = encodeData({ id });
+      const data = encodeData(params);
 
       return client.post(endpointUrl, data);
     },

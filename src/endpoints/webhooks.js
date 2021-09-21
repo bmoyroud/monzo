@@ -1,52 +1,37 @@
-const {
-  MISSING_WEBHOOK_CREATE_ACCOUNT_ID,
-  MISSING_WEBHOOK_URL,
-  MISSING_WEBHOOK_LIST_ACCOUNT_ID,
-  MISSING_WEBHOOK_ID,
-} = require("../constants/errors");
-const { buildError } = require("../utils/errors");
+const { assert } = require("superstruct");
+const Create = require("../structs/webhooks/Create");
+const List = require("../structs/webhooks/List");
+const Delete = require("../structs/webhooks/Delete");
 const { buildWebhooksUrl, buildWebhookUrl } = require("../utils/urls");
 const { encodeData } = require("../utils/http");
 
 module.exports = (client) => {
   return {
-    create: (accountId, url) => {
-      if (!accountId) {
-        throw buildError(MISSING_WEBHOOK_CREATE_ACCOUNT_ID);
-      }
-
-      if (!url) {
-        throw buildError(MISSING_WEBHOOK_URL);
-      }
+    create: (params) => {
+      assert(params, Create);
 
       const endpointUrl = buildWebhooksUrl();
 
-      const data = encodeData({
-        account_id: accountId,
-        url,
-      });
+      const data = encodeData(params);
 
       return client.post(endpointUrl, data).then((data) => data.webhook);
     },
 
-    list: (accountId) => {
-      if (!accountId) {
-        throw buildError(MISSING_WEBHOOK_LIST_ACCOUNT_ID);
-      }
+    list: (params) => {
+      assert(params, List);
 
       const endpointUrl = buildWebhooksUrl();
 
-      return client
-        .get(endpointUrl, { params: { account_id: accountId } })
-        .then((data) => data.webhooks);
+      return client.get(endpointUrl, { params }).then((data) => data.webhooks);
     },
 
-    delete: (webhookId) => {
-      if (!webhookId) {
-        throw buildError(MISSING_WEBHOOK_ID);
-      }
+    delete: (params) => {
+      assert(params, Delete);
 
-      const endpointUrl = buildWebhookUrl(webhookId);
+      const { webhook_id } = params;
+
+      const endpointUrl = buildWebhookUrl(webhook_id);
+
       return client.delete(endpointUrl);
     },
   };

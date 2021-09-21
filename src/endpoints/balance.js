@@ -1,20 +1,15 @@
-const { MISSING_ACCOUNT_ID } = require("../constants/errors");
-const { buildError } = require("../utils/errors");
+const { assert } = require("superstruct");
+const Balance = require("../structs/balance/Balance");
 const { buildBalanceUrl } = require("../utils/urls");
 
 module.exports = (client) => {
   return {
-    retrieve: (accountId) => {
-      if (!accountId) {
-        throw buildError(MISSING_ACCOUNT_ID);
-      }
+    retrieve: (params) => {
+      assert(params, Balance);
 
       const endpointUrl = buildBalanceUrl();
-      return client.get(endpointUrl, {
-        params: {
-          account_id: accountId,
-        },
-      });
+
+      return client.get(endpointUrl, { params });
     },
   };
 };
