@@ -1,11 +1,11 @@
-const axios = require("axios").default;
+import axios from "axios";
 
-const endpoints = require("./endpoints");
+import endpoints from "./endpoints";
 
-const { MISSING_ACCESS_TOKEN } = require("./constants/errors");
-const { BASE_URL } = require("./constants/urls");
-const { buildError } = require("./utils/errors");
-const { buildHeaders, parseResponse, parseError } = require("./utils/http");
+import { MISSING_ACCESS_TOKEN } from "./constants/errors";
+import { BASE_URL } from "./constants/urls";
+import { buildError } from "./utils/errors";
+import { buildHeaders, parseError, parseResponse } from "./utils/http";
 
 class Monzo {
   whoAmI;
@@ -45,4 +45,4 @@ class Monzo {
   }
 }
 
-module.exports = Monzo;
+export default Monzo;
