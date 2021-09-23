@@ -8,6 +8,16 @@ const { buildError } = require("./utils/errors");
 const { buildHeaders, parseResponse, parseError } = require("./utils/http");
 
 class Monzo {
+  whoAmI;
+  accounts;
+  balance;
+  pots;
+  transactions;
+  feed;
+  attachment;
+  receipts;
+  webhooks;
+
   constructor(accessToken) {
     if (!accessToken) {
       throw buildError(MISSING_ACCESS_TOKEN);
