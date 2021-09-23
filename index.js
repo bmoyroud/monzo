@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 (async () => {
   const Monzo = require("./src");
 

@@ -1,5 +1,3 @@
-require("dotenv").config();
-
 const axios = require("axios").default;
 
 const endpoints = require("./endpoints");
