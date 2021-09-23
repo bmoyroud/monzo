@@ -1,15 +1,15 @@
-const { assert } = require("superstruct");
-const List = require("../structs/pots/List");
-const Deposit = require("../structs/pots/Deposit");
-const Withdraw = require("../structs/pots/Withdraw");
-const {
+import { assert } from "superstruct";
+import List from "../structs/pots/List";
+import Deposit from "../structs/pots/Deposit";
+import Withdraw from "../structs/pots/Withdraw";
+import {
   buildPotsUrl,
   buildPotsDepositUrl,
   buildPotsWithdrawalUrl,
-} = require("../utils/urls");
-const { encodeData } = require("../utils/http");
+} from "../utils/urls";
+import { encodeData } from "../utils/http";
 
-module.exports = (client) => {
+export default (client) => {
   return {
     list: (params) => {
       assert(params, List);

@@ -1,6 +1,6 @@
-const { buildWhoAmIUrl } = require("../utils/urls");
+import { buildWhoAmIUrl } from "../utils/urls";
 
-module.exports = (client) => {
+export default (client) => {
   const endpointUrl = buildWhoAmIUrl();
   return () => client.get(endpointUrl);
 };

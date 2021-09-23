@@ -1,11 +1,11 @@
-const { assert } = require("superstruct");
-const Create = require("../structs/webhooks/Create");
-const List = require("../structs/webhooks/List");
-const Delete = require("../structs/webhooks/Delete");
-const { buildWebhooksUrl, buildWebhookUrl } = require("../utils/urls");
-const { encodeData } = require("../utils/http");
+import { assert } from "superstruct";
+import Create from "../structs/webhooks/Create";
+import List from "../structs/webhooks/List";
+import Delete from "../structs/webhooks/Delete";
+import { buildWebhooksUrl, buildWebhookUrl } from "../utils/urls";
+import { encodeData } from "../utils/http";
 
-module.exports = (client) => {
+export default (client) => {
   return {
     create: (params) => {
       assert(params, Create);

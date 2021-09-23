@@ -1,8 +1,8 @@
-const { assert } = require("superstruct");
-const AccountType = require("../structs/accounts/AccountType");
-const { buildAccountsUrl } = require("../utils/urls");
+import { assert } from "superstruct";
+import AccountType from "../structs/accounts/AccountType";
+import { buildAccountsUrl } from "../utils/urls";
 
-module.exports = (client) => {
+export default (client) => {
   return {
     list: (params) => {
       assert(params, AccountType);

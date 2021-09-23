@@ -1,11 +1,11 @@
-const { assert } = require("superstruct");
-const Receipt = require("../structs/receipts/Receipt");
-const ExternalId = require("../structs/receipts/ExternalId");
-const { buildReceiptsUrl } = require("../utils/urls");
+import { assert } from "superstruct";
+import Receipt from "../structs/receipts/Receipt";
+import ExternalId from "../structs/receipts/ExternalId";
+import { buildReceiptsUrl } from "../utils/urls";
 
 const endpointUrl = buildReceiptsUrl();
 
-module.exports = (client) => {
+export default (client) => {
   return {
     create: (params) => {
       assert(params, Receipt);

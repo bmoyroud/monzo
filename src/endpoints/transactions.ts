@@ -1,11 +1,11 @@
-const { assert } = require("superstruct");
-const List = require("../structs/transactions/List");
-const Retrieve = require("../structs/transactions/Retrieve");
-const Annotate = require("../structs/transactions/Annotate");
-const { buildTransactionsUrl, buildTransactionUrl } = require("../utils/urls");
-const { encodeData } = require("../utils/http");
+import { assert } from "superstruct";
+import List from "../structs/transactions/List";
+import Retrieve from "../structs/transactions/Retrieve";
+import Annotate from "../structs/transactions/Annotate";
+import { buildTransactionsUrl, buildTransactionUrl } from "../utils/urls";
+import { encodeData } from "../utils/http";
 
-module.exports = (client) => {
+export default (client) => {
   return {
     list: (params) => {
       assert(params, List);

@@ -1,13 +1,14 @@
-const qs = require("qs");
+import qs from "qs";
 
-module.exports = {
-  buildHeaders: (accessToken) => ({
-    Authorization: `Bearer ${accessToken}`,
-  }),
-  encodeData: (data) => qs.stringify(data),
-  parseResponse: (res) => res.data,
-  parseError: (err) => {
-    const { status, statusText, data } = err.response;
-    return Promise.reject({ status, statusText, data });
-  },
+export const buildHeaders = (accessToken) => ({
+  Authorization: `Bearer ${accessToken}`,
+});
+
+export const encodeData = (data) => qs.stringify(data);
+
+export const parseResponse = (res) => res.data;
+
+export const parseError = (err) => {
+  const { status, statusText, data } = err.response;
+  return Promise.reject({ status, statusText, data });
 };

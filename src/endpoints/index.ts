@@ -1,14 +1,14 @@
-const whoAmI = require("./whoAmI");
-const accounts = require("./accounts");
-const balance = require("./balance");
-const pots = require("./pots");
-const transactions = require("./transactions");
-const feed = require("./feed");
-const attachment = require("./attachment");
-const receipts = require("./receipts");
-const webhooks = require("./webhooks");
+import whoAmI from "./whoAmI";
+import accounts from "./accounts";
+import balance from "./balance";
+import pots from "./pots";
+import transactions from "./transactions";
+import feed from "./feed";
+import attachment from "./attachment";
+import receipts from "./receipts";
+import webhooks from "./webhooks";
 
-module.exports = {
+export default {
   whoAmI,
   accounts,
   balance,

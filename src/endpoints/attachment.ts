@@ -1,15 +1,15 @@
-const { assert } = require("superstruct");
-const Upload = require("../structs/attachment/Upload");
-const Register = require("../structs/attachment/Register");
-const Deregister = require("../structs/attachment/Deregister");
-const {
+import { assert } from "superstruct";
+import Upload from "../structs/attachment/Upload";
+import Register from "../structs/attachment/Register";
+import Deregister from "../structs/attachment/Deregister";
+import {
   buildAttachmentUploadUrl,
   buildAttachmentRegisterUrl,
   buildAttachmentDeregisterUrl,
-} = require("../utils/urls");
-const { encodeData } = require("../utils/http");
+} from "../utils/urls";
+import { encodeData } from "../utils/http";
 
-module.exports = (client) => {
+export default (client) => {
   return {
     upload: (params) => {
       assert(params, Upload);

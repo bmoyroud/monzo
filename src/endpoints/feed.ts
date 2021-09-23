@@ -1,9 +1,9 @@
-const { assert } = require("superstruct");
-const FeedItem = require("../structs/feed/FeedItem");
-const { buildFeedUrl } = require("../utils/urls");
-const { encodeData } = require("../utils/http");
+import { assert } from "superstruct";
+import FeedItem from "../structs/feed/FeedItem";
+import { buildFeedUrl } from "../utils/urls";
+import { encodeData } from "../utils/http";
 
-module.exports = (client) => {
+export default (client) => {
   return {
     create: (params) => {
       assert(params, FeedItem);

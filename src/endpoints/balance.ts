@@ -1,8 +1,8 @@
-const { assert } = require("superstruct");
-const Balance = require("../structs/balance/Balance");
-const { buildBalanceUrl } = require("../utils/urls");
+import { assert } from "superstruct";
+import Balance from "../structs/balance/Balance";
+import { buildBalanceUrl } from "../utils/urls";
 
-module.exports = (client) => {
+export default (client) => {
   return {
     retrieve: (params) => {
       assert(params, Balance);
