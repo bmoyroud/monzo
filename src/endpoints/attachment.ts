@@ -1,3 +1,4 @@
+import { AxiosInstance } from "axios";
 import { assert } from "superstruct";
 import Upload from "../structs/attachment/Upload";
 import Register from "../structs/attachment/Register";
@@ -9,7 +10,7 @@ import {
 } from "../utils/urls";
 import { encodeData } from "../utils/http";
 
-export default (client) => {
+export default (client: AxiosInstance) => {
   return {
     upload: (params: object) => {
       assert(params, Upload);

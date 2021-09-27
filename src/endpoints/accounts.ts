@@ -1,8 +1,9 @@
+import { AxiosInstance } from "axios";
 import { assert } from "superstruct";
 import AccountType from "../structs/accounts/AccountType";
 import { buildAccountsUrl } from "../utils/urls";
 
-export default (client) => {
+export default (client: AxiosInstance) => {
   return {
     list: (params: object) => {
       assert(params, AccountType);

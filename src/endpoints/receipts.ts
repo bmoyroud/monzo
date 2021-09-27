@@ -1,3 +1,4 @@
+import { AxiosInstance } from "axios";
 import { assert } from "superstruct";
 import Receipt from "../structs/receipts/Receipt";
 import ExternalId from "../structs/receipts/ExternalId";
@@ -5,7 +6,7 @@ import { buildReceiptsUrl } from "../utils/urls";
 
 const endpointUrl = buildReceiptsUrl();
 
-export default (client) => {
+export default (client: AxiosInstance) => {
   return {
     create: (params: object) => {
       assert(params, Receipt);

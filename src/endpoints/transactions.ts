@@ -1,3 +1,4 @@
+import { AxiosInstance } from "axios";
 import { assert } from "superstruct";
 import List from "../structs/transactions/List";
 import Retrieve from "../structs/transactions/Retrieve";
@@ -5,7 +6,7 @@ import Annotate from "../structs/transactions/Annotate";
 import { buildTransactionsUrl, buildTransactionUrl } from "../utils/urls";
 import { encodeData } from "../utils/http";
 
-export default (client) => {
+export default (client: AxiosInstance) => {
   return {
     list: (params: object) => {
       assert(params, List);

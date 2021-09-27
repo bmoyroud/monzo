@@ -1,9 +1,10 @@
+import { AxiosInstance } from "axios";
 import { assert } from "superstruct";
 import FeedItem from "../structs/feed/FeedItem";
 import { buildFeedUrl } from "../utils/urls";
 import { encodeData } from "../utils/http";
 
-export default (client) => {
+export default (client: AxiosInstance) => {
   return {
     create: (params: object) => {
       assert(params, FeedItem);

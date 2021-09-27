@@ -1,3 +1,4 @@
+import { AxiosInstance } from "axios";
 import { assert } from "superstruct";
 import List from "../structs/pots/List";
 import Deposit from "../structs/pots/Deposit";
@@ -9,7 +10,7 @@ import {
 } from "../utils/urls";
 import { encodeData } from "../utils/http";
 
-export default (client) => {
+export default (client: AxiosInstance) => {
   return {
     list: (params: object) => {
       assert(params, List);

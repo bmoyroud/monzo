@@ -1,3 +1,4 @@
+import { AxiosInstance } from "axios";
 import { assert } from "superstruct";
 import Create from "../structs/webhooks/Create";
 import List from "../structs/webhooks/List";
@@ -5,7 +6,7 @@ import Delete from "../structs/webhooks/Delete";
 import { buildWebhooksUrl, buildWebhookUrl } from "../utils/urls";
 import { encodeData } from "../utils/http";
 
-export default (client) => {
+export default (client: AxiosInstance) => {
   return {
     create: (params: object) => {
       assert(params, Create);
