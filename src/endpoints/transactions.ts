@@ -14,7 +14,7 @@ export default (client: AxiosInstance) => {
       const endpointUrl = buildTransactionsUrl();
 
       return client
-        .get(endpointUrl, { params })
+        .get<void, any>(endpointUrl, { params })
         .then((data) => data.transactions);
     },
 
@@ -33,7 +33,9 @@ export default (client: AxiosInstance) => {
         });
       }
 
-      return client.get(endpointUrl).then((data) => data.transaction);
+      return client
+        .get<void, any>(endpointUrl)
+        .then((data) => data.transaction);
     },
 
     annotate: (params: object) => {
@@ -45,7 +47,9 @@ export default (client: AxiosInstance) => {
 
       const data = encodeData({ metadata: annotations });
 
-      return client.patch(endpointUrl, data).then((data) => data.transaction);
+      return client
+        .patch<void, any>(endpointUrl, data)
+        .then((data) => data.transaction);
     },
   };
 };

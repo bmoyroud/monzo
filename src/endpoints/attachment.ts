@@ -29,7 +29,9 @@ export default (client: AxiosInstance) => {
 
       const data = encodeData(params);
 
-      return client.post(endpointUrl, data).then((data) => data.attachment);
+      return client
+        .post<void, any>(endpointUrl, data)
+        .then((data) => data.attachment);
     },
 
     deregister: (params: object) => {

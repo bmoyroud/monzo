@@ -17,7 +17,9 @@ export default (client: AxiosInstance) => {
 
       const endpointUrl = buildPotsUrl();
 
-      return client.get(endpointUrl, { params }).then((data) => data.pots);
+      return client
+        .get<void, any>(endpointUrl, { params })
+        .then((data) => data.pots);
     },
 
     deposit: (params: object) => {

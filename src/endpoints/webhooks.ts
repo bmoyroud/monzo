@@ -15,7 +15,9 @@ export default (client: AxiosInstance) => {
 
       const data = encodeData(params);
 
-      return client.post(endpointUrl, data).then((data) => data.webhook);
+      return client
+        .post<void, any>(endpointUrl, data)
+        .then((data) => data.webhook);
     },
 
     list: (params: object) => {
@@ -23,7 +25,9 @@ export default (client: AxiosInstance) => {
 
       const endpointUrl = buildWebhooksUrl();
 
-      return client.get(endpointUrl, { params }).then((data) => data.webhooks);
+      return client
+        .get<void, any>(endpointUrl, { params })
+        .then((data) => data.webhooks);
     },
 
     delete: (params: object) => {

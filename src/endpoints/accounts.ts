@@ -13,11 +13,11 @@ export default (client: AxiosInstance) => {
       // TODO: simplify below?
       if (params) {
         return client
-          .get(endpointUrl, { params })
+          .get<void, any>(endpointUrl, { params })
           .then((data) => data.accounts);
       }
 
-      return client.get(endpointUrl).then((data) => data.accounts);
+      return client.get<void, any>(endpointUrl).then((data) => data.accounts);
     },
   };
 };
