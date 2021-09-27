@@ -1,21 +1,9 @@
-import whoAmI from "./whoAmI";
-import accounts from "./accounts";
-import balance from "./balance";
-import pots from "./pots";
-import transactions from "./transactions";
-import feed from "./feed";
-import attachment from "./attachment";
-import receipts from "./receipts";
-import webhooks from "./webhooks";
-
-export default {
-  whoAmI,
-  accounts,
-  balance,
-  pots,
-  transactions,
-  feed,
-  attachment,
-  receipts,
-  webhooks,
-};
+export { default as whoAmI } from "./whoAmI";
+export { default as accounts } from "./accounts";
+export { default as balance } from "./balance";
+export { default as pots } from "./pots";
+export { default as transactions } from "./transactions";
+export { default as feed } from "./feed";
+export { default as attachment } from "./attachment";
+export { default as receipts } from "./receipts";
+export { default as webhooks } from "./webhooks";

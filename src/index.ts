@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import endpoints from "./endpoints";
+import * as endpoints from "./endpoints";
 
 import { MISSING_ACCESS_TOKEN } from "./constants/errors";
 import { BASE_URL } from "./constants/urls";
