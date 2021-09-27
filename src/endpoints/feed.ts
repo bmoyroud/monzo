@@ -5,7 +5,7 @@ import { encodeData } from "../utils/http";
 
 export default (client) => {
   return {
-    create: (params) => {
+    create: (params: object) => {
       assert(params, FeedItem);
 
       const endpointUrl = buildFeedUrl();

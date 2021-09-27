@@ -4,7 +4,7 @@ import { buildBalanceUrl } from "../utils/urls";
 
 export default (client) => {
   return {
-    retrieve: (params) => {
+    retrieve: (params: object) => {
       assert(params, Balance);
 
       const endpointUrl = buildBalanceUrl();

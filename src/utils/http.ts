@@ -1,6 +1,6 @@
 import qs from "qs";
 
-export const buildHeaders = (accessToken) => ({
+export const buildHeaders = (accessToken: string) => ({
   Authorization: `Bearer ${accessToken}`,
 });
 

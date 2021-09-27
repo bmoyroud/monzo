@@ -11,7 +11,7 @@ import { encodeData } from "../utils/http";
 
 export default (client) => {
   return {
-    list: (params) => {
+    list: (params: object) => {
       assert(params, List);
 
       const endpointUrl = buildPotsUrl();
@@ -19,7 +19,7 @@ export default (client) => {
       return client.get(endpointUrl, { params }).then((data) => data.pots);
     },
 
-    deposit: (params) => {
+    deposit: (params: object) => {
       assert(params, Deposit);
 
       const { pot_id, ...other } = params;
@@ -31,7 +31,7 @@ export default (client) => {
       return client.put(endpointUrl, data);
     },
 
-    withdraw: (params) => {
+    withdraw: (params: object) => {
       assert(params, Withdraw);
 
       const { pot_id, ...other } = params;

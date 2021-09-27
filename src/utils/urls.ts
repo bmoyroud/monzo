@@ -17,11 +17,12 @@ export const buildBalanceUrl = () => BALANCE_URL;
 export const buildAccountsUrl = () => ACCOUNTS_URL;
 
 export const buildPotsUrl = () => POTS_URL;
-export const buildPotsDepositUrl = (id) => `${POTS_URL}/${id}/deposit`;
-export const buildPotsWithdrawalUrl = (id) => `${POTS_URL}/${id}/withdraw`;
+export const buildPotsDepositUrl = (id: string) => `${POTS_URL}/${id}/deposit`;
+export const buildPotsWithdrawalUrl = (id: string) =>
+  `${POTS_URL}/${id}/withdraw`;
 
 export const buildTransactionsUrl = () => TRANSACTIONS_URL;
-export const buildTransactionUrl = (id) => `${TRANSACTIONS_URL}/${id}`;
+export const buildTransactionUrl = (id: string) => `${TRANSACTIONS_URL}/${id}`;
 
 export const buildFeedUrl = () => FEED_URL;
 
@@ -33,4 +34,4 @@ export const buildAttachmentDeregisterUrl = () =>
 export const buildReceiptsUrl = () => RECEIPTS_URL;
 
 export const buildWebhooksUrl = () => WEBHOOKS_URL;
-export const buildWebhookUrl = (id) => `${WEBHOOKS_URL}/${id}`;
+export const buildWebhookUrl = (id: string) => `${WEBHOOKS_URL}/${id}`;

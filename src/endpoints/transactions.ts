@@ -7,7 +7,7 @@ import { encodeData } from "../utils/http";
 
 export default (client) => {
   return {
-    list: (params) => {
+    list: (params: object) => {
       assert(params, List);
 
       const endpointUrl = buildTransactionsUrl();
@@ -17,7 +17,7 @@ export default (client) => {
         .then((data) => data.transactions);
     },
 
-    retrieve: (params) => {
+    retrieve: (params: object) => {
       assert(params, Retrieve);
 
       const { transaction_id, expand_merchant } = params;
@@ -35,7 +35,7 @@ export default (client) => {
       return client.get(endpointUrl).then((data) => data.transaction);
     },
 
-    annotate: (params) => {
+    annotate: (params: object) => {
       assert(params, Annotate);
 
       const { transaction_id, annotations } = params;

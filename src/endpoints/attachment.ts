@@ -11,7 +11,7 @@ import { encodeData } from "../utils/http";
 
 export default (client) => {
   return {
-    upload: (params) => {
+    upload: (params: object) => {
       assert(params, Upload);
 
       const endpointUrl = buildAttachmentUploadUrl();
@@ -21,7 +21,7 @@ export default (client) => {
       return client.post(endpointUrl, data);
     },
 
-    register: (params) => {
+    register: (params: object) => {
       assert(params, Register);
 
       const endpointUrl = buildAttachmentRegisterUrl();
@@ -31,7 +31,7 @@ export default (client) => {
       return client.post(endpointUrl, data).then((data) => data.attachment);
     },
 
-    deregister: (params) => {
+    deregister: (params: object) => {
       assert(params, Deregister);
 
       const endpointUrl = buildAttachmentDeregisterUrl();

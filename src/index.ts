@@ -18,7 +18,7 @@ class Monzo {
   receipts;
   webhooks;
 
-  constructor(accessToken) {
+  constructor(accessToken: string) {
     if (!accessToken) {
       throw buildError(MISSING_ACCESS_TOKEN);
     }

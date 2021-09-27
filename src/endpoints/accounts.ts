@@ -4,14 +4,16 @@ import { buildAccountsUrl } from "../utils/urls";
 
 export default (client) => {
   return {
-    list: (params) => {
+    list: (params: object) => {
       assert(params, AccountType);
 
       const endpointUrl = buildAccountsUrl();
 
       // TODO: simplify below?
       if (params) {
-        return client.get(endpointUrl, { params });
+        return client
+          .get(endpointUrl, { params })
+          .then((data) => data.accounts);
       }
 
       return client.get(endpointUrl).then((data) => data.accounts);

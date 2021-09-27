@@ -7,17 +7,17 @@ const endpointUrl = buildReceiptsUrl();
 
 export default (client) => {
   return {
-    create: (params) => {
+    create: (params: object) => {
       assert(params, Receipt);
       return client.put(endpointUrl, params);
     },
 
-    retrieve: (params) => {
+    retrieve: (params: object) => {
       assert(params, ExternalId);
       return client.get(endpointUrl, { params });
     },
 
-    delete: (params) => {
+    delete: (params: object) => {
       assert(params, ExternalId);
       return client.delete(endpointUrl, { params });
     },

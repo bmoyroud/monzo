@@ -7,7 +7,7 @@ import { encodeData } from "../utils/http";
 
 export default (client) => {
   return {
-    create: (params) => {
+    create: (params: object) => {
       assert(params, Create);
 
       const endpointUrl = buildWebhooksUrl();
@@ -17,7 +17,7 @@ export default (client) => {
       return client.post(endpointUrl, data).then((data) => data.webhook);
     },
 
-    list: (params) => {
+    list: (params: object) => {
       assert(params, List);
 
       const endpointUrl = buildWebhooksUrl();
@@ -25,7 +25,7 @@ export default (client) => {
       return client.get(endpointUrl, { params }).then((data) => data.webhooks);
     },
 
-    delete: (params) => {
+    delete: (params: object) => {
       assert(params, Delete);
 
       const { webhook_id } = params;
