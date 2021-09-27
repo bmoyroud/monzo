@@ -1,7 +1,9 @@
+// @ts-check
+
 require("dotenv").config();
 
 (async () => {
-  const Monzo = require("./src");
+  const Monzo = require("./dist").default;
 
   const accessToken = process.env.ACCESS_TOKEN;
   const accountId = process.env.ACCOUNT_ID;
@@ -18,8 +20,11 @@ require("dotenv").config();
     const whoAmI = await monzo.whoAmI();
     console.log("Who am I", whoAmI);
 
-    const accounts = await monzo.accounts.list({ account_type: "uk_prepaid" });
-    console.log("Accounts", accounts);
+    const accounts = await monzo.accounts.list();
+    console.log("All accounts", accounts);
+
+    const account = await monzo.accounts.list({ account_type: "uk_prepaid" });
+    console.log("Prepaid account", account);
 
     const balance = await monzo.balance.retrieve({ account_id: accountId });
     console.log("Balance", balance);
@@ -43,12 +48,12 @@ require("dotenv").config();
     });
     console.log("Pot after withdrawal", potAfterWithdrawal);
 
-    const transactions = await monzo.transactions.list({
-      account_id: accountId,
-      since: "",
-      before: "2021-09-01T23:00:00Z",
-    });
-    console.log("Transactions", transactions);
+    // const transactions = await monzo.transactions.list({
+    //   account_id: accountId,
+    //   since: "",
+    //   before: "2021-09-01T23:00:00Z",
+    // });
+    // console.log("Transactions", transactions);
 
     const transaction = await monzo.transactions.retrieve({
       transaction_id: transactionId,
