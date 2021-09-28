@@ -26,11 +26,13 @@ export default (client: AxiosInstance) => {
       const endpointUrl = buildTransactionUrl(transaction_id);
 
       if (expand_merchant) {
-        return client.get(endpointUrl, {
-          params: {
-            "expand[]": "merchant",
-          },
-        });
+        return client
+          .get<void, any>(endpointUrl, {
+            params: {
+              "expand[]": "merchant",
+            },
+          })
+          .then((data) => data.transaction);
       }
 
       return client
