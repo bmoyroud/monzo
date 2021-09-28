@@ -1,5 +1,5 @@
 import { AxiosInstance } from "axios";
-import { assert } from "superstruct";
+import { assert, Infer } from "superstruct";
 import List from "../structs/pots/List";
 import Deposit from "../structs/pots/Deposit";
 import Withdraw from "../structs/pots/Withdraw";
@@ -12,7 +12,7 @@ import { encodeData } from "../utils/http";
 
 export default (client: AxiosInstance) => {
   return {
-    list: (params: object) => {
+    list: (params: Infer<typeof List>) => {
       assert(params, List);
 
       const endpointUrl = buildPotsUrl();
@@ -22,7 +22,7 @@ export default (client: AxiosInstance) => {
         .then((data) => data.pots);
     },
 
-    deposit: (params: object) => {
+    deposit: (params: Infer<typeof Deposit>) => {
       assert(params, Deposit);
 
       const { pot_id, ...other } = params;
@@ -34,7 +34,7 @@ export default (client: AxiosInstance) => {
       return client.put(endpointUrl, data);
     },
 
-    withdraw: (params: object) => {
+    withdraw: (params: Infer<typeof Withdraw>) => {
       assert(params, Withdraw);
 
       const { pot_id, ...other } = params;

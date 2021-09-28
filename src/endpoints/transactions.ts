@@ -1,5 +1,5 @@
 import { AxiosInstance } from "axios";
-import { assert } from "superstruct";
+import { assert, Infer } from "superstruct";
 import List from "../structs/transactions/List";
 import Retrieve from "../structs/transactions/Retrieve";
 import Annotate from "../structs/transactions/Annotate";
@@ -8,7 +8,7 @@ import { encodeData } from "../utils/http";
 
 export default (client: AxiosInstance) => {
   return {
-    list: (params: object) => {
+    list: (params: Infer<typeof List>) => {
       assert(params, List);
 
       const endpointUrl = buildTransactionsUrl();
@@ -18,7 +18,7 @@ export default (client: AxiosInstance) => {
         .then((data) => data.transactions);
     },
 
-    retrieve: (params: object) => {
+    retrieve: (params: Infer<typeof Retrieve>) => {
       assert(params, Retrieve);
 
       const { transaction_id, expand_merchant } = params;
@@ -38,7 +38,7 @@ export default (client: AxiosInstance) => {
         .then((data) => data.transaction);
     },
 
-    annotate: (params: object) => {
+    annotate: (params: Infer<typeof Annotate>) => {
       assert(params, Annotate);
 
       const { transaction_id, annotations } = params;

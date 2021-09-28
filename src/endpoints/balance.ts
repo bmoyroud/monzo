@@ -1,11 +1,11 @@
 import { AxiosInstance } from "axios";
-import { assert } from "superstruct";
+import { assert, Infer } from "superstruct";
 import Balance from "../structs/balance/Balance";
 import { buildBalanceUrl } from "../utils/urls";
 
 export default (client: AxiosInstance) => {
   return {
-    retrieve: (params: object) => {
+    retrieve: (params: Infer<typeof Balance>) => {
       assert(params, Balance);
 
       const endpointUrl = buildBalanceUrl();

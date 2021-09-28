@@ -1,12 +1,12 @@
 import { AxiosInstance } from "axios";
-import { assert } from "superstruct";
+import { assert, Infer } from "superstruct";
 import FeedItem from "../structs/feed/FeedItem";
 import { buildFeedUrl } from "../utils/urls";
 import { encodeData } from "../utils/http";
 
 export default (client: AxiosInstance) => {
   return {
-    create: (params: object) => {
+    create: (params: Infer<typeof FeedItem>) => {
       assert(params, FeedItem);
 
       const endpointUrl = buildFeedUrl();

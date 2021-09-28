@@ -1,5 +1,5 @@
 import { AxiosInstance } from "axios";
-import { assert } from "superstruct";
+import { assert, Infer } from "superstruct";
 import Upload from "../structs/attachment/Upload";
 import Register from "../structs/attachment/Register";
 import Deregister from "../structs/attachment/Deregister";
@@ -12,7 +12,7 @@ import { encodeData } from "../utils/http";
 
 export default (client: AxiosInstance) => {
   return {
-    upload: (params: object) => {
+    upload: (params: Infer<typeof Upload>) => {
       assert(params, Upload);
 
       const endpointUrl = buildAttachmentUploadUrl();
@@ -22,7 +22,7 @@ export default (client: AxiosInstance) => {
       return client.post(endpointUrl, data);
     },
 
-    register: (params: object) => {
+    register: (params: Infer<typeof Register>) => {
       assert(params, Register);
 
       const endpointUrl = buildAttachmentRegisterUrl();
@@ -34,7 +34,7 @@ export default (client: AxiosInstance) => {
         .then((data) => data.attachment);
     },
 
-    deregister: (params: object) => {
+    deregister: (params: Infer<typeof Deregister>) => {
       assert(params, Deregister);
 
       const endpointUrl = buildAttachmentDeregisterUrl();
