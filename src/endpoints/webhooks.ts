@@ -37,7 +37,7 @@ export default (client: AxiosInstance) => {
 
       const endpointUrl = buildWebhookUrl(webhook_id);
 
-      return client.delete(endpointUrl);
+      return client.delete<void, any>(endpointUrl);
     },
   };
 };

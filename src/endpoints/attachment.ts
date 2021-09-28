@@ -19,7 +19,7 @@ export default (client: AxiosInstance) => {
 
       const data = encodeData(params);
 
-      return client.post(endpointUrl, data);
+      return client.post<void, any>(endpointUrl, data);
     },
 
     register: (params: Infer<typeof Register>) => {
@@ -41,7 +41,7 @@ export default (client: AxiosInstance) => {
 
       const data = encodeData(params);
 
-      return client.post(endpointUrl, data);
+      return client.post<void, any>(endpointUrl, data);
     },
   };
 };

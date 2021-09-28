@@ -10,7 +10,7 @@ export default (client: AxiosInstance) => {
 
       const endpointUrl = buildBalanceUrl();
 
-      return client.get(endpointUrl, { params });
+      return client.get<void, any>(endpointUrl, { params });
     },
   };
 };

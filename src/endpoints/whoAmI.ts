@@ -3,5 +3,5 @@ import { buildWhoAmIUrl } from "../utils/urls";
 
 export default (client: AxiosInstance) => {
   const endpointUrl = buildWhoAmIUrl();
-  return () => client.get(endpointUrl);
+  return () => client.get<void, any>(endpointUrl);
 };

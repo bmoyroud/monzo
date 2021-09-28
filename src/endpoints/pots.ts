@@ -31,7 +31,7 @@ export default (client: AxiosInstance) => {
 
       const data = encodeData(other);
 
-      return client.put(endpointUrl, data);
+      return client.put<void, any>(endpointUrl, data);
     },
 
     withdraw: (params: Infer<typeof Withdraw>) => {
@@ -43,7 +43,7 @@ export default (client: AxiosInstance) => {
 
       const data = encodeData(other);
 
-      return client.put(endpointUrl, data);
+      return client.put<void, any>(endpointUrl, data);
     },
   };
 };
