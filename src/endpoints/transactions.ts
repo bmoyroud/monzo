@@ -3,6 +3,7 @@ import { assert, Infer } from "superstruct";
 import List from "../structs/transactions/List";
 import Retrieve from "../structs/transactions/Retrieve";
 import Annotate from "../structs/transactions/Annotate";
+import { Transaction } from "../monzo";
 import { buildTransactionsUrl, buildTransactionUrl } from "../utils/urls";
 import { encodeData } from "../utils/http";
 
@@ -14,7 +15,7 @@ export default (client: AxiosInstance) => {
       const endpointUrl = buildTransactionsUrl();
 
       return client
-        .get<void, any>(endpointUrl, { params })
+        .get<void, { transactions: Transaction[] }>(endpointUrl, { params })
         .then((data) => data.transactions);
     },
 
@@ -27,7 +28,7 @@ export default (client: AxiosInstance) => {
 
       if (expand_merchant) {
         return client
-          .get<void, any>(endpointUrl, {
+          .get<void, { transaction: Transaction }>(endpointUrl, {
             params: {
               "expand[]": "merchant",
             },
@@ -36,7 +37,7 @@ export default (client: AxiosInstance) => {
       }
 
       return client
-        .get<void, any>(endpointUrl)
+        .get<void, { transaction: Transaction }>(endpointUrl)
         .then((data) => data.transaction);
     },
 
@@ -50,7 +51,7 @@ export default (client: AxiosInstance) => {
       const data = encodeData({ metadata: annotations });
 
       return client
-        .patch<void, any>(endpointUrl, data)
+        .patch<void, { transaction: Transaction }>(endpointUrl, data)
         .then((data) => data.transaction);
     },
   };

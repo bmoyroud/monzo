@@ -1,5 +1,6 @@
 import { AxiosInstance } from "axios";
 import { assert, Infer } from "superstruct";
+import { Account } from "../monzo";
 import AccountType from "../structs/accounts/AccountType";
 import { buildAccountsUrl } from "../utils/urls";
 
@@ -11,7 +12,7 @@ export default (client: AxiosInstance) => {
       const endpointUrl = buildAccountsUrl();
 
       return client
-        .get<void, any>(endpointUrl, { params })
+        .get<void, { accounts: Account }>(endpointUrl, { params })
         .then((data) => data.accounts);
     },
   };

@@ -1,8 +1,9 @@
 import { AxiosInstance } from "axios";
 import { assert, Infer } from "superstruct";
-import Upload from "../structs/attachment/Upload";
+import UploadStruct from "../structs/attachment/Upload";
 import Register from "../structs/attachment/Register";
 import Deregister from "../structs/attachment/Deregister";
+import { Attachment, Upload } from "../monzo";
 import {
   buildAttachmentUploadUrl,
   buildAttachmentRegisterUrl,
@@ -12,14 +13,14 @@ import { encodeData } from "../utils/http";
 
 export default (client: AxiosInstance) => {
   return {
-    upload: (params: Infer<typeof Upload>) => {
-      assert(params, Upload);
+    upload: (params: Infer<typeof UploadStruct>) => {
+      assert(params, UploadStruct);
 
       const endpointUrl = buildAttachmentUploadUrl();
 
       const data = encodeData(params);
 
-      return client.post<void, any>(endpointUrl, data);
+      return client.post<void, Upload>(endpointUrl, data);
     },
 
     register: (params: Infer<typeof Register>) => {
@@ -30,7 +31,7 @@ export default (client: AxiosInstance) => {
       const data = encodeData(params);
 
       return client
-        .post<void, any>(endpointUrl, data)
+        .post<void, { attachment: Attachment }>(endpointUrl, data)
         .then((data) => data.attachment);
     },
 
@@ -41,7 +42,7 @@ export default (client: AxiosInstance) => {
 
       const data = encodeData(params);
 
-      return client.post<void, any>(endpointUrl, data);
+      return client.post<void, {}>(endpointUrl, data);
     },
   };
 };

@@ -3,6 +3,7 @@ import { assert, Infer } from "superstruct";
 import List from "../structs/pots/List";
 import Deposit from "../structs/pots/Deposit";
 import Withdraw from "../structs/pots/Withdraw";
+import { Pot } from "../monzo";
 import {
   buildPotsUrl,
   buildPotsDepositUrl,
@@ -18,7 +19,7 @@ export default (client: AxiosInstance) => {
       const endpointUrl = buildPotsUrl();
 
       return client
-        .get<void, any>(endpointUrl, { params })
+        .get<void, { pots: Pot[] }>(endpointUrl, { params })
         .then((data) => data.pots);
     },
 
@@ -31,7 +32,7 @@ export default (client: AxiosInstance) => {
 
       const data = encodeData(other);
 
-      return client.put<void, any>(endpointUrl, data);
+      return client.put<void, Pot>(endpointUrl, data);
     },
 
     withdraw: (params: Infer<typeof Withdraw>) => {
@@ -43,7 +44,7 @@ export default (client: AxiosInstance) => {
 
       const data = encodeData(other);
 
-      return client.put<void, any>(endpointUrl, data);
+      return client.put<void, Pot>(endpointUrl, data);
     },
   };
 };

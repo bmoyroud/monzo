@@ -1,22 +1,23 @@
 import { AxiosInstance } from "axios";
 import { assert, Infer } from "superstruct";
-import Receipt from "../structs/receipts/Receipt";
+import ReceiptParams from "../structs/receipts/Receipt";
 import ExternalId from "../structs/receipts/ExternalId";
+import { Receipt } from "../monzo";
 import { buildReceiptsUrl } from "../utils/urls";
 
 const endpointUrl = buildReceiptsUrl();
 
 export default (client: AxiosInstance) => {
   return {
-    create: (params: Infer<typeof Receipt>) => {
-      assert(params, Receipt);
-      return client.put<void, any>(endpointUrl, params);
+    create: (params: Infer<typeof ReceiptParams>) => {
+      assert(params, ReceiptParams);
+      return client.put<void, {}>(endpointUrl, params);
     },
 
     retrieve: (params: Infer<typeof ExternalId>) => {
       assert(params, ExternalId);
       return client
-        .get<void, any>(endpointUrl, { params })
+        .get<void, { receipt: Receipt }>(endpointUrl, { params })
         .then((data) => data.receipt);
     },
 

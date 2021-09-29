@@ -13,7 +13,7 @@ export default (client: AxiosInstance) => {
 
       const formattedData = encodeData(params);
 
-      return client.post<void, any>(endpointUrl, formattedData);
+      return client.post<void, {}>(endpointUrl, formattedData);
     },
   };
 };
