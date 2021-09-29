@@ -15,7 +15,9 @@ export default (client: AxiosInstance) => {
 
     retrieve: (params: Infer<typeof ExternalId>) => {
       assert(params, ExternalId);
-      return client.get<void, any>(endpointUrl, { params });
+      return client
+        .get<void, any>(endpointUrl, { params })
+        .then((data) => data.receipt);
     },
 
     delete: (params: Infer<typeof ExternalId>) => {
