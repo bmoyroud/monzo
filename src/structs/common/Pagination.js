@@ -1,10 +1,10 @@
-const { object, number, max, string } = require("superstruct");
+const { object, number, max, string, optional } = require("superstruct");
 
 const Pagination = object({
   // TODO: add minimum 0?
-  limit: max(number(), 100),
-  since: string(),
-  before: string(),
+  limit: optional(max(number(), 100)),
+  since: optional(string()),
+  before: optional(string()),
 });
 
 module.exports = Pagination;
