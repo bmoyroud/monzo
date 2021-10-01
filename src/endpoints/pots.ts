@@ -10,17 +10,26 @@ import {
   buildPotsWithdrawalUrl,
 } from "../utils/urls";
 import { encodeData } from "../utils/http";
+import { filterResults, isPaginated } from "../utils/pagination";
 
 export default (client: AxiosInstance) => {
   return {
-    list: (args: Infer<typeof List>) => {
+    list: async (args: Infer<typeof List>) => {
       assert(args, List);
+
+      const { account_id, ...pagination } = args;
 
       const endpointUrl = buildPotsUrl();
 
-      return client
+      const pots = await client
         .get<void, { pots: Pot[] }>(endpointUrl, { params: args })
         .then((data) => data.pots);
+
+      if (isPaginated(pagination)) {
+        return filterResults(pots, pagination);
+      }
+
+      return pots;
     },
 
     deposit: (args: Infer<typeof Deposit>) => {
