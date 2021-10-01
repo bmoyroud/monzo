@@ -12,7 +12,7 @@ export default (client: AxiosInstance) => {
       const endpointUrl = buildAccountsUrl();
 
       return client
-        .get<void, { accounts: Account }>(endpointUrl, { params: args })
+        .get<void, { accounts: Account[] }>(endpointUrl, { params: args })
         .then((data) => data.accounts);
     },
   };
