@@ -22,7 +22,9 @@ export default (client: AxiosInstance) => {
       const endpointUrl = buildPotsUrl();
 
       const pots = await client
-        .get<void, { pots: Pot[] }>(endpointUrl, { params: args })
+        .get<void, { pots: Pot[] }>(endpointUrl, {
+          params: { current_account_id: account_id },
+        })
         .then((data) => data.pots);
 
       if (isPaginated(pagination)) {
