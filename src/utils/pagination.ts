@@ -48,3 +48,8 @@ export function filterResults(
     .filter(before ? beforeFilter(before) : noFilter)
     .filter(limit ? limitFilter(limit) : noFilter);
 }
+
+export const isPaginated = (pagination: Infer<typeof Pagination>) =>
+  pagination.hasOwnProperty("since") ||
+  pagination.hasOwnProperty("before") ||
+  pagination.hasOwnProperty("limit");
