@@ -1,9 +1,3 @@
-const { object, string } = require("superstruct");
-const Pagination = require("../common/Pagination");
+const AccountIdWithPagination = require("../common/AccountIdWithPagination");
 
-const List = object({
-  account_id: string(),
-  pagination: Pagination,
-});
-
-module.exports = List;
+module.exports = AccountIdWithPagination;
