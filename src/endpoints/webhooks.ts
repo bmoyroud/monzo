@@ -6,7 +6,7 @@ import Delete from "../structs/webhooks/Delete";
 import { Webhook } from "../monzo";
 import { buildWebhooksUrl, buildWebhookUrl } from "../utils/urls";
 import { encodeData } from "../utils/http";
-import { filterResults, isPaginated } from "../utils/pagination";
+import { isLimited, limitResults } from "../utils/pagination";
 
 export default (client: AxiosInstance) => {
   return {
@@ -35,8 +35,8 @@ export default (client: AxiosInstance) => {
         })
         .then((data) => data.webhooks);
 
-      if (isPaginated(pagination)) {
-        return filterResults(webhooks, pagination);
+      if (isLimited(pagination)) {
+        return limitResults(webhooks, pagination);
       }
 
       return webhooks;

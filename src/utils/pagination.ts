@@ -1,22 +1,6 @@
 import { Infer } from "superstruct";
 import { Pagination } from "../structs/common/Pagination";
 
-const noFilter = () => true;
-
-function limitFilter(limit: number) {
-  // TODO: do this or mirror behaviour of /transactions?
-  // TODO: test /transactions with limit: -1
-
-  // i.e. if limit = 0, do not filter results
-  if (limit === 0) return noFilter;
-
-  // if (limit < 1 || limit > 100)
-  //   throw new Error("Limit must be between 1 and 100");
-
-  const callbackFn = (_: any, i: number) => i < limit;
-  return callbackFn;
-}
-
 // ensure object has .created property
 // TODO: move to monzo.ts?
 interface ICreated {
@@ -37,9 +21,41 @@ function beforeFilter(timestamp: string) {
   return callbackFn;
 }
 
-export function filterResults(
-  // cannot use ICreated here because Webhook does not have .created property
-  arr: any[],
+const noFilter = () => true;
+
+function limitFilter(limit: number) {
+  // TODO: do this or mirror behaviour of /transactions?
+  // TODO: test /transactions with limit: -1
+
+  // i.e. if limit = 0, do not filter results
+  // TODO: this is redundant given below
+  if (limit === 0) return noFilter;
+
+  // if (limit < 1 || limit > 100)
+  //   throw new Error("Limit must be between 1 and 100");
+
+  const callbackFn = (_: any, i: number) => i < limit;
+  return callbackFn;
+}
+
+export const isLimited = (pagination: Infer<typeof Pagination>) =>
+  pagination.hasOwnProperty("limit");
+
+export const isPaginated = (pagination: Infer<typeof Pagination>) =>
+  pagination.hasOwnProperty("since") ||
+  pagination.hasOwnProperty("before") ||
+  pagination.hasOwnProperty("limit");
+
+export function limitResults<T>(
+  arr: T[],
+  pagination: Infer<typeof Pagination>
+) {
+  const { limit } = pagination;
+  return arr.filter(limit ? limitFilter(limit) : noFilter);
+}
+
+export function filterResults<T extends ICreated>(
+  arr: T[],
   pagination: Infer<typeof Pagination>
 ) {
   const { since, before, limit } = pagination;
@@ -48,8 +64,3 @@ export function filterResults(
     .filter(before ? beforeFilter(before) : noFilter)
     .filter(limit ? limitFilter(limit) : noFilter);
 }
-
-export const isPaginated = (pagination: Infer<typeof Pagination>) =>
-  pagination.hasOwnProperty("since") ||
-  pagination.hasOwnProperty("before") ||
-  pagination.hasOwnProperty("limit");
