@@ -1,10 +1,24 @@
-const { object, number, max, string, optional } = require("superstruct");
+const {
+  object,
+  number,
+  max,
+  string,
+  optional,
+  assign,
+} = require("superstruct");
 
-const Pagination = object({
+const CursorBasedPagination = object({
   // TODO: add minimum 0?
   limit: optional(max(number(), 100)),
+});
+
+const TimeBasedPagination = object({
+  // TODO: add RFC3339 encoded timestamp validation for since and before
+  // this would avoid throwing errors when calling new Date()?
   since: optional(string()),
   before: optional(string()),
 });
 
-module.exports = Pagination;
+const Pagination = assign(CursorBasedPagination, TimeBasedPagination);
+
+module.exports = { CursorBasedPagination, Pagination };
