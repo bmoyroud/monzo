@@ -1,5 +1,5 @@
 import { Infer } from "superstruct";
-import Pagination from "../structs/common/Pagination";
+import { Pagination } from "../structs/common/Pagination";
 
 const noFilter = () => true;
 

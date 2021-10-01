@@ -1,5 +1,5 @@
 const { object, optional, enums, assign } = require("superstruct");
-const Pagination = require("../common/Pagination");
+const { Pagination } = require("../common/Pagination");
 
 const AccountType = object({
   // TODO: add list of valid account types to constants?
