@@ -1,3 +1,5 @@
-const AccountIdWithPagination = require("../common/AccountIdWithPagination");
+const { assign } = require("superstruct");
+const AccountId = require("../common/AccountId");
+const { CursorBasedPagination } = require("../common/Pagination");
 
-module.exports = AccountIdWithPagination;
+module.exports = assign(AccountId, CursorBasedPagination);
