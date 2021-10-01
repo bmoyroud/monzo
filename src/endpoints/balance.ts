@@ -6,12 +6,12 @@ import { buildBalanceUrl } from "../utils/urls";
 
 export default (client: AxiosInstance) => {
   return {
-    retrieve: (params: Infer<typeof BalanceParams>) => {
-      assert(params, BalanceParams);
+    retrieve: (args: Infer<typeof BalanceParams>) => {
+      assert(args, BalanceParams);
 
       const endpointUrl = buildBalanceUrl();
 
-      return client.get<void, Balance>(endpointUrl, { params });
+      return client.get<void, Balance>(endpointUrl, { params: args });
     },
   };
 };

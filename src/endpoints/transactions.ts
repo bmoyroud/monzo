@@ -9,20 +9,22 @@ import { encodeData } from "../utils/http";
 
 export default (client: AxiosInstance) => {
   return {
-    list: (params: Infer<typeof List>) => {
-      assert(params, List);
+    list: (args: Infer<typeof List>) => {
+      assert(args, List);
 
       const endpointUrl = buildTransactionsUrl();
 
       return client
-        .get<void, { transactions: Transaction[] }>(endpointUrl, { params })
+        .get<void, { transactions: Transaction[] }>(endpointUrl, {
+          params: args,
+        })
         .then((data) => data.transactions);
     },
 
-    retrieve: (params: Infer<typeof Retrieve>) => {
-      assert(params, Retrieve);
+    retrieve: (args: Infer<typeof Retrieve>) => {
+      assert(args, Retrieve);
 
-      const { transaction_id, expand_merchant } = params;
+      const { transaction_id, expand_merchant } = args;
 
       const endpointUrl = buildTransactionUrl(transaction_id);
 
@@ -41,10 +43,10 @@ export default (client: AxiosInstance) => {
         .then((data) => data.transaction);
     },
 
-    annotate: (params: Infer<typeof Annotate>) => {
-      assert(params, Annotate);
+    annotate: (args: Infer<typeof Annotate>) => {
+      assert(args, Annotate);
 
-      const { transaction_id, annotations } = params;
+      const { transaction_id, annotations } = args;
 
       const endpointUrl = buildTransactionUrl(transaction_id);
 

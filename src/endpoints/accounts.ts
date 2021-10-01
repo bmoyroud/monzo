@@ -6,13 +6,13 @@ import { buildAccountsUrl } from "../utils/urls";
 
 export default (client: AxiosInstance) => {
   return {
-    list: (params?: Infer<typeof List>) => {
-      assert(params, List);
+    list: (args?: Infer<typeof List>) => {
+      assert(args, List);
 
       const endpointUrl = buildAccountsUrl();
 
       return client
-        .get<void, { accounts: Account }>(endpointUrl, { params })
+        .get<void, { accounts: Account }>(endpointUrl, { params: args })
         .then((data) => data.accounts);
     },
   };

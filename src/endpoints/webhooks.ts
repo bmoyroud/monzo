@@ -9,32 +9,32 @@ import { encodeData } from "../utils/http";
 
 export default (client: AxiosInstance) => {
   return {
-    create: (params: Infer<typeof Create>) => {
-      assert(params, Create);
+    create: (args: Infer<typeof Create>) => {
+      assert(args, Create);
 
       const endpointUrl = buildWebhooksUrl();
 
-      const data = encodeData(params);
+      const data = encodeData(args);
 
       return client
         .post<void, { webhook: Webhook }>(endpointUrl, data)
         .then((data) => data.webhook);
     },
 
-    list: (params: Infer<typeof List>) => {
-      assert(params, List);
+    list: (args: Infer<typeof List>) => {
+      assert(args, List);
 
       const endpointUrl = buildWebhooksUrl();
 
       return client
-        .get<void, { webhooks: Webhook[] }>(endpointUrl, { params })
+        .get<void, { webhooks: Webhook[] }>(endpointUrl, { params: args })
         .then((data) => data.webhooks);
     },
 
-    delete: (params: Infer<typeof Delete>) => {
-      assert(params, Delete);
+    delete: (args: Infer<typeof Delete>) => {
+      assert(args, Delete);
 
-      const { webhook_id } = params;
+      const { webhook_id } = args;
 
       const endpointUrl = buildWebhookUrl(webhook_id);
 

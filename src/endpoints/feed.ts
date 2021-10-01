@@ -6,12 +6,12 @@ import { encodeData } from "../utils/http";
 
 export default (client: AxiosInstance) => {
   return {
-    create: (params: Infer<typeof FeedItem>) => {
-      assert(params, FeedItem);
+    create: (args: Infer<typeof FeedItem>) => {
+      assert(args, FeedItem);
 
       const endpointUrl = buildFeedUrl();
 
-      const formattedData = encodeData(params);
+      const formattedData = encodeData(args);
 
       return client.post<void, {}>(endpointUrl, formattedData);
     },

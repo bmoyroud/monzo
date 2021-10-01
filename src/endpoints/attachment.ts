@@ -13,34 +13,34 @@ import { encodeData } from "../utils/http";
 
 export default (client: AxiosInstance) => {
   return {
-    upload: (params: Infer<typeof UploadStruct>) => {
-      assert(params, UploadStruct);
+    upload: (args: Infer<typeof UploadStruct>) => {
+      assert(args, UploadStruct);
 
       const endpointUrl = buildAttachmentUploadUrl();
 
-      const data = encodeData(params);
+      const data = encodeData(args);
 
       return client.post<void, Upload>(endpointUrl, data);
     },
 
-    register: (params: Infer<typeof Register>) => {
-      assert(params, Register);
+    register: (args: Infer<typeof Register>) => {
+      assert(args, Register);
 
       const endpointUrl = buildAttachmentRegisterUrl();
 
-      const data = encodeData(params);
+      const data = encodeData(args);
 
       return client
         .post<void, { attachment: Attachment }>(endpointUrl, data)
         .then((data) => data.attachment);
     },
 
-    deregister: (params: Infer<typeof Deregister>) => {
-      assert(params, Deregister);
+    deregister: (args: Infer<typeof Deregister>) => {
+      assert(args, Deregister);
 
       const endpointUrl = buildAttachmentDeregisterUrl();
 
-      const data = encodeData(params);
+      const data = encodeData(args);
 
       return client.post<void, {}>(endpointUrl, data);
     },

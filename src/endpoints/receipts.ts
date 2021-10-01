@@ -9,21 +9,21 @@ const endpointUrl = buildReceiptsUrl();
 
 export default (client: AxiosInstance) => {
   return {
-    create: (params: Infer<typeof ReceiptParams>) => {
-      assert(params, ReceiptParams);
-      return client.put<void, {}>(endpointUrl, params);
+    create: (args: Infer<typeof ReceiptParams>) => {
+      assert(args, ReceiptParams);
+      return client.put<void, {}>(endpointUrl, args);
     },
 
-    retrieve: (params: Infer<typeof ExternalId>) => {
-      assert(params, ExternalId);
+    retrieve: (args: Infer<typeof ExternalId>) => {
+      assert(args, ExternalId);
       return client
-        .get<void, { receipt: Receipt }>(endpointUrl, { params })
+        .get<void, { receipt: Receipt }>(endpointUrl, { params: args })
         .then((data) => data.receipt);
     },
 
-    delete: (params: Infer<typeof ExternalId>) => {
-      assert(params, ExternalId);
-      return client.delete<void, any>(endpointUrl, { params });
+    delete: (args: Infer<typeof ExternalId>) => {
+      assert(args, ExternalId);
+      return client.delete<void, any>(endpointUrl, { params: args });
     },
   };
 };

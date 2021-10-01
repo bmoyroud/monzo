@@ -13,20 +13,20 @@ import { encodeData } from "../utils/http";
 
 export default (client: AxiosInstance) => {
   return {
-    list: (params: Infer<typeof List>) => {
-      assert(params, List);
+    list: (args: Infer<typeof List>) => {
+      assert(args, List);
 
       const endpointUrl = buildPotsUrl();
 
       return client
-        .get<void, { pots: Pot[] }>(endpointUrl, { params })
+        .get<void, { pots: Pot[] }>(endpointUrl, { params: args })
         .then((data) => data.pots);
     },
 
-    deposit: (params: Infer<typeof Deposit>) => {
-      assert(params, Deposit);
+    deposit: (args: Infer<typeof Deposit>) => {
+      assert(args, Deposit);
 
-      const { pot_id, ...other } = params;
+      const { pot_id, ...other } = args;
 
       const endpointUrl = buildPotsDepositUrl(pot_id);
 
@@ -35,10 +35,10 @@ export default (client: AxiosInstance) => {
       return client.put<void, Pot>(endpointUrl, data);
     },
 
-    withdraw: (params: Infer<typeof Withdraw>) => {
-      assert(params, Withdraw);
+    withdraw: (args: Infer<typeof Withdraw>) => {
+      assert(args, Withdraw);
 
-      const { pot_id, ...other } = params;
+      const { pot_id, ...other } = args;
 
       const endpointUrl = buildPotsWithdrawalUrl(pot_id);
 
