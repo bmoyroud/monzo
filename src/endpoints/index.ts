@@ -1,4 +1,4 @@
-export { default as whoAmI } from "./whoAmI";
+export { default as auth } from "./auth";
 export { default as accounts } from "./accounts";
 export { default as balance } from "./balance";
 export { default as pots } from "./pots";

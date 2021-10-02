@@ -8,7 +8,7 @@ import { buildError } from "./utils/errors";
 import { buildHeaders, parseError, parseResponse } from "./utils/http";
 
 class Monzo {
-  whoAmI;
+  auth;
   accounts;
   balance;
   pots;
@@ -33,7 +33,7 @@ class Monzo {
       (err) => parseError(err)
     );
 
-    this.whoAmI = endpoints.whoAmI(client);
+    this.auth = endpoints.auth(client);
     this.accounts = endpoints.accounts(client);
     this.balance = endpoints.balance(client);
     this.pots = endpoints.pots(client);
