@@ -7,7 +7,7 @@ import {
   PotsEndpoint,
   TransactionsEndpoint,
   FeedEndpoint,
-  AttachmentEndpoint,
+  AttachmentsEndpoint,
   ReceiptsEndpoint,
   WebhooksEndpoint,
 } from "./endpoints";
@@ -24,7 +24,7 @@ class Monzo {
   public pots;
   public transactions;
   public feed;
-  public attachment;
+  public attachments;
   public receipts;
   public webhooks;
 
@@ -49,7 +49,7 @@ class Monzo {
     this.pots = new PotsEndpoint(client);
     this.transactions = new TransactionsEndpoint(client);
     this.feed = new FeedEndpoint(client);
-    this.attachment = new AttachmentEndpoint(client);
+    this.attachments = new AttachmentsEndpoint(client);
     this.receipts = new ReceiptsEndpoint(client);
     this.webhooks = new WebhooksEndpoint(client);
   }

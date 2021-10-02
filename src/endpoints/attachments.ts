@@ -11,7 +11,7 @@ import {
 } from "../utils/urls";
 import { encodeData } from "../utils/http";
 
-class AttachmentEndpoint extends Endpoint {
+class AttachmentsEndpoint extends Endpoint {
   upload(args: Infer<typeof UploadStruct>) {
     assert(args, UploadStruct);
 
@@ -45,4 +45,4 @@ class AttachmentEndpoint extends Endpoint {
   }
 }
 
-export default AttachmentEndpoint;
+export default AttachmentsEndpoint;
