@@ -1,12 +1,12 @@
-import { AxiosInstance } from "axios";
+import Endpoint from "./endpoint";
 import { WhoAmI } from "../monzo";
 import { buildWhoAmIUrl } from "../utils/urls";
 
-export default (client: AxiosInstance) => {
-  return {
-    whoAmI: () => {
-      const endpointUrl = buildWhoAmIUrl();
-      return client.get<void, WhoAmI>(endpointUrl);
-    },
-  };
-};
+class AuthEndpoint extends Endpoint {
+  whoAmI() {
+    const endpointUrl = buildWhoAmIUrl();
+    return this.client.get<void, WhoAmI>(endpointUrl);
+  }
+}
+
+export default AuthEndpoint;

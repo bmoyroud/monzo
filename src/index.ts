@@ -1,6 +1,16 @@
 import axios from "axios";
 
-import * as endpoints from "./endpoints";
+import {
+  AuthEndpoint,
+  AccountsEndpoint,
+  BalanceEndpoint,
+  PotsEndpoint,
+  TransactionsEndpoint,
+  FeedEndpoint,
+  AttachmentEndpoint,
+  ReceiptsEndpoint,
+  WebhooksEndpoint,
+} from "./endpoints";
 
 import { MISSING_ACCESS_TOKEN } from "./constants/errors";
 import { BASE_URL } from "./constants/urls";
@@ -8,15 +18,15 @@ import { buildError } from "./utils/errors";
 import { buildHeaders, parseError, parseResponse } from "./utils/http";
 
 class Monzo {
-  auth;
-  accounts;
-  balance;
-  pots;
-  transactions;
-  feed;
-  attachment;
-  receipts;
-  webhooks;
+  public auth;
+  public accounts;
+  public balance;
+  public pots;
+  public transactions;
+  public feed;
+  public attachment;
+  public receipts;
+  public webhooks;
 
   constructor(accessToken: string) {
     if (!accessToken) {
@@ -33,15 +43,15 @@ class Monzo {
       (err) => parseError(err)
     );
 
-    this.auth = endpoints.auth(client);
-    this.accounts = endpoints.accounts(client);
-    this.balance = endpoints.balance(client);
-    this.pots = endpoints.pots(client);
-    this.transactions = endpoints.transactions(client);
-    this.feed = endpoints.feed(client);
-    this.attachment = endpoints.attachment(client);
-    this.receipts = endpoints.receipts(client);
-    this.webhooks = endpoints.webhooks(client);
+    this.auth = new AuthEndpoint(client);
+    this.accounts = new AccountsEndpoint(client);
+    this.balance = new BalanceEndpoint(client);
+    this.pots = new PotsEndpoint(client);
+    this.transactions = new TransactionsEndpoint(client);
+    this.feed = new FeedEndpoint(client);
+    this.attachment = new AttachmentEndpoint(client);
+    this.receipts = new ReceiptsEndpoint(client);
+    this.webhooks = new WebhooksEndpoint(client);
   }
 }
 
