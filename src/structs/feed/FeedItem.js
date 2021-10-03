@@ -1,10 +1,10 @@
 const { object, string, enums, optional } = require("superstruct");
+const URL = require("../common/URL");
 
 const BasicFeedItem = object({
   // TODO: add max length?
   title: string(),
-  // TODO: add url validator?
-  image_url: string(),
+  image_url: URL,
   body: optional(string()),
   // TODO: add regex to validate hex color?
   background_color: optional(string()),
@@ -19,8 +19,7 @@ const FeedItem = object({
   type: enums(["basic"]),
   // TODO: add function to choose struct based on type
   params: BasicFeedItem,
-  // TODO: add url validator
-  url: optional(string()),
+  url: optional(URL),
 });
 
 module.exports = FeedItem;
