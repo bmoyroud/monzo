@@ -1,8 +1,8 @@
 const { object, optional, enums, assign } = require("superstruct");
+const { accountTypes } = require("../../constants/types");
 const { Pagination } = require("../common/Pagination");
 
-// TODO: add list of valid account types to constants?
-const Type = enums(["uk_prepaid", "uk_retail", "uk_retail_joint"]);
+const Type = enums(accountTypes);
 
 const AccountType = object({
   account_type: optional(Type),

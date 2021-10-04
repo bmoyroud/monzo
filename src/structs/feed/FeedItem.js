@@ -6,11 +6,12 @@ const {
   pattern,
   dynamic,
 } = require("superstruct");
+const { feedItemTypes } = require("../../constants/types");
 const URL = require("../common/URL");
 
 const HexColor = pattern(string(), /^#(?:[0-9a-fA-F]{3}){1,2}$/);
 
-const FeedItemType = enums(["basic"]);
+const FeedItemType = enums(feedItemTypes);
 
 const BasicFeedItemParams = object({
   title: string(),
@@ -42,8 +43,6 @@ const FeedItemsParams = dynamic((value, ctx) => {
 
 const FeedItem = object({
   account_id: string(),
-  // TODO: default to basic
-  // TODO: add list of valid feed types to constants?
   type: FeedItemType,
   params: FeedItemsParams,
   url: optional(URL),
