@@ -22,11 +22,13 @@ const Item = object({
   unit: optional(string()),
 });
 
-const ReceiptItem = assign(
+const SubItem = Item;
+
+const MainItem = assign(
   Item,
   object({
-    sub_items: optional(array(Item)),
+    sub_items: optional(array(SubItem)),
   })
 );
 
-export const Items = size(array(ReceiptItem), 1, Infinity);
+export const Items = size(array(MainItem), 1, Infinity);
