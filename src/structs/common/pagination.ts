@@ -1,10 +1,9 @@
-import { object, number, max, string, optional, assign } from "superstruct";
+import { object, number, max, optional, assign } from "superstruct";
+import { RFC3339 } from "./refinements";
 
 const TimeBasedPagination = object({
-  // TODO: add RFC3339 encoded timestamp validation for since and before
-  // this would avoid throwing errors when calling new Date()?
-  since: optional(string()),
-  before: optional(string()),
+  since: optional(RFC3339),
+  before: optional(RFC3339),
 });
 
 export const CursorBasedPagination = object({
