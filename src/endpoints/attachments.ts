@@ -1,8 +1,7 @@
 import { assert, Infer } from "superstruct";
 import Endpoint from "./endpoint";
-import UploadStruct from "../structs/attachment/Upload";
-import Register from "../structs/attachment/Register";
-import Id from "../structs/common/Id";
+import { Upload as UploadStruct, Register } from "../structs/attachments";
+import { Id } from "../structs/common/id";
 import { Attachment, Upload } from "../monzo";
 import {
   buildAttachmentUploadUrl,

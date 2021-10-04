@@ -1,6 +1,6 @@
 import { assert, Infer } from "superstruct";
 import Endpoint from "./endpoint";
-import FeedItem from "../structs/feed/FeedItem";
+import { FeedItem } from "../structs/feed";
 import { buildFeedUrl } from "../utils/urls";
 import { encodeData } from "../utils/http";
 
