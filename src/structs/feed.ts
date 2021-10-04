@@ -1,8 +1,8 @@
 import { object, string, enums, optional, dynamic } from "superstruct";
 import { URL, HexColor } from "./common/refinements";
-import { feedItemTypes } from "../constants/types";
+import { feedItems } from "../constants/types";
 
-const FeedItemType = enums(feedItemTypes);
+const FeedItemType = enums(feedItems);
 
 const BasicFeedItemParams = object({
   title: string(),
