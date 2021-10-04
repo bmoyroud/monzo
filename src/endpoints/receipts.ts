@@ -8,7 +8,7 @@ import { buildReceiptsUrl } from "../utils/urls";
 const endpointUrl = buildReceiptsUrl();
 
 class ReceiptsEndpoint extends Endpoint {
-  create(args: Infer<typeof ReceiptParams>) {
+  save(args: Infer<typeof ReceiptParams>) {
     assert(args, ReceiptParams);
     return this.client.put<void, {}>(endpointUrl, args);
   }
