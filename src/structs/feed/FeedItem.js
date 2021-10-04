@@ -3,6 +3,8 @@ const URL = require("../common/URL");
 
 const HexColor = pattern(string(), /^#(?:[0-9a-fA-F]{3}){1,2}$/);
 
+const FeedItemType = enums(["basic"]);
+
 const BasicFeedItem = object({
   title: string(),
   image_url: URL,
@@ -16,7 +18,7 @@ const FeedItem = object({
   account_id: string(),
   // TODO: default to basic
   // TODO: add list of valid feed types to constants?
-  type: enums(["basic"]),
+  type: FeedItemType,
   // TODO: add function to choose struct based on type
   params: BasicFeedItem,
   url: optional(URL),
