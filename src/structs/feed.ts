@@ -1,15 +1,6 @@
-const {
-  object,
-  string,
-  enums,
-  optional,
-  pattern,
-  dynamic,
-} = require("superstruct");
-const { feedItemTypes } = require("../../constants/types");
-const URL = require("../common/URL");
-
-const HexColor = pattern(string(), /^#(?:[0-9a-fA-F]{3}){1,2}$/);
+import { object, string, enums, optional, dynamic } from "superstruct";
+import { URL, HexColor } from "./common/refinements";
+import { feedItemTypes } from "../constants/types";
 
 const FeedItemType = enums(feedItemTypes);
 
@@ -22,9 +13,7 @@ const BasicFeedItemParams = object({
   body_color: optional(HexColor),
 });
 
-// @ts-ignore
-function chooseParams(type) {
-  console.log(type);
+function chooseParams(type: string) {
   switch (type) {
     case "basic": {
       return BasicFeedItemParams;
@@ -41,11 +30,9 @@ const FeedItemsParams = dynamic((value, ctx) => {
   return chooseParams(type);
 });
 
-const FeedItem = object({
+export const FeedItem = object({
   account_id: string(),
   type: FeedItemType,
   params: FeedItemsParams,
   url: optional(URL),
 });
-
-module.exports = FeedItem;
