@@ -1,4 +1,4 @@
 import { enums } from "superstruct";
+import { currencies } from "../../constants/types";
 
-// TODO: replace with enum and list of valid currencies?
-export const Currency = enums(["GBP", "USD"]);
+export const Currency = enums(currencies);
