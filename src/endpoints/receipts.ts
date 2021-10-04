@@ -1,7 +1,7 @@
 import { assert, Infer } from "superstruct";
 import Endpoint from "./endpoint";
 import ReceiptParams from "../structs/receipts/Receipt";
-import ExternalId from "../structs/receipts/ExternalId";
+import Id from "../structs/common/Id";
 import { Receipt } from "../monzo";
 import { buildReceiptsUrl } from "../utils/urls";
 
@@ -13,15 +13,17 @@ class ReceiptsEndpoint extends Endpoint {
     return this.client.put<void, {}>(endpointUrl, args);
   }
 
-  retrieve(args: Infer<typeof ExternalId>) {
-    assert(args, ExternalId);
+  retrieve(externalId: Infer<typeof Id>) {
+    assert(externalId, Id);
+    const args = { external_id: externalId };
     return this.client
       .get<void, { receipt: Receipt }>(endpointUrl, { params: args })
       .then((data) => data.receipt);
   }
 
-  delete(args: Infer<typeof ExternalId>) {
-    assert(args, ExternalId);
+  delete(externalId: Infer<typeof Id>) {
+    assert(externalId, Id);
+    const args = { external_id: externalId };
     return this.client.delete<void, any>(endpointUrl, { params: args });
   }
 }

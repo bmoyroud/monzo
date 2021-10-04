@@ -2,7 +2,7 @@ import { assert, Infer } from "superstruct";
 import Endpoint from "./endpoint";
 import Create from "../structs/webhooks/Create";
 import List from "../structs/webhooks/List";
-import Delete from "../structs/webhooks/Delete";
+import Id from "../structs/common/Id";
 import AccountId from "../structs/common/AccountId";
 import { Webhook } from "../monzo";
 import { buildWebhooksUrl, buildWebhookUrl } from "../utils/urls";
@@ -42,12 +42,10 @@ class WebhooksEndpoint extends Endpoint {
     return webhooks;
   }
 
-  delete(args: Infer<typeof Delete>) {
-    assert(args, Delete);
+  delete(webhookId: Infer<typeof Id>) {
+    assert(webhookId, Id);
 
-    const { webhook_id } = args;
-
-    const endpointUrl = buildWebhookUrl(webhook_id);
+    const endpointUrl = buildWebhookUrl(webhookId);
 
     return this.client.delete<void, {}>(endpointUrl);
   }
@@ -60,8 +58,8 @@ class WebhooksEndpoint extends Endpoint {
     const webhooks = await this.list({ account_id });
 
     for (let i = 0; i < webhooks.length; i++) {
-      const { id: webhookId } = webhooks[i];
-      await this.delete({ webhook_id: webhookId });
+      const { id } = webhooks[i];
+      await this.delete(id);
     }
   }
 }
