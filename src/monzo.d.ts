@@ -99,6 +99,13 @@ type Scheme =
   | "uk_retail_pot"
   | "bacs";
 
+type DeclineReason =
+  | "INSUFFICIENT_FUNDS"
+  | "CARD_INACTIVE"
+  | "CARD_BLOCKED"
+  | "INVALID_CVC"
+  | "OTHER";
+
 export interface Transaction {
   account_id: string;
   amount: number;
@@ -115,6 +122,7 @@ export interface Transaction {
   counterparty: CounterParty;
   created: string;
   currency: Currency;
+  decline_reason?: DeclineReason;
   dedupe_id: string;
   description: string;
   fees: {};
