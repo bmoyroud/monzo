@@ -86,8 +86,8 @@ type TransactionCategory =
   | "shopping"
   | "holidays"
   | "general"
-  | "transport"
   | "eating_out"
+  | "transport"
   | "groceries"
   | "transfers"
   // TODO: with Monzo Plus user can create their own categories
@@ -223,19 +223,10 @@ interface Item {
   unit?: string;
   // despite what docs says - this field is required!
   tax: number;
-  sub_items: SubItem[];
 }
 
-// TODO: simplify this with the one above?
-interface SubItem {
-  description: string;
-  amount: number;
-  currency: Currency;
-  // TODO: make 2 fields below optional? will they always appear on response
-  quantity?: number;
-  unit?: string;
-  // despite what docs says - this field is required!
-  tax: number;
+interface MainItem extends Item {
+  sub_items: Item[];
 }
 
 // TODO: check receipt optional fields? are they optional if we use type as API response?
@@ -278,7 +269,7 @@ export interface Receipt {
   merchant?: Merchant;
   payments?: Payment[];
   taxes?: Tax[];
-  items: Item[];
+  items: MainItem[];
   barcode?: null;
 }
 
