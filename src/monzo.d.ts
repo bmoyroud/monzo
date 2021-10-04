@@ -77,20 +77,24 @@ export interface Pot {
   has_virtual_cards: boolean;
 }
 
-// TODO: add all basic Monzo categories?
 type TransactionCategory =
-  | "entertainment"
-  | "income"
-  | "savings"
-  | "bills"
-  | "shopping"
-  | "holidays"
+  // top-ups have category 'mondo'
+  | "mondo"
   | "general"
   | "eating_out"
+  | "expenses"
   | "transport"
+  | "cash"
+  | "bills"
+  | "entertainment"
+  | "shopping"
+  | "holidays"
   | "groceries"
+  // above are the ones from docs
+  | "income"
+  | "savings"
   | "transfers"
-  // TODO: with Monzo Plus user can create their own categories
+  // note: with Monzo Plus, users can create their own categories
   | string;
 
 type Scheme =
