@@ -1,4 +1,4 @@
-import { pattern, refine, string } from "superstruct";
+import { min, number, pattern, refine, string } from "superstruct";
 import { URL as NodeURL } from "url";
 
 export const URL = refine(string(), "URL", (value) => {
@@ -17,3 +17,5 @@ export const RFC3339 = pattern(
   string(),
   /^\\d{4}-\\d{2}-\\d{2}T\\d{2}%3A\\d{2}%3A\\d{2}(?:%2E\\d+)?[A-Z]?(?:[+.-](?:08%3A\\d{2}|\\d{2}[A-Z]))?$/
 );
+
+export const Positive = min(number(), 0, { exclusive: true });
