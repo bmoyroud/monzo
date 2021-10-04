@@ -1,15 +1,15 @@
-const { object, string, enums, optional } = require("superstruct");
+const { object, string, enums, optional, pattern } = require("superstruct");
 const URL = require("../common/URL");
 
+const HexColor = pattern(string(), /^#(?:[0-9a-fA-F]{3}){1,2}$/);
+
 const BasicFeedItem = object({
-  // TODO: add max length?
   title: string(),
   image_url: URL,
   body: optional(string()),
-  // TODO: add regex to validate hex color?
-  background_color: optional(string()),
-  title_color: optional(string()),
-  body_color: optional(string()),
+  background_color: optional(HexColor),
+  title_color: optional(HexColor),
+  body_color: optional(HexColor),
 });
 
 const FeedItem = object({
