@@ -15,7 +15,7 @@ import { filterResults } from "../utils/pagination";
 class PotsEndpoint extends Endpoint {
   async list(
     accountId: Infer<typeof Id>,
-    pagination?: Infer<typeof Pagination>
+    pagination: Infer<typeof Pagination> = {}
   ) {
     assert(accountId, Id);
     assert(pagination, Pagination);

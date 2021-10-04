@@ -9,7 +9,7 @@ import { filterResults } from "../utils/pagination";
 class AccountEndpoint extends Endpoint {
   async list(
     accountType: Infer<typeof AccountType>,
-    pagination?: Infer<typeof Pagination>
+    pagination: Infer<typeof Pagination> = {}
   ) {
     assert(accountType, AccountType);
     assert(pagination, Pagination);
