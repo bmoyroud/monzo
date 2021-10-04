@@ -1,21 +1,22 @@
-import { object, string, number, assign } from "superstruct";
+import { object, number, assign } from "superstruct";
+import { Id } from "./common/id";
 
 const Pot = object({
-  pot_id: string(),
+  pot_id: Id,
   amount: number(),
-  dedupe_id: string(),
+  dedupe_id: Id,
 });
 
 export const Deposit = assign(
   Pot,
   object({
-    source_account_id: string(),
+    source_account_id: Id,
   })
 );
 
 export const Withdraw = assign(
   Pot,
   object({
-    destination_account_id: string(),
+    destination_account_id: Id,
   })
 );
