@@ -1,17 +1,24 @@
 import { assert, Infer } from "superstruct";
 import Endpoint from "./endpoint";
-import List from "../structs/transactions/List";
-import Retrieve from "../structs/transactions/Retrieve";
-import Annotate from "../structs/transactions/Annotate";
+import { Id } from "../structs/common/id";
+import { Pagination } from "../structs/common/pagination";
+import { Retrieve, Annotate } from "../structs/transactions";
 import { Transaction } from "../monzo";
 import { buildTransactionsUrl, buildTransactionUrl } from "../utils/urls";
 import { encodeData } from "../utils/http";
 
 class TransactionsEndpoint extends Endpoint {
-  list(args: Infer<typeof List>) {
-    assert(args, List);
+  list(accountId: Infer<typeof Id>, pagination?: Infer<typeof Pagination>) {
+    assert(accountId, Id);
+    assert(pagination, Pagination);
 
     const endpointUrl = buildTransactionsUrl();
+
+    // pagination is handled by Monzo API
+    const args = {
+      account_id: accountId,
+      ...pagination,
+    };
 
     return this.client
       .get<void, { transactions: Transaction[] }>(endpointUrl, {
@@ -27,6 +34,7 @@ class TransactionsEndpoint extends Endpoint {
 
     const endpointUrl = buildTransactionUrl(transaction_id);
 
+    // TODO: simplify this?
     if (expand_merchant) {
       return this.client
         .get<void, { transaction: Transaction }>(endpointUrl, {

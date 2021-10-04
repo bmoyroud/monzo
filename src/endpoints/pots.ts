@@ -1,8 +1,8 @@
 import { assert, Infer } from "superstruct";
 import Endpoint from "./endpoint";
-import List from "../structs/pots/List";
-import Deposit from "../structs/pots/Deposit";
-import Withdraw from "../structs/pots/Withdraw";
+import { Id } from "../structs/common/id";
+import { Pagination } from "../structs/common/pagination";
+import { Deposit, Withdraw } from "../structs/pots";
 import { Pot } from "../monzo";
 import {
   buildPotsUrl,
@@ -13,16 +13,18 @@ import { encodeData } from "../utils/http";
 import { filterResults, isPaginated } from "../utils/pagination";
 
 class PotsEndpoint extends Endpoint {
-  async list(args: Infer<typeof List>) {
-    assert(args, List);
-
-    const { account_id, ...pagination } = args;
+  async list(
+    accountId: Infer<typeof Id>,
+    pagination?: Infer<typeof Pagination>
+  ) {
+    assert(accountId, Id);
+    assert(pagination, Pagination);
 
     const endpointUrl = buildPotsUrl();
 
     const pots = await this.client
       .get<void, { pots: Pot[] }>(endpointUrl, {
-        params: { current_account_id: account_id },
+        params: { current_account_id: accountId },
       })
       .then((data) => data.pots);
 

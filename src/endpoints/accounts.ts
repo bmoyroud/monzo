@@ -1,21 +1,24 @@
 import { assert, Infer } from "superstruct";
 import Endpoint from "./endpoint";
 import { Account } from "../monzo";
-import List from "../structs/accounts/List";
+import { AccountType } from "../structs/accounts";
+import { Pagination } from "../structs/common/pagination";
 import { buildAccountsUrl } from "../utils/urls";
 import { filterResults, isPaginated } from "../utils/pagination";
 
 class AccountEndpoint extends Endpoint {
-  async list(args: Infer<typeof List> = {}) {
-    assert(args, List);
-
-    const { account_type, ...pagination } = args;
+  async list(
+    accountType: Infer<typeof AccountType>,
+    pagination?: Infer<typeof Pagination>
+  ) {
+    assert(accountType, AccountType);
+    assert(pagination, Pagination);
 
     const endpointUrl = buildAccountsUrl();
 
     const accounts = await this.client
       .get<void, { accounts: Account[] }>(endpointUrl, {
-        params: { account_type },
+        params: { account_type: accountType },
       })
       .then((data) => data.accounts);
 
