@@ -6,7 +6,7 @@ import { CursorBasedPagination } from "../structs/common/pagination";
 import { Webhook } from "../monzo";
 import { buildWebhooksUrl, buildWebhookUrl } from "../utils/urls";
 import { encodeData } from "../utils/http";
-import { isLimited, limitResults } from "../utils/pagination";
+import { limitResults } from "../utils/pagination";
 
 class WebhooksEndpoint extends Endpoint {
   create(args: Infer<typeof Create>) {
@@ -36,8 +36,8 @@ class WebhooksEndpoint extends Endpoint {
       })
       .then((data) => data.webhooks);
 
-    if (isLimited(pagination)) {
-      return limitResults(webhooks, pagination);
+    if (pagination.limit) {
+      return limitResults(webhooks, pagination.limit);
     }
 
     return webhooks;

@@ -38,15 +38,8 @@ function limitFilter(limit: number) {
   return callbackFn;
 }
 
-export const isLimited = (pagination: Infer<typeof Pagination>) =>
-  pagination.hasOwnProperty("limit");
-
-export function limitResults<T>(
-  arr: T[],
-  pagination: Infer<typeof Pagination>
-) {
-  const { limit } = pagination;
-  return arr.filter(limit ? limitFilter(limit) : noFilter);
+export function limitResults<T>(arr: T[], limit: number) {
+  return arr.filter(limitFilter(limit));
 }
 
 export function filterResults<T extends ICreated>(
