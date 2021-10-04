@@ -6,19 +6,33 @@ const {
   optional,
   enums,
   boolean,
+  assign,
+  min,
+  defaulted,
 } = require("superstruct");
 
-const ReceiptItem = object({
+// TODO: replace with enum and list of valid currencies?
+const Currency = enums(["GBP", "USD"]);
+
+const Positive = min(number(), 0, { exclusive: true });
+
+const Quantity = defaulted(Positive, 1);
+
+const Item = object({
   description: string(),
   amount: number(),
-  // TODO: replace with enum and list of valid currencies?
-  currency: string(),
-  quantity: optional(number()),
+  currency: Currency,
+  tax: number(),
+  quantity: optional(Quantity),
   unit: optional(string()),
-  tax: optional(number()),
-  // TODO: how to deal with cyclical?
-  // sub_items: optional(array(ReceiptItem)),
 });
+
+const ReceiptItem = assign(
+  Item,
+  object({
+    sub_items: optional(array(Item)),
+  })
+);
 
 const Tax = object({
   description: string(),
@@ -27,9 +41,11 @@ const Tax = object({
   tax_number: optional(string()),
 });
 
+// TODO: move valid payment types to constants?
+const PaymentType = enums(["cash", "cash", "gift_card"]);
+
 const Payment = object({
-  // TODO: move valid payment types to constants?
-  type: enums(["cash", "cash", "gift_card"]),
+  type: PaymentType,
   amount: number(),
   currency: string(),
   last_four: optional(string()),
@@ -49,9 +65,8 @@ const Merchant = object({
 const Receipt = object({
   transaction_id: string(),
   external_id: string(),
-  total: number(),
-  // TODO: replace with enum and list of valid currencies?
-  currency: string(),
+  total: Positive,
+  currency: Currency,
   items: array(ReceiptItem),
   taxes: optional(array(Tax)),
   payments: optional(array(Payment)),
