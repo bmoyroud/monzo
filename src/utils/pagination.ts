@@ -41,11 +41,6 @@ function limitFilter(limit: number) {
 export const isLimited = (pagination: Infer<typeof Pagination>) =>
   pagination.hasOwnProperty("limit");
 
-export const isPaginated = (pagination: Infer<typeof Pagination>) =>
-  pagination.hasOwnProperty("since") ||
-  pagination.hasOwnProperty("before") ||
-  pagination.hasOwnProperty("limit");
-
 export function limitResults<T>(
   arr: T[],
   pagination: Infer<typeof Pagination>

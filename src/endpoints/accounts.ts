@@ -4,7 +4,7 @@ import { Account } from "../monzo";
 import { AccountType } from "../structs/accounts";
 import { Pagination } from "../structs/common/pagination";
 import { buildAccountsUrl } from "../utils/urls";
-import { filterResults, isPaginated } from "../utils/pagination";
+import { filterResults } from "../utils/pagination";
 
 class AccountEndpoint extends Endpoint {
   async list(
@@ -22,7 +22,7 @@ class AccountEndpoint extends Endpoint {
       })
       .then((data) => data.accounts);
 
-    if (isPaginated(pagination)) {
+    if (pagination) {
       return filterResults(accounts, pagination);
     }
 

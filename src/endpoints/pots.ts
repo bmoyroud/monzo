@@ -10,7 +10,7 @@ import {
   buildPotsWithdrawalUrl,
 } from "../utils/urls";
 import { encodeData } from "../utils/http";
-import { filterResults, isPaginated } from "../utils/pagination";
+import { filterResults } from "../utils/pagination";
 
 class PotsEndpoint extends Endpoint {
   async list(
@@ -28,7 +28,7 @@ class PotsEndpoint extends Endpoint {
       })
       .then((data) => data.pots);
 
-    if (isPaginated(pagination)) {
+    if (pagination) {
       return filterResults(pots, pagination);
     }
 
