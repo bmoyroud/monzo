@@ -1,4 +1,4 @@
-const {
+import {
   object,
   string,
   number,
@@ -10,7 +10,7 @@ const {
   min,
   defaulted,
   size,
-} = require("superstruct");
+} from "superstruct";
 
 // TODO: replace with enum and list of valid currencies?
 const Currency = enums(["GBP", "USD"]);
@@ -63,7 +63,7 @@ const Merchant = object({
   store_postcode: optional(string()),
 });
 
-const Receipt = object({
+export const Receipt = object({
   transaction_id: string(),
   external_id: string(),
   total: Positive,
@@ -73,5 +73,3 @@ const Receipt = object({
   payments: optional(array(Payment)),
   merchant: optional(Merchant),
 });
-
-module.exports = Receipt;
