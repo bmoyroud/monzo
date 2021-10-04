@@ -1,4 +1,4 @@
-import { object, number, max, optional, assign } from "superstruct";
+import { object, number, optional, assign, size } from "superstruct";
 import { RFC3339 } from "./refinements";
 
 const TimeBasedPagination = object({
@@ -7,8 +7,7 @@ const TimeBasedPagination = object({
 });
 
 export const CursorBasedPagination = object({
-  // TODO: add minimum 0?
-  limit: optional(max(number(), 100)),
+  limit: optional(size(number(), 0, 100)),
 });
 
 export const Pagination = assign(TimeBasedPagination, CursorBasedPagination);
