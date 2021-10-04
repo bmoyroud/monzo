@@ -1,11 +1,18 @@
-const { object, string, enums, optional, pattern } = require("superstruct");
+const {
+  object,
+  string,
+  enums,
+  optional,
+  pattern,
+  dynamic,
+} = require("superstruct");
 const URL = require("../common/URL");
 
 const HexColor = pattern(string(), /^#(?:[0-9a-fA-F]{3}){1,2}$/);
 
 const FeedItemType = enums(["basic"]);
 
-const BasicFeedItem = object({
+const BasicFeedItemParams = object({
   title: string(),
   image_url: URL,
   body: optional(string()),
@@ -14,13 +21,31 @@ const BasicFeedItem = object({
   body_color: optional(HexColor),
 });
 
+// @ts-ignore
+function chooseParams(type) {
+  console.log(type);
+  switch (type) {
+    case "basic": {
+      return BasicFeedItemParams;
+    }
+
+    default:
+      throw new Error("Only basic type allowed for feed item.");
+  }
+}
+
+const FeedItemsParams = dynamic((value, ctx) => {
+  const parent = ctx.branch[0];
+  const { type } = parent;
+  return chooseParams(type);
+});
+
 const FeedItem = object({
   account_id: string(),
   // TODO: default to basic
   // TODO: add list of valid feed types to constants?
   type: FeedItemType,
-  // TODO: add function to choose struct based on type
-  params: BasicFeedItem,
+  params: FeedItemsParams,
   url: optional(URL),
 });
 
