@@ -9,6 +9,7 @@ const {
   assign,
   min,
   defaulted,
+  size,
 } = require("superstruct");
 
 // TODO: replace with enum and list of valid currencies?
@@ -67,7 +68,7 @@ const Receipt = object({
   external_id: string(),
   total: Positive,
   currency: Currency,
-  items: array(ReceiptItem),
+  items: size(array(ReceiptItem), 1, Infinity),
   taxes: optional(array(Tax)),
   payments: optional(array(Payment)),
   merchant: optional(Merchant),
