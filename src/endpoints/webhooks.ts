@@ -23,7 +23,7 @@ class WebhooksEndpoint extends Endpoint {
 
   async list(
     accountId: Infer<typeof Id>,
-    pagination: Infer<typeof CursorBasedPagination> = {}
+    pagination: CursorBasedPagination = {}
   ) {
     assert(accountId, Id);
     assert(pagination, CursorBasedPagination);

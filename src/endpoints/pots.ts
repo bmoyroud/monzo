@@ -13,10 +13,7 @@ import { encodeData } from "../utils/http";
 import { filterResults } from "../utils/pagination";
 
 class PotsEndpoint extends Endpoint {
-  async list(
-    accountId: Infer<typeof Id>,
-    pagination: Infer<typeof Pagination> = {}
-  ) {
+  async list(accountId: Infer<typeof Id>, pagination: Pagination = {}) {
     assert(accountId, Id);
     assert(pagination, Pagination);
 

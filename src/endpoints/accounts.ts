@@ -7,10 +7,7 @@ import { buildAccountsUrl } from "../utils/urls";
 import { filterResults } from "../utils/pagination";
 
 class AccountEndpoint extends Endpoint {
-  async list(
-    accountType: Infer<typeof AccountType>,
-    pagination: Infer<typeof Pagination> = {}
-  ) {
+  async list(accountType: AccountType, pagination: Pagination = {}) {
     assert(accountType, AccountType);
     assert(pagination, Pagination);
 
