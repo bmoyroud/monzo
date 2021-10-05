@@ -1,5 +1,5 @@
 import { object, number, assign, Infer } from "superstruct";
-import { Id } from "./common/id";
+import { Id } from "./common";
 
 const Pot = object({
   pot_id: Id,

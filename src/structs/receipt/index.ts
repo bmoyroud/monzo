@@ -1,6 +1,5 @@
 import { array, object, optional } from "superstruct";
-import { Id } from "../common/id";
-import { Positive } from "../common/refinements";
+import { Id, Positive } from "../common";
 import { Currency } from "./currency";
 import { Items } from "./items";
 import { Merchant } from "./merchant";

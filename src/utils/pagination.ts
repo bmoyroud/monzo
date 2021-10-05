@@ -1,5 +1,5 @@
 import { Infer } from "superstruct";
-import { Pagination } from "../structs/common/pagination";
+import { Pagination } from "../structs/common";
 
 // ensure object has .created property
 // TODO: move to monzo.ts?

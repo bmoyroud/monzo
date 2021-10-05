@@ -8,7 +8,7 @@ import {
   size,
   string,
 } from "superstruct";
-import { Positive } from "../common/refinements";
+import { Positive } from "../common";
 import { Currency } from "./currency";
 
 const Quantity = defaulted(Positive, 1);

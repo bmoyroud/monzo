@@ -1,5 +1,5 @@
 import { object, boolean, optional, Infer } from "superstruct";
-import { Id } from "./common/id";
+import { Id } from "./common";
 
 export type Retrieve = Infer<typeof Retrieve>;
 export const Retrieve = object({

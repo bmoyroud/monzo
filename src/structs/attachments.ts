@@ -1,6 +1,5 @@
 import { object, string, number, Infer } from "superstruct";
-import { Id } from "./common/id";
-import { URL } from "./common/refinements";
+import { Id, URL } from "./common";
 
 // TODO: add enum of accepted file_type types
 

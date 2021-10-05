@@ -1,7 +1,7 @@
-import { assert, Infer } from "superstruct";
+import { assert } from "superstruct";
 import Endpoint from "./endpoint";
 import { Balance } from "../types/monzo";
-import { Id } from "../structs/common/id";
+import { Id } from "../structs/common";
 import { buildBalanceUrl } from "../utils/urls";
 
 class BalanceEndpoint extends Endpoint {

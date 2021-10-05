@@ -1,7 +1,7 @@
 import { assert, create, Infer } from "superstruct";
 import Endpoint from "./endpoint";
 import { Receipt as ReceiptParams } from "../structs/receipt";
-import { Id } from "../structs/common/id";
+import { Id } from "../structs/common";
 import { Receipt } from "../types/monzo";
 import { buildReceiptsUrl } from "../utils/urls";
 import checkReceipt from "../utils/receipt";

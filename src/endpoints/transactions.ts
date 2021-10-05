@@ -1,7 +1,6 @@
 import { assert } from "superstruct";
 import Endpoint from "./endpoint";
-import { Id } from "../structs/common/id";
-import { Pagination } from "../structs/common/pagination";
+import { Id, Pagination } from "../structs/common";
 import { Retrieve, Annotate } from "../structs/transactions";
 import { Transaction } from "../types/monzo";
 import { buildTransactionsUrl, buildTransactionUrl } from "../utils/urls";

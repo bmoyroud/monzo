@@ -1,6 +1,6 @@
 import { assert } from "superstruct";
 import Endpoint from "./endpoint";
-import { Id } from "../structs/common/id";
+import { Id } from "../structs/common";
 import { Upload, Register } from "../structs/attachments";
 import { Attachment, UploadResponse } from "../types/monzo";
 import {
