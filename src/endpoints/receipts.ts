@@ -1,29 +1,29 @@
-import { assert, create, Infer } from "superstruct";
+import { assert } from "superstruct";
 import Endpoint from "./endpoint";
-import { Receipt as ReceiptParams } from "../structs/receipt";
 import { Id } from "../structs/common";
-import { Receipt } from "../types/monzo";
 import { buildReceiptsUrl } from "../utils/urls";
 import checkReceipt from "../utils/receipt";
+import { ReceiptReq } from "../structs/receipt";
 
 const endpointUrl = buildReceiptsUrl();
 
 class ReceiptsEndpoint extends Endpoint {
-  save(args: Infer<typeof ReceiptParams>) {
-    const receipt = create(args, ReceiptParams);
-    checkReceipt(receipt);
-    return this.client.put<void, {}>(endpointUrl, receipt);
+  save(args: ReceiptReq) {
+    assert(args, ReceiptReq);
+    checkReceipt(args);
+    return this.client.put<void, {}>(endpointUrl, args);
   }
 
   retrieve(externalId: Id) {
     assert(externalId, Id);
     const args = { external_id: externalId };
     return this.client
-      .get<void, { receipt: Receipt }>(endpointUrl, { params: args })
+      .get<void, { receipt: any }>(endpointUrl, { params: args })
       .then((data) => data.receipt);
   }
 
   /**
+   * @deprecated
    * Note: currently not working (403 - insufficient permissions).
    */
   delete(externalId: Id) {
