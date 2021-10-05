@@ -1,6 +1,6 @@
 import { assert } from "superstruct";
 import Endpoint from "./endpoint";
-import { Balance } from "../types/monzo";
+import { Balance } from "../types/monzo-api";
 import { Id } from "../structs/common";
 import { buildBalanceUrl } from "../utils/urls";
 

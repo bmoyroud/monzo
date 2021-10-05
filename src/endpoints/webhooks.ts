@@ -2,7 +2,7 @@ import { assert } from "superstruct";
 import Endpoint from "./endpoint";
 import { Create } from "../structs/webhooks";
 import { Id, CursorBasedPagination } from "../structs/common";
-import { Webhook } from "../types/monzo";
+import { Webhook } from "../types/monzo-api";
 import { buildWebhooksUrl, buildWebhookUrl } from "../utils/urls";
 import { encodeData } from "../utils/http";
 import { limitResults } from "../utils/pagination";

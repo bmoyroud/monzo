@@ -2,7 +2,7 @@ import { assert } from "superstruct";
 import Endpoint from "./endpoint";
 import { Id, Pagination } from "../structs/common";
 import { Deposit, Withdraw } from "../structs/pots";
-import { Pot } from "../types/monzo";
+import { Pot } from "../types/monzo-api";
 import {
   buildPotsUrl,
   buildPotsDepositUrl,

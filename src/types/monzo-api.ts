@@ -1,28 +1,30 @@
+import { Infer } from "superstruct";
+import { AccountType } from "../structs/accounts";
+import { Currency } from "../structs/common";
+import { Tax } from "../structs/receipt/tax";
+
+// AUTHENTICATION
 export interface WhoAmI {
   authenticated: boolean;
   client_id: string;
   user_id: string;
 }
 
-type AccountType = "uk_prepaid" | "uk_retail" | "uk_retail_joint";
-
-// TODO: could be any currency code?
-type Currency = "GBP" | "USD";
-
+// ACCOUNTS
 type CountryCode = "GB";
 
-interface Owner {
+type Owner = {
   user_id: string;
   preferred_name: string;
   preferred_first_name: string;
-}
+};
 
-interface PaymentDetail {
+type PaymentDetail = {
   account_number: string;
   sort_code: string;
-}
+};
 
-export interface Account {
+export type Account = {
   id: string;
   closed: boolean;
   created: string;
@@ -38,9 +40,10 @@ export interface Account {
   payments_details: {
     locale_uk: PaymentDetail;
   };
-}
+};
 
-export interface Balance {
+// BALANCE
+export type Balance = {
   balance: number;
   total_balance: number;
   balance_including_flexible_savings: number;
@@ -49,11 +52,12 @@ export interface Balance {
   local_currency: string;
   local_exchange_rate: number;
   local_spend: [];
-}
+};
 
+// POTS
 type PotType = "default" | "flexible_savings" | string;
 
-export interface Pot {
+export type Pot = {
   id: string;
   name: string;
   style: string;
@@ -75,8 +79,9 @@ export interface Pot {
   charity_id: string;
   available_for_bills: boolean;
   has_virtual_cards: boolean;
-}
+};
 
+// TRANSACTIONS
 type TransactionCategory =
   // top-ups have category 'mondo'
   | "mondo"
@@ -110,7 +115,65 @@ type DeclineReason =
   | "INVALID_CVC"
   | "OTHER";
 
-export interface Transaction {
+type Metadata =
+  | MastercardMetadata
+  | FasterPaymentsMetadata
+  | PotMetadata
+  | BacsMetadata;
+
+type MastercardMetadata = {
+  ledger_insertion_id: string;
+  mastercard_approval_type: string;
+  mastercard_auth_message_id: string;
+  mastercard_card_id: string;
+  mastercard_lifecycle_id: string;
+  mcc: string;
+  notes?: string;
+  subscription_id?: string;
+
+  // 3 fields below are Android Pay
+  token_transaction_identifier?: string;
+  token_unique_reference?: string;
+  tokenization_method?: string;
+};
+
+type FasterPaymentsMetadata = {
+  faster_payment: boolean;
+  fps_fpid: string;
+  fps_payment_id: string;
+  insertion: string;
+  notes: string;
+  trn: string;
+};
+
+type PotMetadata = {
+  external_id: string;
+  ledger_insertion_id: string;
+  pot_deposit_id: string;
+  pot_id: string;
+  trigger: string;
+  triggered_by: string;
+  user_id: string;
+};
+
+type BacsMetadata = {
+  bacs_direct_debit_instruction_id: string;
+  bacs_payment_id: string;
+  bacs_record_id: string;
+  ledger_insertion_id: string;
+  notes: string;
+  subscription_id: string;
+};
+
+type CounterParty = {
+  account_number: string;
+  name: string;
+  service_user_number?: string;
+  sort_code: string;
+  user_id: string;
+};
+
+export type Transaction = {
   account_id: string;
   amount: number;
   amount_is_pending: false;
@@ -145,13 +208,19 @@ export interface Transaction {
   settled: string;
   updated: string;
   user_id: string;
-}
+};
+
+// ATTACHMENT
+export type UploadResponse = {
+  file_url: string;
+  upload_url: string;
+};
 
 // TODO: remove string and replace with union of file types
 type FileType = "image/png" | string;
 
 // TODO: difference between file_type and type, between file_url and url
-export interface Attachment {
+export type Attachment = {
   id: string;
   user_id: string;
   external_id: string;
@@ -161,72 +230,13 @@ export interface Attachment {
   // two properties below exist in transaction.attachments
   type?: FileType;
   url?: string;
-}
+};
 
-type Metadata =
-  | MastercardMetadata
-  | FasterPaymentsMetadata
-  | PotMetadata
-  | BacsMetadata;
+// RECEIPT
 
-interface MastercardMetadata {
-  ledger_insertion_id: string;
-  mastercard_approval_type: string;
-  mastercard_auth_message_id: string;
-  mastercard_card_id: string;
-  mastercard_lifecycle_id: string;
-  mcc: string;
-  notes?: string;
-  subscription_id?: string;
+// TODO: check receipt optional fields? are they optional if we use type as API response?
 
-  // 3 fields below are Android Pay
-  token_transaction_identifier?: string;
-  token_unique_reference?: string;
-  tokenization_method?: string;
-}
-
-interface FasterPaymentsMetadata {
-  faster_payment: boolean;
-  fps_fpid: string;
-  fps_payment_id: string;
-  insertion: string;
-  notes: string;
-  trn: string;
-}
-
-interface PotMetadata {
-  external_id: string;
-  ledger_insertion_id: string;
-  pot_deposit_id: string;
-  pot_id: string;
-  trigger: string;
-  triggered_by: string;
-  user_id: string;
-}
-
-interface BacsMetadata {
-  bacs_direct_debit_instruction_id: string;
-  bacs_payment_id: string;
-  bacs_record_id: string;
-  ledger_insertion_id: string;
-  notes: string;
-  subscription_id: string;
-}
-
-interface CounterParty {
-  account_number: string;
-  name: string;
-  service_user_number?: string;
-  sort_code: string;
-  user_id: string;
-}
-
-export interface Upload {
-  file_url: string;
-  upload_url: string;
-}
-
-interface Item {
+type Item = {
   description: string;
   amount: number;
   currency: Currency;
@@ -235,23 +245,22 @@ interface Item {
   unit?: string;
   // despite what docs says - this field is required!
   tax: number;
-}
+};
 
-interface MainItem extends Item {
+// TODO: is this the same as interface extends?
+type MainItem = Item & {
   sub_items: Item[];
-}
+};
 
-// TODO: check receipt optional fields? are they optional if we use type as API response?
-interface Tax {
-  description: string;
-  amount: number;
-  currency: Currency;
-  tax_number?: string;
-}
+// tax_number is always returned in response
+// use intersection type to
+export type Tax = Infer<typeof Tax> & {
+  tax_number: string;
+};
 
-type PaymentType = "cash" | "card" | "gift_card";
+type PaymentType = "card" | "cash" | "gift_card";
 
-interface Payment {
+type Payment = {
   type: PaymentType;
   amount: number;
   currency: Currency;
@@ -259,9 +268,9 @@ interface Payment {
   last_four?: string;
   // TODO: conditional type if type is gift_card
   gift_card_type?: string;
-}
+};
 
-interface Merchant {
+type Merchant = {
   name?: string;
   online?: boolean;
   phone?: string;
@@ -269,24 +278,29 @@ interface Merchant {
   store_name?: string;
   store_address?: string;
   store_postcode?: string;
-}
+};
 
-export interface Receipt {
+export type Receipt = {
   id?: string;
-  external_id: string;
-  transaction_id: string;
   proof_of_purchase_id?: string;
+
+  // fields
+  transaction_id: string;
+  external_id: string;
   total: number;
   currency: Currency;
-  merchant?: Merchant;
-  payments?: Payment[];
-  taxes?: Tax[];
   items: MainItem[];
-  barcode?: null;
-}
+  taxes?: Tax[];
+  payments?: Payment[];
+  merchant?: Merchant;
 
-export interface Webhook {
+  //
+  barcode?: null;
+};
+
+// WEBHOOKS
+export type Webhook = {
   id: string;
   account_id: string;
   url: string;
-}
+};
