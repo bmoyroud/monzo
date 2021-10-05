@@ -54,7 +54,7 @@ const GiftCardPayment = assign(
 // help TypeScript figure out the type
 export type Payment = CashPayment | CardPayment | GiftCardPayment;
 // @ts-ignore
-export const Payment = dynamic((val, _) => {
+export const Payment = dynamic<Payment>((val, _) => {
   // @ts-ignore
   switch (val.type) {
     case "card":
