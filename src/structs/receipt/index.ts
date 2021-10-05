@@ -1,4 +1,4 @@
-import { array, object, optional, string } from "superstruct";
+import { array, object, optional } from "superstruct";
 import { Id } from "../common/id";
 import { Positive } from "../common/refinements";
 import { Currency } from "./currency";
