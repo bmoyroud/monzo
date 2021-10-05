@@ -3,7 +3,7 @@ import Endpoint from "./endpoint";
 import { Id } from "../structs/common/id";
 import { Pagination } from "../structs/common/pagination";
 import { Retrieve, Annotate } from "../structs/transactions";
-import { Transaction } from "../monzo";
+import { Transaction } from "../types/monzo";
 import { buildTransactionsUrl, buildTransactionUrl } from "../utils/urls";
 import { encodeData } from "../utils/http";
 

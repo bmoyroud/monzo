@@ -3,7 +3,7 @@ import Endpoint from "./endpoint";
 import { Id } from "../structs/common/id";
 import { Pagination } from "../structs/common/pagination";
 import { Deposit, Withdraw } from "../structs/pots";
-import { Pot } from "../monzo";
+import { Pot } from "../types/monzo";
 import {
   buildPotsUrl,
   buildPotsDepositUrl,

@@ -1,7 +1,7 @@
 // TODO: remove any types
 // TODO: merge monzo type and superstruct receipt structs?
 
-import { MainItem, Receipt } from "../monzo";
+import { MainItem, Receipt } from "../types/monzo";
 
 const calculateReducer = (acc: number, item: any) =>
   acc + item.amount * item.quantity;

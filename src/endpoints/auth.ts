@@ -1,5 +1,5 @@
 import Endpoint from "./endpoint";
-import { WhoAmI } from "../monzo";
+import { WhoAmI } from "../types/monzo";
 import { buildWhoAmIUrl } from "../utils/urls";
 
 class AuthEndpoint extends Endpoint {

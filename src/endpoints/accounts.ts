@@ -1,6 +1,6 @@
 import { assert, Infer } from "superstruct";
 import Endpoint from "./endpoint";
-import { Account } from "../monzo";
+import { Account } from "../types/monzo";
 import { AccountType } from "../structs/accounts";
 import { Pagination } from "../structs/common/pagination";
 import { buildAccountsUrl } from "../utils/urls";
