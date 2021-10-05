@@ -2,9 +2,6 @@ import { Infer } from "superstruct";
 import { AccountType } from "../structs/accounts";
 import { Currency } from "../structs/common";
 import { ReceiptReq } from "../structs/receipt";
-import { Items } from "../structs/receipt/items";
-import { Merchant } from "../structs/receipt/merchant";
-import { Payment } from "../structs/receipt/payment";
 import { Tax } from "../structs/receipt/tax";
 
 // AUTHENTICATION

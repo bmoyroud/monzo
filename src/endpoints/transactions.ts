@@ -2,7 +2,7 @@ import { assert } from "superstruct";
 import Endpoint from "./endpoint";
 import { Id, Pagination } from "../structs/common";
 import { Retrieve, Annotate } from "../structs/transactions";
-import { Transaction } from "../types/monzo";
+import { Transaction } from "../types/monzo-api";
 import { buildTransactionsUrl, buildTransactionUrl } from "../utils/urls";
 import { encodeData } from "../utils/http";
 
