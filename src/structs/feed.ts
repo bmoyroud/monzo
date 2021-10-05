@@ -1,4 +1,4 @@
-import { object, string, enums, optional, dynamic } from "superstruct";
+import { object, string, enums, optional, dynamic, Infer } from "superstruct";
 import { Id } from "./common/id";
 import { URL, HexColor } from "./common/refinements";
 import { feedItems } from "../constants/types";
@@ -25,12 +25,13 @@ function chooseParams(type: string) {
   }
 }
 
-const FeedItemsParams = dynamic((value, ctx) => {
+const FeedItemsParams = dynamic((_, ctx) => {
   const parent = ctx.branch[0];
   const { type } = parent;
   return chooseParams(type);
 });
 
+export type FeedItem = Infer<typeof FeedItem>;
 export const FeedItem = object({
   account_id: Id,
   type: FeedItemType,

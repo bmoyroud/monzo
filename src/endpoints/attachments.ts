@@ -1,8 +1,8 @@
-import { assert, Infer } from "superstruct";
+import { assert } from "superstruct";
 import Endpoint from "./endpoint";
-import { Upload as UploadStruct, Register } from "../structs/attachments";
 import { Id } from "../structs/common/id";
-import { Attachment, Upload } from "../types/monzo";
+import { Upload, Register } from "../structs/attachments";
+import { Attachment, UploadResponse } from "../types/monzo";
 import {
   buildAttachmentUploadUrl,
   buildAttachmentRegisterUrl,
@@ -11,17 +11,17 @@ import {
 import { encodeData } from "../utils/http";
 
 class AttachmentsEndpoint extends Endpoint {
-  upload(args: Infer<typeof UploadStruct>) {
-    assert(args, UploadStruct);
+  upload(args: Upload) {
+    assert(args, Upload);
 
     const endpointUrl = buildAttachmentUploadUrl();
 
     const data = encodeData(args);
 
-    return this.client.post<void, Upload>(endpointUrl, data);
+    return this.client.post<void, UploadResponse>(endpointUrl, data);
   }
 
-  register(args: Infer<typeof Register>) {
+  register(args: Register) {
     assert(args, Register);
 
     const endpointUrl = buildAttachmentRegisterUrl();
@@ -33,7 +33,7 @@ class AttachmentsEndpoint extends Endpoint {
       .then((data) => data.attachment);
   }
 
-  deregister(id: Infer<typeof Id>) {
+  deregister(id: Id) {
     assert(id, Id);
 
     const endpointUrl = buildAttachmentDeregisterUrl();

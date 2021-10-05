@@ -1,11 +1,11 @@
-import { assert, Infer } from "superstruct";
+import { assert } from "superstruct";
 import Endpoint from "./endpoint";
 import { FeedItem } from "../structs/feed";
 import { buildFeedUrl } from "../utils/urls";
 import { encodeData } from "../utils/http";
 
 class FeedEndpoint extends Endpoint {
-  create(args: Infer<typeof FeedItem>) {
+  create(args: FeedItem) {
     assert(args, FeedItem);
 
     const endpointUrl = buildFeedUrl();

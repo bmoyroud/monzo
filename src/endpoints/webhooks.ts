@@ -1,4 +1,4 @@
-import { assert, Infer } from "superstruct";
+import { assert } from "superstruct";
 import Endpoint from "./endpoint";
 import { Create } from "../structs/webhooks";
 import { Id } from "../structs/common/id";
@@ -9,7 +9,7 @@ import { encodeData } from "../utils/http";
 import { limitResults } from "../utils/pagination";
 
 class WebhooksEndpoint extends Endpoint {
-  create(args: Infer<typeof Create>) {
+  create(args: Create) {
     assert(args, Create);
 
     const endpointUrl = buildWebhooksUrl();

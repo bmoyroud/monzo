@@ -1,4 +1,4 @@
-import { assert, Infer } from "superstruct";
+import { assert } from "superstruct";
 import Endpoint from "./endpoint";
 import { Id } from "../structs/common/id";
 import { Pagination } from "../structs/common/pagination";
@@ -32,7 +32,7 @@ class PotsEndpoint extends Endpoint {
     return pots;
   }
 
-  deposit(args: Infer<typeof Deposit>) {
+  deposit(args: Deposit) {
     assert(args, Deposit);
 
     const { pot_id, ...other } = args;
@@ -44,7 +44,7 @@ class PotsEndpoint extends Endpoint {
     return this.client.put<void, Pot>(endpointUrl, data);
   }
 
-  withdraw(args: Infer<typeof Withdraw>) {
+  withdraw(args: Withdraw) {
     assert(args, Withdraw);
 
     const { pot_id, ...other } = args;

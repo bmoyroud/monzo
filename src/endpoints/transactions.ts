@@ -1,4 +1,4 @@
-import { assert, Infer } from "superstruct";
+import { assert } from "superstruct";
 import Endpoint from "./endpoint";
 import { Id } from "../structs/common/id";
 import { Pagination } from "../structs/common/pagination";
@@ -27,7 +27,7 @@ class TransactionsEndpoint extends Endpoint {
       .then((data) => data.transactions);
   }
 
-  retrieve(args: Infer<typeof Retrieve>) {
+  retrieve(args: Retrieve) {
     assert(args, Retrieve);
 
     const { transaction_id, expand_merchant } = args;
@@ -50,7 +50,7 @@ class TransactionsEndpoint extends Endpoint {
       .then((data) => data.transaction);
   }
 
-  annotate(args: Infer<typeof Annotate>) {
+  annotate(args: Annotate) {
     assert(args, Annotate);
 
     const { transaction_id, annotations } = args;

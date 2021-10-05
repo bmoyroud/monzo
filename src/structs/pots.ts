@@ -1,4 +1,4 @@
-import { object, number, assign } from "superstruct";
+import { object, number, assign, Infer } from "superstruct";
 import { Id } from "./common/id";
 
 const Pot = object({
@@ -7,6 +7,7 @@ const Pot = object({
   dedupe_id: Id,
 });
 
+export type Deposit = Infer<typeof Deposit>;
 export const Deposit = assign(
   Pot,
   object({
@@ -14,6 +15,7 @@ export const Deposit = assign(
   })
 );
 
+export type Withdraw = Infer<typeof Withdraw>;
 export const Withdraw = assign(
   Pot,
   object({
