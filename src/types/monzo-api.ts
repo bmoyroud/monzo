@@ -1,6 +1,8 @@
 import { Infer } from "superstruct";
 import { AccountType } from "../structs/accounts";
 import { Currency } from "../structs/common";
+import { Merchant } from "../structs/receipt/merchant";
+import { Payment } from "../structs/receipt/payment";
 import { Tax } from "../structs/receipt/tax";
 
 // AUTHENTICATION
@@ -253,31 +255,9 @@ type MainItem = Item & {
 };
 
 // tax_number is always returned in response
-// use intersection type to
-export type Tax = Infer<typeof Tax> & {
+// use intersection type to ensure tax_number is not optional
+type Tax = Infer<typeof Tax> & {
   tax_number: string;
-};
-
-type PaymentType = "card" | "cash" | "gift_card";
-
-type Payment = {
-  type: PaymentType;
-  amount: number;
-  currency: Currency;
-  // TODO: conditional type if type is card
-  last_four?: string;
-  // TODO: conditional type if type is gift_card
-  gift_card_type?: string;
-};
-
-type Merchant = {
-  name?: string;
-  online?: boolean;
-  phone?: string;
-  email?: string;
-  store_name?: string;
-  store_address?: string;
-  store_postcode?: string;
 };
 
 export type Receipt = {
