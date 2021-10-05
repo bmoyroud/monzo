@@ -21,10 +21,7 @@ class WebhooksEndpoint extends Endpoint {
       .then((data) => data.webhook);
   }
 
-  async list(
-    accountId: Infer<typeof Id>,
-    pagination: CursorBasedPagination = {}
-  ) {
+  async list(accountId: Id, pagination: CursorBasedPagination = {}) {
     assert(accountId, Id);
     assert(pagination, CursorBasedPagination);
 
@@ -43,7 +40,7 @@ class WebhooksEndpoint extends Endpoint {
     return webhooks;
   }
 
-  delete(webhookId: Infer<typeof Id>) {
+  delete(webhookId: Id) {
     assert(webhookId, Id);
 
     const endpointUrl = buildWebhookUrl(webhookId);
@@ -51,7 +48,7 @@ class WebhooksEndpoint extends Endpoint {
     return this.client.delete<void, {}>(endpointUrl);
   }
 
-  async deleteAll(accountId: Infer<typeof Id>) {
+  async deleteAll(accountId: Id) {
     assert(accountId, Id);
 
     const webhooks = await this.list(accountId);

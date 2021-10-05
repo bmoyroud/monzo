@@ -15,7 +15,7 @@ class ReceiptsEndpoint extends Endpoint {
     return this.client.put<void, {}>(endpointUrl, receipt);
   }
 
-  retrieve(externalId: Infer<typeof Id>) {
+  retrieve(externalId: Id) {
     assert(externalId, Id);
     const args = { external_id: externalId };
     return this.client
@@ -26,7 +26,7 @@ class ReceiptsEndpoint extends Endpoint {
   /**
    * Note: currently not working (403 - insufficient permissions).
    */
-  delete(externalId: Infer<typeof Id>) {
+  delete(externalId: Id) {
     assert(externalId, Id);
     const args = { external_id: externalId };
     return this.client.delete<void, any>(endpointUrl, { params: args });

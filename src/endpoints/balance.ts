@@ -5,7 +5,7 @@ import { Id } from "../structs/common/id";
 import { buildBalanceUrl } from "../utils/urls";
 
 class BalanceEndpoint extends Endpoint {
-  retrieve(accountId: Infer<typeof Id>) {
+  retrieve(accountId: Id) {
     assert(accountId, Id);
 
     const endpointUrl = buildBalanceUrl();

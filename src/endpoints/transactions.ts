@@ -8,7 +8,7 @@ import { buildTransactionsUrl, buildTransactionUrl } from "../utils/urls";
 import { encodeData } from "../utils/http";
 
 class TransactionsEndpoint extends Endpoint {
-  list(accountId: Infer<typeof Id>, pagination?: Pagination) {
+  list(accountId: Id, pagination?: Pagination) {
     assert(accountId, Id);
     assert(pagination, Pagination);
 
