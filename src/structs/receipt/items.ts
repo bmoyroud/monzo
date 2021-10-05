@@ -1,7 +1,7 @@
 import {
   array,
   assign,
-  defaulted,
+  Infer,
   number,
   object,
   optional,
@@ -10,24 +10,25 @@ import {
 } from "superstruct";
 import { Currency, Positive } from "../common";
 
-const Quantity = defaulted(Positive, 1);
-
-const Item = object({
+export type BaseItem = Infer<typeof BaseItem>;
+const BaseItem = object({
   description: string(),
   amount: number(),
   currency: Currency,
+  // despite what docs says - tax field is required!
   tax: number(),
-  quantity: optional(Quantity),
+  quantity: Positive,
   unit: optional(string()),
 });
 
-const SubItem = Item;
+const SubItem = BaseItem;
 
-const MainItem = assign(
-  Item,
+const Item = assign(
+  BaseItem,
   object({
     sub_items: optional(array(SubItem)),
   })
 );
 
-export const Items = size(array(MainItem), 1, Infinity);
+export type Items = Infer<typeof Items>;
+export const Items = size(array(Item), 1, Infinity);

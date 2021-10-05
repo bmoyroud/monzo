@@ -1,6 +1,8 @@
 import { Infer } from "superstruct";
 import { AccountType } from "../structs/accounts";
 import { Currency } from "../structs/common";
+import { ReceiptReq } from "../structs/receipt";
+import { Items } from "../structs/receipt/items";
 import { Merchant } from "../structs/receipt/merchant";
 import { Payment } from "../structs/receipt/payment";
 import { Tax } from "../structs/receipt/tax";
@@ -236,45 +238,18 @@ export type Attachment = {
 
 // RECEIPT
 
-// TODO: check receipt optional fields? are they optional if we use type as API response?
-
-type Item = {
-  description: string;
-  amount: number;
-  currency: Currency;
-  // TODO: make 2 fields below optional? will they always appear on response
-  quantity?: number;
-  unit?: string;
-  // despite what docs says - this field is required!
-  tax: number;
-};
-
-// TODO: is this the same as interface extends?
-type MainItem = Item & {
-  sub_items: Item[];
-};
-
 // tax_number is always returned in response
 // use intersection type to ensure tax_number is not optional
 type Tax = Infer<typeof Tax> & {
   tax_number: string;
 };
 
-export type Receipt = {
+export type Receipt = ReceiptReq & {
+  taxes?: Tax[];
+
+  // additional fields on request response
   id?: string;
   proof_of_purchase_id?: string;
-
-  // fields
-  transaction_id: string;
-  external_id: string;
-  total: number;
-  currency: Currency;
-  items: MainItem[];
-  taxes?: Tax[];
-  payments?: Payment[];
-  merchant?: Merchant;
-
-  //
   barcode?: null;
 };
 
