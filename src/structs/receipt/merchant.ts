@@ -1,5 +1,6 @@
-import { boolean, object, optional, string } from "superstruct";
+import { boolean, Infer, object, optional, string } from "superstruct";
 
+export type Merchant = Infer<typeof Merchant>;
 export const Merchant = object({
   name: optional(string()),
   online: optional(boolean()),
