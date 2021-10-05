@@ -1,7 +1,6 @@
-import { string, Infer } from "superstruct";
+export { Currency } from "./currency";
 
-export type Id = Infer<typeof Id>;
-export const Id = string();
+export { Id } from "./id";
 
 export { CursorBasedPagination, Pagination } from "./pagination";
 

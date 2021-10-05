@@ -1,5 +1,5 @@
 import { enums, number, object, optional, string } from "superstruct";
-import { Currency } from "./currency";
+import { Currency } from "../common";
 
 // TODO: move valid payment types to constants?
 const PaymentType = enums(["cash", "cash", "gift_card"]);

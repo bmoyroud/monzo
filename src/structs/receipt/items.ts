@@ -8,8 +8,7 @@ import {
   size,
   string,
 } from "superstruct";
-import { Positive } from "../common";
-import { Currency } from "./currency";
+import { Currency, Positive } from "../common";
 
 const Quantity = defaulted(Positive, 1);
 
