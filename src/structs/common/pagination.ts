@@ -1,5 +1,5 @@
-import { object, number, optional, assign, size, Infer } from "superstruct";
-import { RFC3339 } from "./refinements";
+import { object, optional, assign, Infer, min } from "superstruct";
+import { Integer, RFC3339 } from "./refinements";
 
 const TimeBasedPagination = object({
   since: optional(RFC3339),
@@ -8,7 +8,7 @@ const TimeBasedPagination = object({
 
 export type CursorBasedPagination = Infer<typeof CursorBasedPagination>;
 export const CursorBasedPagination = object({
-  limit: optional(size(number(), 0, 100)),
+  limit: optional(min(Integer, 0)),
 });
 
 export type Pagination = Infer<typeof Pagination>;

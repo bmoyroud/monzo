@@ -3,6 +3,10 @@ import { URL as NodeURL } from "url";
 
 export const HexColor = pattern(string(), /^#(?:[0-9a-fA-F]{3}){1,2}$/);
 
+export const Integer = refine(number(), "Integer", (value) =>
+  Number.isInteger(value)
+);
+
 export const Positive = min(number(), 0, { exclusive: true });
 
 // see https://stackoverflow.com/a/24544212/4658957
