@@ -5,11 +5,11 @@ import { ReceiptReq } from "../structs/receipt";
 import { Tax } from "../structs/receipt/tax";
 
 // AUTHENTICATION
-export interface WhoAmI {
+type WhoAmI = {
   authenticated: boolean;
   client_id: string;
   user_id: string;
-}
+};
 
 // ACCOUNTS
 type CountryCode = "GB";
@@ -25,7 +25,7 @@ type PaymentDetail = {
   sort_code: string;
 };
 
-export type Account = {
+type Account = {
   id: string;
   closed: boolean;
   created: string;
@@ -43,8 +43,10 @@ export type Account = {
   };
 };
 
+type Accounts = Account[];
+
 // BALANCE
-export type Balance = {
+type Balance = {
   balance: number;
   total_balance: number;
   balance_including_flexible_savings: number;
@@ -58,7 +60,7 @@ export type Balance = {
 // POTS
 type PotType = "default" | "flexible_savings" | string;
 
-export type Pot = {
+type Pot = {
   id: string;
   name: string;
   style: string;
@@ -81,6 +83,8 @@ export type Pot = {
   available_for_bills: boolean;
   has_virtual_cards: boolean;
 };
+
+type Pots = Pot[];
 
 // TRANSACTIONS
 type TransactionCategory =
@@ -174,7 +178,7 @@ type CounterParty = {
   user_id: string;
 };
 
-export type Transaction = {
+type Transaction = {
   account_id: string;
   amount: number;
   amount_is_pending: false;
@@ -211,8 +215,10 @@ export type Transaction = {
   user_id: string;
 };
 
+type Transactions = Transaction[];
+
 // ATTACHMENT
-export type UploadResponse = {
+type UploadURLs = {
   file_url: string;
   upload_url: string;
 };
@@ -221,7 +227,7 @@ export type UploadResponse = {
 type FileType = "image/png" | string;
 
 // TODO: difference between file_type and type, between file_url and url
-export type Attachment = {
+type Attachment = {
   id: string;
   user_id: string;
   external_id: string;
@@ -241,18 +247,43 @@ type Tax = Infer<typeof Tax> & {
   tax_number: string;
 };
 
-export type Receipt = ReceiptReq & {
+type Receipt = ReceiptReq & {
+  // override taxes array
   taxes?: Tax[];
 
-  // additional fields on request response
+  // additional fields on API response
   id?: string;
   proof_of_purchase_id?: string;
   barcode?: null;
 };
 
 // WEBHOOKS
-export type Webhook = {
+type Webhook = {
   id: string;
   account_id: string;
   url: string;
 };
+
+type Webhooks = Webhook[];
+
+export type WhoAmIRes = WhoAmI;
+
+export type AccountsRes = { accounts: Accounts };
+
+export type BalanceRes = Balance;
+
+export type PotRes = Pot;
+export type PotsRes = { pots: Pots };
+
+export type TransactionRes = { transaction: Transaction };
+export type TransactionsRes = { transactions: Transactions };
+
+export type UploadRes = UploadURLs;
+export type AttachmentRes = { attachment: Attachment };
+
+export type ReceiptRes = { receipt: Receipt };
+
+export type WebhookRes = { webhook: Webhook };
+export type WebhooksRes = { webhooks: Webhooks };
+
+export type EmptyRes = {};
