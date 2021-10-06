@@ -10,11 +10,11 @@ import {
   size,
   string,
 } from "superstruct";
+import { paymentTypes } from "../../constants/arrays";
 import { Currency } from "../common";
 
-// TODO: move valid payment types to constants?
 export type PaymentType = Infer<typeof PaymentType>;
-const PaymentType = enums(["cash", "card", "gift_card"]);
+const PaymentType = enums(paymentTypes);
 
 const LastFour = size(string(), 4);
 

@@ -7,3 +7,5 @@ export const currencies = ["GBP", "USD"] as const;
 
 // TODO: is image/gif or other file types allowed?
 // export const fileTypes = ["image/jpeg", "image/png"];
+
+export const paymentTypes = ["cash", "card", "gift_card"] as const;
