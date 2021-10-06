@@ -1,5 +1,6 @@
 import { Infer } from "superstruct";
 import { AccountType } from "../structs/accounts";
+import { FileType } from "../structs/attachments";
 import { Currency } from "../structs/common";
 import { ReceiptReq } from "../structs/receipt";
 import { Tax } from "../structs/receipt/tax";
@@ -222,9 +223,6 @@ type UploadURLs = {
   file_url: string;
   upload_url: string;
 };
-
-// TODO: remove string and replace with union of file types
-type FileType = "image/png" | string;
 
 // TODO: difference between file_type and type, between file_url and url
 type Attachment = {
