@@ -1,35 +1,42 @@
 import { assert } from "superstruct";
 import Endpoint from "./endpoint";
-import { Id, Pagination } from "../structs/common";
-import { Annotations } from "../structs/transactions";
+import { Id } from "../structs/common";
+import { Annotations, ExpandMerchant, Options } from "../structs/transactions";
 import { TransactionRes, TransactionsRes } from "../types/monzo-api";
 import { buildTransactionsUrl, buildTransactionUrl } from "../utils/urls";
 import { encodeData } from "../utils/http";
 
 class TransactionsEndpoint extends Endpoint {
-  list(accountId: Id, pagination?: Pagination) {
+  list(accountId: Id, opts: Options = {}) {
     assert(accountId, Id);
-    assert(pagination, Pagination);
+    assert(opts, Options);
 
     const endpointUrl = buildTransactionsUrl();
 
-    // pagination is handled by Monzo API
+    const { expandMerchant, ...pagination } = opts;
+
     const args = {
       account_id: accountId,
+      // pagination can be included in opts
+      // pagination is handled by the Monzo API for this endpoint
       ...pagination,
     };
 
+    const params = opts?.expandMerchant
+      ? { ...args, "expand[]": "merchant" }
+      : args;
+
     return this.client
-      .get<void, TransactionsRes>(endpointUrl, { params: args })
+      .get<void, TransactionsRes>(endpointUrl, { params })
       .then((data) => data.transactions);
   }
 
-  retrieve(transactionId: Id, expandMerchant = false) {
+  retrieve(transactionId: Id, opts: ExpandMerchant = {}) {
     assert(transactionId, Id);
 
     const endpointUrl = buildTransactionUrl(transactionId);
 
-    const params = expandMerchant ? { "expand[]": "merchant" } : {};
+    const params = opts?.expandMerchant ? { "expand[]": "merchant" } : {};
 
     return this.client
       .get<void, TransactionRes>(endpointUrl, { params })
