@@ -10,9 +10,9 @@ class BalanceEndpoint extends Endpoint {
 
     const endpointUrl = buildBalanceUrl();
 
-    const args = { account_id: accountId };
+    const params = { account_id: accountId };
 
-    return this.client.get<void, BalanceRes>(endpointUrl, { params: args });
+    return this.client.get<void, BalanceRes>(endpointUrl, { params });
   }
 }
 

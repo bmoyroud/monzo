@@ -17,9 +17,9 @@ class ReceiptsEndpoint extends Endpoint {
 
   retrieve(externalId: Id) {
     assert(externalId, Id);
-    const args = { external_id: externalId };
+    const params = { external_id: externalId };
     return this.client
-      .get<void, ReceiptRes>(endpointUrl, { params: args })
+      .get<void, ReceiptRes>(endpointUrl, { params })
       .then((data) => data.receipt);
   }
 
@@ -29,8 +29,8 @@ class ReceiptsEndpoint extends Endpoint {
    */
   delete(externalId: Id) {
     assert(externalId, Id);
-    const args = { external_id: externalId };
-    return this.client.delete<void, any>(endpointUrl, { params: args });
+    const params = { external_id: externalId };
+    return this.client.delete<void, any>(endpointUrl, { params });
   }
 }
 
