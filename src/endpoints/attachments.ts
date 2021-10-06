@@ -2,7 +2,7 @@ import { assert } from "superstruct";
 import Endpoint from "./endpoint";
 import { Id } from "../structs/common";
 import { Upload, Register } from "../structs/attachments";
-import { Attachment, UploadResponse } from "../types/monzo-api";
+import { AttachmentRes, EmptyRes, UploadRes } from "../types/monzo-api";
 import {
   buildAttachmentUploadUrl,
   buildAttachmentRegisterUrl,
@@ -18,7 +18,7 @@ class AttachmentsEndpoint extends Endpoint {
 
     const data = encodeData(args);
 
-    return this.client.post<void, UploadResponse>(endpointUrl, data);
+    return this.client.post<void, UploadRes>(endpointUrl, data);
   }
 
   register(args: Register) {
@@ -29,7 +29,7 @@ class AttachmentsEndpoint extends Endpoint {
     const data = encodeData(args);
 
     return this.client
-      .post<void, { attachment: Attachment }>(endpointUrl, data)
+      .post<void, AttachmentRes>(endpointUrl, data)
       .then((data) => data.attachment);
   }
 
@@ -41,7 +41,7 @@ class AttachmentsEndpoint extends Endpoint {
     const args = { id };
     const data = encodeData(args);
 
-    return this.client.post<void, {}>(endpointUrl, data);
+    return this.client.post<void, EmptyRes>(endpointUrl, data);
   }
 }
 

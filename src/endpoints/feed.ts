@@ -3,6 +3,7 @@ import Endpoint from "./endpoint";
 import { FeedItem } from "../structs/feed";
 import { buildFeedUrl } from "../utils/urls";
 import { encodeData } from "../utils/http";
+import { EmptyRes } from "../types/monzo-api";
 
 class FeedEndpoint extends Endpoint {
   create(args: FeedItem) {
@@ -12,7 +13,7 @@ class FeedEndpoint extends Endpoint {
 
     const formattedData = encodeData(args);
 
-    return this.client.post<void, {}>(endpointUrl, formattedData);
+    return this.client.post<void, EmptyRes>(endpointUrl, formattedData);
   }
 }
 

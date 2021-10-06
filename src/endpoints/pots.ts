@@ -2,7 +2,7 @@ import { assert } from "superstruct";
 import Endpoint from "./endpoint";
 import { Id, Pagination } from "../structs/common";
 import { Deposit, Withdraw } from "../structs/pots";
-import { Pot } from "../types/monzo-api";
+import { PotRes, PotsRes } from "../types/monzo-api";
 import {
   buildPotsUrl,
   buildPotsDepositUrl,
@@ -19,7 +19,7 @@ class PotsEndpoint extends Endpoint {
     const endpointUrl = buildPotsUrl();
 
     const pots = await this.client
-      .get<void, { pots: Pot[] }>(endpointUrl, {
+      .get<void, PotsRes>(endpointUrl, {
         params: { current_account_id: accountId },
       })
       .then((data) => data.pots);
@@ -40,7 +40,7 @@ class PotsEndpoint extends Endpoint {
 
     const data = encodeData(other);
 
-    return this.client.put<void, Pot>(endpointUrl, data);
+    return this.client.put<void, PotRes>(endpointUrl, data);
   }
 
   withdraw(args: Withdraw) {
@@ -52,7 +52,7 @@ class PotsEndpoint extends Endpoint {
 
     const data = encodeData(other);
 
-    return this.client.put<void, Pot>(endpointUrl, data);
+    return this.client.put<void, PotRes>(endpointUrl, data);
   }
 }
 

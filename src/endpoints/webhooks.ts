@@ -2,7 +2,7 @@ import { assert } from "superstruct";
 import Endpoint from "./endpoint";
 import { Create } from "../structs/webhooks";
 import { Id, CursorBasedPagination } from "../structs/common";
-import { Webhook } from "../types/monzo-api";
+import { EmptyRes, WebhookRes, WebhooksRes } from "../types/monzo-api";
 import { buildWebhooksUrl, buildWebhookUrl } from "../utils/urls";
 import { encodeData } from "../utils/http";
 import { limitResults } from "../utils/pagination";
@@ -16,7 +16,7 @@ class WebhooksEndpoint extends Endpoint {
     const data = encodeData(args);
 
     return this.client
-      .post<void, { webhook: Webhook }>(endpointUrl, data)
+      .post<void, WebhookRes>(endpointUrl, data)
       .then((data) => data.webhook);
   }
 
@@ -27,7 +27,7 @@ class WebhooksEndpoint extends Endpoint {
     const endpointUrl = buildWebhooksUrl();
 
     const webhooks = await this.client
-      .get<void, { webhooks: Webhook[] }>(endpointUrl, {
+      .get<void, WebhooksRes>(endpointUrl, {
         params: { account_id: accountId },
       })
       .then((data) => data.webhooks);
@@ -44,7 +44,7 @@ class WebhooksEndpoint extends Endpoint {
 
     const endpointUrl = buildWebhookUrl(webhookId);
 
-    return this.client.delete<void, {}>(endpointUrl);
+    return this.client.delete<void, EmptyRes>(endpointUrl);
   }
 
   async deleteAll(accountId: Id) {

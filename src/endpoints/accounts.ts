@@ -1,8 +1,8 @@
 import { assert } from "superstruct";
 import Endpoint from "./endpoint";
-import { Account } from "../types/monzo-api";
 import { AccountType } from "../structs/accounts";
 import { Pagination } from "../structs/common";
+import { AccountsRes } from "../types/monzo-api";
 import { buildAccountsUrl } from "../utils/urls";
 import { filterResults } from "../utils/pagination";
 
@@ -14,7 +14,7 @@ class AccountEndpoint extends Endpoint {
     const endpointUrl = buildAccountsUrl();
 
     const accounts = await this.client
-      .get<void, { accounts: Account[] }>(endpointUrl, {
+      .get<void, AccountsRes>(endpointUrl, {
         params: { account_type: accountType },
       })
       .then((data) => data.accounts);

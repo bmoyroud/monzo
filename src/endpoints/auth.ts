@@ -1,11 +1,11 @@
 import Endpoint from "./endpoint";
-import { WhoAmI } from "../types/monzo-api";
+import { WhoAmIRes } from "../types/monzo-api";
 import { buildWhoAmIUrl } from "../utils/urls";
 
 class AuthEndpoint extends Endpoint {
   whoAmI() {
     const endpointUrl = buildWhoAmIUrl();
-    return this.client.get<void, WhoAmI>(endpointUrl);
+    return this.client.get<void, WhoAmIRes>(endpointUrl);
   }
 }
 

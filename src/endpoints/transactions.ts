@@ -2,7 +2,7 @@ import { assert } from "superstruct";
 import Endpoint from "./endpoint";
 import { Id, Pagination } from "../structs/common";
 import { Retrieve, Annotate } from "../structs/transactions";
-import { Transaction } from "../types/monzo-api";
+import { TransactionRes, TransactionsRes } from "../types/monzo-api";
 import { buildTransactionsUrl, buildTransactionUrl } from "../utils/urls";
 import { encodeData } from "../utils/http";
 
@@ -20,7 +20,7 @@ class TransactionsEndpoint extends Endpoint {
     };
 
     return this.client
-      .get<void, { transactions: Transaction[] }>(endpointUrl, {
+      .get<void, TransactionsRes>(endpointUrl, {
         params: args,
       })
       .then((data) => data.transactions);
@@ -36,7 +36,7 @@ class TransactionsEndpoint extends Endpoint {
     // TODO: simplify this?
     if (expand_merchant) {
       return this.client
-        .get<void, { transaction: Transaction }>(endpointUrl, {
+        .get<void, TransactionRes>(endpointUrl, {
           params: {
             "expand[]": "merchant",
           },
@@ -45,7 +45,7 @@ class TransactionsEndpoint extends Endpoint {
     }
 
     return this.client
-      .get<void, { transaction: Transaction }>(endpointUrl)
+      .get<void, TransactionRes>(endpointUrl)
       .then((data) => data.transaction);
   }
 
@@ -59,7 +59,7 @@ class TransactionsEndpoint extends Endpoint {
     const data = encodeData({ metadata: annotations });
 
     return this.client
-      .patch<void, { transaction: Transaction }>(endpointUrl, data)
+      .patch<void, TransactionRes>(endpointUrl, data)
       .then((data) => data.transaction);
   }
 }

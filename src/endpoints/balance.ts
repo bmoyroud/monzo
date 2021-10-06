@@ -1,6 +1,6 @@
 import { assert } from "superstruct";
 import Endpoint from "./endpoint";
-import { Balance } from "../types/monzo-api";
+import { BalanceRes } from "../types/monzo-api";
 import { Id } from "../structs/common";
 import { buildBalanceUrl } from "../utils/urls";
 
@@ -12,7 +12,7 @@ class BalanceEndpoint extends Endpoint {
 
     const args = { account_id: accountId };
 
-    return this.client.get<void, Balance>(endpointUrl, { params: args });
+    return this.client.get<void, BalanceRes>(endpointUrl, { params: args });
   }
 }
 

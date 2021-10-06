@@ -4,6 +4,7 @@ import { Id } from "../structs/common";
 import { buildReceiptsUrl } from "../utils/urls";
 import checkReceipt from "../utils/receipt";
 import { ReceiptReq } from "../structs/receipt";
+import { EmptyRes, ReceiptRes } from "../types/monzo-api";
 
 const endpointUrl = buildReceiptsUrl();
 
@@ -11,14 +12,14 @@ class ReceiptsEndpoint extends Endpoint {
   save(args: ReceiptReq) {
     assert(args, ReceiptReq);
     checkReceipt(args);
-    return this.client.put<void, {}>(endpointUrl, args);
+    return this.client.put<void, EmptyRes>(endpointUrl, args);
   }
 
   retrieve(externalId: Id) {
     assert(externalId, Id);
     const args = { external_id: externalId };
     return this.client
-      .get<void, { receipt: any }>(endpointUrl, { params: args })
+      .get<void, ReceiptRes>(endpointUrl, { params: args })
       .then((data) => data.receipt);
   }
 
