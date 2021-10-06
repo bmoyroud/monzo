@@ -1,8 +1,6 @@
-import { Infer } from "superstruct";
 import { Pagination } from "../structs/common";
 
 // ensure object has .created property
-// TODO: move to monzo.ts?
 interface ICreated {
   created: string;
 }
@@ -24,16 +22,8 @@ function beforeFilter(timestamp: string) {
 const noFilter = () => true;
 
 function limitFilter(limit: number) {
-  // TODO: do this or mirror behaviour of /transactions?
-  // TODO: test /transactions with limit: -1
-
-  // i.e. if limit = 0, do not filter results
-  // TODO: this is redundant given below
+  // if limit = 0, do not filter results
   if (limit === 0) return noFilter;
-
-  // if (limit < 1 || limit > 100)
-  //   throw new Error("Limit must be between 1 and 100");
-
   const callbackFn = (_: any, i: number) => i < limit;
   return callbackFn;
 }
@@ -44,7 +34,7 @@ export function limitResults<T>(arr: T[], limit: number) {
 
 export function filterResults<T extends ICreated>(
   arr: T[],
-  pagination: Infer<typeof Pagination>
+  pagination: Pagination
 ) {
   const { since, before, limit } = pagination;
   return arr
