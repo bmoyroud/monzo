@@ -1,6 +1,6 @@
 import { object, string, enums, optional, dynamic, Infer } from "superstruct";
 import { Id, HexColor, URL } from "./common";
-import { feedItems } from "../constants/types";
+import { feedItems } from "../constants/arrays";
 
 const FeedItemType = enums(feedItems);
 
