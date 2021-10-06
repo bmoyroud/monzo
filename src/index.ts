@@ -11,6 +11,7 @@ import {
   ReceiptsEndpoint,
   WebhooksEndpoint,
 } from "./endpoints";
+import Utils from "./utils";
 
 import { MISSING_ACCESS_TOKEN } from "./constants/errors";
 import { BASE_URL } from "./constants/urls";
@@ -27,6 +28,8 @@ class Monzo {
   public attachments;
   public receipts;
   public webhooks;
+
+  public static utils = Utils;
 
   constructor(accessToken: string) {
     if (!accessToken) {
