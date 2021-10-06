@@ -3,8 +3,8 @@ import Endpoint from "./endpoint";
 import { AccountType } from "../structs/accounts";
 import { Pagination } from "../structs/common";
 import { AccountsRes } from "../types/monzo-api";
-import { buildAccountsUrl } from "../utils/urls";
-import { filterResults } from "../utils/pagination";
+import { buildAccountsUrl } from "../helpers/urls";
+import { filterResults } from "../helpers/pagination";
 
 class AccountEndpoint extends Endpoint {
   async list(accountType: AccountType, pagination: Pagination = {}) {

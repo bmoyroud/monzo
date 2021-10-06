@@ -7,8 +7,8 @@ import {
   buildAttachmentUploadUrl,
   buildAttachmentRegisterUrl,
   buildAttachmentDeregisterUrl,
-} from "../utils/urls";
-import { encodeData } from "../utils/http";
+} from "../helpers/urls";
+import { encodeData } from "../helpers/http";
 
 class AttachmentsEndpoint extends Endpoint {
   upload(args: Upload) {

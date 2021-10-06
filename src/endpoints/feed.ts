@@ -1,8 +1,8 @@
 import { assert } from "superstruct";
 import Endpoint from "./endpoint";
 import { FeedItem } from "../structs/feed";
-import { buildFeedUrl } from "../utils/urls";
-import { encodeData } from "../utils/http";
+import { buildFeedUrl } from "../helpers/urls";
+import { encodeData } from "../helpers/http";
 import { EmptyRes } from "../types/monzo-api";
 
 class FeedEndpoint extends Endpoint {

@@ -15,8 +15,8 @@ import Utils from "./utils";
 
 import { MISSING_ACCESS_TOKEN } from "./constants/errors";
 import { BASE_URL } from "./constants/urls";
-import { buildError } from "./utils/errors";
-import { buildHeaders, parseError, parseResponse } from "./utils/http";
+import { buildError } from "./helpers/errors";
+import { buildHeaders, parseError, parseResponse } from "./helpers/http";
 
 class Monzo {
   public auth;

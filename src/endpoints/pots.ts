@@ -7,9 +7,9 @@ import {
   buildPotsUrl,
   buildPotsDepositUrl,
   buildPotsWithdrawalUrl,
-} from "../utils/urls";
-import { encodeData } from "../utils/http";
-import { filterResults } from "../utils/pagination";
+} from "../helpers/urls";
+import { encodeData } from "../helpers/http";
+import { filterResults } from "../helpers/pagination";
 
 class PotsEndpoint extends Endpoint {
   async list(accountId: Id, pagination: Pagination = {}) {

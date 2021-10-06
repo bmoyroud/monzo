@@ -2,7 +2,7 @@ import { assert } from "superstruct";
 import Endpoint from "./endpoint";
 import { BalanceRes } from "../types/monzo-api";
 import { Id } from "../structs/common";
-import { buildBalanceUrl } from "../utils/urls";
+import { buildBalanceUrl } from "../helpers/urls";
 
 class BalanceEndpoint extends Endpoint {
   retrieve(accountId: Id) {

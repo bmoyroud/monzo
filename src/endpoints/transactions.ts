@@ -3,8 +3,8 @@ import Endpoint from "./endpoint";
 import { Id } from "../structs/common";
 import { Annotations, ExpandMerchant, Options } from "../structs/transactions";
 import { TransactionRes, TransactionsRes } from "../types/monzo-api";
-import { buildTransactionsUrl, buildTransactionUrl } from "../utils/urls";
-import { encodeData } from "../utils/http";
+import { buildTransactionsUrl, buildTransactionUrl } from "../helpers/urls";
+import { encodeData } from "../helpers/http";
 
 class TransactionsEndpoint extends Endpoint {
   list(accountId: Id, opts: Options = {}) {

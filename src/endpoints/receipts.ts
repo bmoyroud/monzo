@@ -1,8 +1,8 @@
 import { assert } from "superstruct";
 import Endpoint from "./endpoint";
 import { Id } from "../structs/common";
-import { buildReceiptsUrl } from "../utils/urls";
-import checkReceipt from "../utils/receipt";
+import { buildReceiptsUrl } from "../helpers/urls";
+import checkReceipt from "../helpers/receipt";
 import { ReceiptReq } from "../structs/receipt";
 import { EmptyRes, ReceiptRes } from "../types/monzo-api";
 
