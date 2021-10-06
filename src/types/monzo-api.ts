@@ -184,7 +184,7 @@ type Transaction = {
   amount: number;
   amount_is_pending: false;
   atm_fees_detailed: null;
-  attachments: TransactionAttachment[] | null;
+  attachments: Attachment[] | null;
   can_add_to_tab: boolean;
   can_be_excluded_from_breakdown: boolean;
   can_be_made_subscription: boolean;
@@ -231,12 +231,6 @@ type Attachment = {
   file_url: string;
   file_type: FileType;
   created: string;
-};
-
-// TODO: difference between file_type and type, between file_url and url
-type TransactionAttachment = Attachment & {
-  type: FileType;
-  url: string;
 };
 
 // RECEIPT
