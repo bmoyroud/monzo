@@ -1,7 +1,7 @@
 import { assert } from "superstruct";
 import Endpoint from "./endpoint";
 import { Id, Pagination } from "../structs/common";
-import { Retrieve, Annotate } from "../structs/transactions";
+import { Annotate } from "../structs/transactions";
 import { TransactionRes, TransactionsRes } from "../types/monzo-api";
 import { buildTransactionsUrl, buildTransactionUrl } from "../utils/urls";
 import { encodeData } from "../utils/http";
@@ -26,26 +26,15 @@ class TransactionsEndpoint extends Endpoint {
       .then((data) => data.transactions);
   }
 
-  retrieve(args: Retrieve) {
-    assert(args, Retrieve);
+  retrieve(transactionId: Id, expandMerchant = false) {
+    assert(transactionId, Id);
 
-    const { transaction_id, expand_merchant } = args;
+    const endpointUrl = buildTransactionUrl(transactionId);
 
-    const endpointUrl = buildTransactionUrl(transaction_id);
-
-    // TODO: simplify this?
-    if (expand_merchant) {
-      return this.client
-        .get<void, TransactionRes>(endpointUrl, {
-          params: {
-            "expand[]": "merchant",
-          },
-        })
-        .then((data) => data.transaction);
-    }
+    const params = expandMerchant ? { "expand[]": "merchant" } : {};
 
     return this.client
-      .get<void, TransactionRes>(endpointUrl)
+      .get<void, TransactionRes>(endpointUrl, { params })
       .then((data) => data.transaction);
   }
 
