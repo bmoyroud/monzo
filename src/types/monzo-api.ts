@@ -179,7 +179,45 @@ type CounterParty = {
   user_id: string;
 };
 
-type Transaction = {
+type Merchant = {
+  id: string;
+  group_id: string;
+  created: string;
+  name: string;
+  logo: string;
+  emoji: string;
+  category: string;
+  online: boolean;
+  atm: boolean;
+  address: {
+    short_formatted: string;
+    formatted: string;
+    address: string;
+    city: string;
+    region: string;
+    country: string;
+    postcode: string;
+    latitude: number;
+    longitude: number;
+    zoom_level: number;
+    approximate: boolean;
+  };
+  updated: string;
+  metadata: {
+    created_for_merchant: string;
+    created_for_transaction: string;
+    enriched_from_settlement: string;
+    google_places_icon: string;
+    google_places_id: string;
+    google_places_name: string;
+    suggested_tags: string;
+    twitter_id: string;
+    website: string;
+  };
+  disable_feedback: boolean;
+};
+
+export type Transaction = {
   account_id: string;
   amount: number;
   amount_is_pending: false;
@@ -206,7 +244,7 @@ type Transaction = {
   labels: null;
   local_amount: number;
   local_currency: Currency;
-  merchant: string;
+  merchant: string | Merchant;
   metadata: Metadata;
   notes: string;
   originator: boolean;
