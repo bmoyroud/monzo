@@ -1,7 +1,7 @@
 import { assert } from "superstruct";
 import Endpoint from "./endpoint";
 import { Id, Pagination } from "../structs/common";
-import { Annotate } from "../structs/transactions";
+import { Annotations } from "../structs/transactions";
 import { TransactionRes, TransactionsRes } from "../types/monzo-api";
 import { buildTransactionsUrl, buildTransactionUrl } from "../utils/urls";
 import { encodeData } from "../utils/http";
@@ -20,9 +20,7 @@ class TransactionsEndpoint extends Endpoint {
     };
 
     return this.client
-      .get<void, TransactionsRes>(endpointUrl, {
-        params: args,
-      })
+      .get<void, TransactionsRes>(endpointUrl, { params: args })
       .then((data) => data.transactions);
   }
 
@@ -38,12 +36,11 @@ class TransactionsEndpoint extends Endpoint {
       .then((data) => data.transaction);
   }
 
-  annotate(args: Annotate) {
-    assert(args, Annotate);
+  annotate(transactionId: Id, annotations: Annotations) {
+    assert(transactionId, Id);
+    assert(annotations, Annotations);
 
-    const { transaction_id, annotations } = args;
-
-    const endpointUrl = buildTransactionUrl(transaction_id);
+    const endpointUrl = buildTransactionUrl(transactionId);
 
     const data = encodeData({ metadata: annotations });
 
