@@ -42,7 +42,7 @@ const Monzo = require("../dist").default;
     console.log("20 transactions (last 90 days):", transactionsLimit);
 
     // get all top ups
-    const topUps = transactions.filter((tx) => tx.is_load);
+    const topUps = transactions.filter((tx) => tx.amount > 0 && tx.is_load);
     console.log("Top ups:", topUps);
 
     // get all declined
