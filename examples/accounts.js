@@ -14,21 +14,24 @@ const Monzo = require("../dist").default;
 
     // account_type
     // prepaid account
-    const prepaidAccount = await monzo.accounts.list({
+    const prepaidAccounts = await monzo.accounts.list({
       account_type: "uk_prepaid",
     });
+    const prepaidAccount = prepaidAccounts[0];
     console.log("Prepaid:", prepaidAccount);
 
     // current account
-    const currentAccount = await monzo.accounts.list({
+    const currentAccounts = await monzo.accounts.list({
       account_type: "uk_retail",
     });
+    const currentAccount = currentAccounts[0];
     console.log("Current:", currentAccount);
 
     // joint account
-    const jointAccount = await monzo.accounts.list({
+    const jointAccounts = await monzo.accounts.list({
       account_type: "uk_retail_joint",
     });
+    const jointAccount = jointAccounts[0];
     console.log("Joint:", jointAccount);
 
     // pagination (since, before, limit)
@@ -38,12 +41,12 @@ const Monzo = require("../dist").default;
     const accountsSince = await monzo.accounts.list({ since: t1 });
     console.log("Accounts created since 2017:", accountsSince);
 
-    // accounts created before 2018
-    const t2 = "2018-01-01T00:00:00.00Z";
+    // accounts created before 2019
+    const t2 = "2019-01-01T00:00:00.00Z";
     const accountsBefore = await monzo.accounts.list({ before: t2 });
     console.log("Accounts created before 2018:", accountsBefore);
 
-    // accounts created in 2017
+    // accounts created between 2017 and 2019
     const accountsBetween = await monzo.accounts.list({
       since: t1,
       before: t2,
@@ -51,7 +54,7 @@ const Monzo = require("../dist").default;
     console.log("Accounts created in 2017:", accountsBetween);
 
     // return 1 account
-    const accountsLimit = await monzo.accounts.list({ limit: 1, before: t2 });
+    const accountsLimit = await monzo.accounts.list({ limit: 1 });
     console.log("Account (limit: 1):", accountsLimit);
 
     // open accounts
