@@ -1,0 +1,242 @@
+<!DOCTYPE html><html class="default no-js"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>monzo</title><meta name="description" content="Documentation for monzo"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script async src="assets/search.js" id="search-script"></script></head><body><header><div class="tsd-page-toolbar"><div class="container"><div class="table-wrap"><div class="table-cell" id="tsd-search" data-base="."><div class="field"><label for="tsd-search-field" class="tsd-widget search no-caption">Search</label><input type="text" id="tsd-search-field"/></div><ul class="results"><li class="state loading">Preparing search index...</li><li class="state failure">The search index is not available</li></ul><a href="index.html" class="title">monzo</a></div><div class="table-cell" id="tsd-widgets"><div id="tsd-filter"><a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a><div class="tsd-filter-group"><div class="tsd-select" id="tsd-filter-visibility"><span class="tsd-select-label">All</span><ul class="tsd-select-list"><li data-value="public">Public</li><li data-value="protected">Public/Protected</li><li data-value="private" class="selected">All</li></ul></div> <input type="checkbox" id="tsd-filter-inherited" checked/><label class="tsd-widget" for="tsd-filter-inherited">Inherited</label><input type="checkbox" id="tsd-filter-externals" checked/><label class="tsd-widget" for="tsd-filter-externals">Externals</label></div></div><a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a></div></div></div></div><div class="tsd-page-title"><div class="container"><h1>monzo</h1></div></div></header><div class="container container-main"><div class="row"><div class="col-8 col-content"><div class="tsd-panel tsd-typography">
+<a href="#monzo" id="monzo" style="color: inherit; text-decoration: none;">
+  <h1>Monzo</h1>
+</a>
+<ul>
+<li>TypeScript support</li>
+<li>Full code coverage</li>
+<li>Promise based</li>
+</ul>
+
+<a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
+  <h3>Installation</h3>
+</a>
+<p><code>npm i package-name</code></p>
+
+<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
+  <h3>Usage</h3>
+</a>
+<pre><code><span class="hl-0">// CommonJS</span><br/><span class="hl-1">const</span><span class="hl-2"> </span><span class="hl-3">Monzo</span><span class="hl-2"> = </span><span class="hl-4">require</span><span class="hl-2">(</span><span class="hl-5">&#39;package-name&#39;</span><span class="hl-2">);</span><br/><br/><span class="hl-0">// ES6</span><br/><span class="hl-6">import</span><span class="hl-2"> { </span><span class="hl-7">Monzo</span><span class="hl-2"> } </span><span class="hl-6">from</span><span class="hl-2"> </span><span class="hl-5">&#39;package-name&#39;</span><span class="hl-2">;</span><br/><br/><span class="hl-1">const</span><span class="hl-2"> </span><span class="hl-3">monzo</span><span class="hl-2"> = </span><span class="hl-1">new</span><span class="hl-2"> </span><span class="hl-4">Monzo</span><span class="hl-2">(</span><span class="hl-7">accessToken</span><span class="hl-2">);</span>
+</code></pre>
+
+<a href="#endpoints" id="endpoints" style="color: inherit; text-decoration: none;">
+  <h2>Endpoints</h2>
+</a>
+<p>The SDK closely follows Monzo&#39;s public API detailed at <a href="https://docs.monzo.com/">docs.monzo.com</a>.</p>
+<p>Differences:</p>
+<ol>
+<li>helper functions</li>
+<li>something else</li>
+<li>.transactions, .accounts, .pots =&gt; top level property is removed</li>
+<li>current_account_id for /pots is renamed account_id for consistency with /transactions, /webhooks</li>
+</ol>
+
+<a href="#pagination" id="pagination" style="color: inherit; text-decoration: none;">
+  <h3>Pagination</h3>
+</a>
+<p>Endpoints which enumerate objects (indicated with *) support time-based and cursor-based pagination (<a href="https://docs.monzo.com/#pagination">docs</a>).</p>
+<p>Since and before are based on transaction creation date.</p>
+<p>limit: -1: API throws error
+limit: 0 does not limit number of results</p>
+<p>Docs say that max is 100 -&gt; this is not true
+no upper limit
+limit: 101 returns 101 results
+limit: 500 returns 500 results
+limit has to be an Int as well</p>
+<p>The SDK adds pagination to the following endpoints:</p>
+<ul>
+<li><code>accounts.list()</code>: time-based, cursor-based</li>
+<li><code>pots.list()</code>: time-based, cursor-based</li>
+<li><code>webhooks.list()</code>: cursor-based (no way of knowing webhooks&#39; creation date)
+i.e. since, before are not allowed</li>
+</ul>
+<p>Time-based is based of the account or pot creation date.
+since is inclusive / before is exclusive (as expected)</p>
+<p>This is equivalent to calling <code>.list()</code> without any args and filtering based on creationDate and / or results.length.</p>
+
+<a href="#pingwhoami" id="pingwhoami" style="color: inherit; text-decoration: none;">
+  <h3>/ping/whoami</h3>
+</a>
+<ul>
+<li><code>whoAmI()</code></li>
+</ul>
+
+<a href="#accounts" id="accounts" style="color: inherit; text-decoration: none;">
+  <h3>/accounts</h3>
+</a>
+<ul>
+<li><code>accounts.list()</code></li>
+</ul>
+
+<a href="#balance" id="balance" style="color: inherit; text-decoration: none;">
+  <h3>/balance</h3>
+</a>
+<ul>
+<li><code>balance.read()</code></li>
+</ul>
+
+<a href="#pots" id="pots" style="color: inherit; text-decoration: none;">
+  <h3>/pots</h3>
+</a>
+<ul>
+<li><code>pots.list()</code></li>
+<li><code>pots.deposit()</code></li>
+<li><code>pots.withdraw()</code></li>
+</ul>
+
+<a href="#transactions" id="transactions" style="color: inherit; text-decoration: none;">
+  <h3>/transactions</h3>
+</a>
+<ul>
+<li><code>transactions.list()</code>*</li>
+<li><code>transactions.retrieve()</code></li>
+<li><code>transactions.annotate()</code></li>
+</ul>
+
+<a href="#feed" id="feed" style="color: inherit; text-decoration: none;">
+  <h3>/feed</h3>
+</a>
+<ul>
+<li><code>feed.create()</code></li>
+</ul>
+
+<a href="#attachment" id="attachment" style="color: inherit; text-decoration: none;">
+  <h3>/attachment</h3>
+</a>
+<ul>
+<li><code>attachment.upload()</code></li>
+<li><code>attachment.register()</code></li>
+<li><code>attachment.deregister()</code></li>
+</ul>
+
+<a href="#transaction-receipts" id="transaction-receipts" style="color: inherit; text-decoration: none;">
+  <h3>/transaction-receipts</h3>
+</a>
+<ul>
+<li><code>receipts.create()</code></li>
+<li><code>receipts.retrieve()</code></li>
+<li><code>receipts.delete()</code></li>
+</ul>
+
+<a href="#webhooks" id="webhooks" style="color: inherit; text-decoration: none;">
+  <h3>/webhooks</h3>
+</a>
+<ul>
+<li><code>webhooks.register()</code></li>
+<li><code>webhooks.list()</code></li>
+<li><code>webhooks.delete()</code></li>
+</ul>
+
+<a href="#helper-functions" id="helper-functions" style="color: inherit; text-decoration: none;">
+  <h2>Helper functions</h2>
+</a>
+
+<a href="#accounts-1" id="accounts-1" style="color: inherit; text-decoration: none;">
+  <h3>/accounts</h3>
+</a>
+<ul>
+<li><p><code>accounts.retrieve(id)</code> ADD?</p>
+</li>
+<li><p><code>accounts.open()</code></p>
+</li>
+<li><p><code>accounts.closed()</code></p>
+</li>
+<li><p><code>accounts.prepaid()</code> TODO: return prepaidAccount[0]?</p>
+</li>
+<li><p><code>accounts.current()</code></p>
+</li>
+<li><p><code>accounts.joint()</code></p>
+</li>
+</ul>
+
+<a href="#balance-1" id="balance-1" style="color: inherit; text-decoration: none;">
+  <h3>/balance</h3>
+</a>
+<ul>
+<li><code>balance.spentToday()</code></li>
+</ul>
+
+<a href="#pots-1" id="pots-1" style="color: inherit; text-decoration: none;">
+  <h3>/pots</h3>
+</a>
+<ul>
+<li><code>pots.retrieve(id)</code> ADD?
+Equivalent to calling pots.list() and filtering based on id.</li>
+</ul>
+<p>TODO: if none found, imitate behaviour of transactions.retrieve!
+TODO: do same for accounts?</p>
+<ul>
+<li><code>pots.list.open()</code></li>
+<li><code>pots.list.closed()</code></li>
+<li><code>pots.list.locked()</code></li>
+</ul>
+<p>IMPORTANT: pots cannot be created or deleted via public API.</p>
+
+<a href="#transactions-1" id="transactions-1" style="color: inherit; text-decoration: none;">
+  <h3>/transactions</h3>
+</a>
+<ul>
+<li><code>transactions.list()</code>
+By default, if you ask for all transactions 5 mins after obtaining the token, you will get an error if including transactions not in the last 90 days.</li>
+</ul>
+<p>The SDK enables you to get the last 90 days of transactions.</p>
+<ul>
+<li><code>transactions.list.declined()</code></li>
+<li><code>transactions.list.topUps()</code></li>
+<li><code>transactions.list.settled()</code></li>
+<li><code>transactions.list.category()</code></li>
+<li><code>transactions.annotate.notes()</code></li>
+</ul>
+
+<a href="#attachment-1" id="attachment-1" style="color: inherit; text-decoration: none;">
+  <h3>/attachment</h3>
+</a>
+<ul>
+<li><code>attachments.deregisterAll(transactionId)</code></li>
+</ul>
+
+<a href="#webhooks-1" id="webhooks-1" style="color: inherit; text-decoration: none;">
+  <h3>/webhooks</h3>
+</a>
+<ul>
+<li><code>webhooks.retrieve()</code> ADD?</li>
+<li><code>webhooks.deleteAll()</code> DONE
+equivalent to calling <code>webhooks.list()</code> then <code>webhook.delete()</code> on each
+calls are sequential</li>
+</ul>
+
+<a href="#folder-structure" id="folder-structure" style="color: inherit; text-decoration: none;">
+  <h2>Folder structure</h2>
+</a>
+
+<a href="#docs" id="docs" style="color: inherit; text-decoration: none;">
+  <h3><code>docs</code></h3>
+</a>
+
+<a href="#examples" id="examples" style="color: inherit; text-decoration: none;">
+  <h3><code>examples</code></h3>
+</a>
+
+<a href="#srcconstants" id="srcconstants" style="color: inherit; text-decoration: none;">
+  <h3><code>src/constants</code></h3>
+</a>
+
+<a href="#srcendpoints" id="srcendpoints" style="color: inherit; text-decoration: none;">
+  <h3><code>src/endpoints</code></h3>
+</a>
+
+<a href="#srcstructs" id="srcstructs" style="color: inherit; text-decoration: none;">
+  <h3><code>src/structs</code></h3>
+</a>
+<p>Types for API request args.</p>
+
+<a href="#srctypes" id="srctypes" style="color: inherit; text-decoration: none;">
+  <h3><code>src/types</code></h3>
+</a>
+<p>Types for API response.</p>
+
+<a href="#srcutils" id="srcutils" style="color: inherit; text-decoration: none;">
+  <h3><code>src/utils</code></h3>
+</a>
+<p>different types for Receipt Merchant and Transaction Merchant</p>
+</div></div><div class="col-4 col-menu menu-sticky-wrap menu-highlight"><nav class="tsd-navigation primary"><ul><li class="current"><a href="modules.html">Exports</a></li></ul></nav><nav class="tsd-navigation secondary menu-sticky"><ul><li class="tsd-kind-class"><a href="classes/default.html" class="tsd-kind-icon">default</a></li></ul></nav></div></div></div><footer class="with-border-bottom"><div class="container"><h2>Legend</h2><div class="tsd-legend-group"><ul class="tsd-legend"><li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li><li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li></ul><ul class="tsd-legend"><li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li></ul></div><h2>Settings</h2><p>Theme <select id="theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></p></div></footer><div class="container tsd-generator"><p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></div><div class="overlay"></div><script src="assets/main.js"></script></body></html>
