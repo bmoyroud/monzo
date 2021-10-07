@@ -18,7 +18,7 @@ Returns a list of accounts owned by the currently authorised user.
 ### Pagination
 
 The SDK adds time-based and cursor-based pagination to this endpoint.
-See pagination.md.
+See [pagination](pagination.md).
 
 ## Examples
 
@@ -74,10 +74,7 @@ const accountsBefore = await monzo.accounts.list({ before: t2 });
 ```javascript
 const t1 = "2017-01-01T00:00:00.00Z";
 const t2 = "2019-01-01T00:00:00.00Z";
-const accountsBetween = await monzo.accounts.list({
-  since: t1,
-  before: t2,
-});
+const accountsBetween = await monzo.accounts.list({ since: t1, before: t2 });
 ```
 
 ### Return 1 account
