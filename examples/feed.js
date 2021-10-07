@@ -6,11 +6,11 @@ const Monzo = require("../dist").default;
   const accessToken = process.env.ACCESS_TOKEN;
   const accountId = process.env.ACCOUNT_ID;
 
-  const imageURL =
-    "https://upload.wikimedia.org/wikipedia/en/e/ed/Nyan_cat_250px_frame.PNG";
-
   try {
     const monzo = new Monzo(accessToken);
+
+    const imageURL =
+      "https://upload.wikimedia.org/wikipedia/en/e/ed/Nyan_cat_250px_frame.PNG";
 
     await monzo.feed.create({
       account_id: accountId,
