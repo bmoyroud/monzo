@@ -10,12 +10,12 @@
 
 ### Usage
 
-```
+```javascript
 // CommonJS
-const Monzo = require('package-name');
+const Monzo = require("package-name");
 
 // ES6
-import { Monzo } from 'package-name';
+import { Monzo } from "package-name";
 
 const monzo = new Monzo(accessToken);
 ```
