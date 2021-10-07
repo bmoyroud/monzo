@@ -1,4 +1,4 @@
-# Accounts
+# Balance
 
 [/balance](https://docs.monzo.com/#balance)
 
