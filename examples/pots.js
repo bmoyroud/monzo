@@ -12,7 +12,7 @@ const Monzo = require("../dist").default;
 
     // list all pots associated with account
     const pots = await monzo.pots.list(accountId);
-    console.log("Pots", pots);
+    console.log("All pots:", pots);
 
     // pagination (since, before, limit)
 
@@ -59,7 +59,7 @@ const Monzo = require("../dist").default;
       amount: 1,
       source_account_id: accountId,
     });
-    console.log("Pot after deposit", potAfterDeposit);
+    console.log("Pot after deposit:", potAfterDeposit);
 
     // withdraw from pot
     // const dedupeId = Monzo.utils.id();
@@ -68,7 +68,7 @@ const Monzo = require("../dist").default;
       amount: 2,
       destination_account_id: accountId,
     });
-    console.log("Pot after withdrawal", potAfterWithdrawal);
+    console.log("Pot after withdrawal:", potAfterWithdrawal);
   } catch (err) {
     console.log("Error", err);
   }
