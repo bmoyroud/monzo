@@ -2,7 +2,6 @@ import { object, number, assign, Infer } from "superstruct";
 import { Id } from "./common";
 
 const Pot = object({
-  pot_id: Id,
   amount: number(),
   dedupe_id: Id,
 });

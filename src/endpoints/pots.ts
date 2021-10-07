@@ -31,26 +31,24 @@ class PotsEndpoint extends Endpoint {
     return pots;
   }
 
-  deposit(args: Deposit) {
+  deposit(potId: Id, args: Deposit) {
+    assert(potId, Id);
     assert(args, Deposit);
 
-    const { pot_id, ...other } = args;
+    const endpointUrl = buildPotsDepositUrl(potId);
 
-    const endpointUrl = buildPotsDepositUrl(pot_id);
-
-    const data = encodeData(other);
+    const data = encodeData(args);
 
     return this.client.put<void, PotRes>(endpointUrl, data);
   }
 
-  withdraw(args: Withdraw) {
+  withdraw(potId: Id, args: Withdraw) {
+    assert(potId, Id);
     assert(args, Withdraw);
 
-    const { pot_id, ...other } = args;
+    const endpointUrl = buildPotsWithdrawalUrl(potId);
 
-    const endpointUrl = buildPotsWithdrawalUrl(pot_id);
-
-    const data = encodeData(other);
+    const data = encodeData(args);
 
     return this.client.put<void, PotRes>(endpointUrl, data);
   }
