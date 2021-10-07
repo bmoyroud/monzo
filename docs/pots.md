@@ -21,6 +21,7 @@ The SDK adds time-based and cursor-based pagination to this endpoint.
 See [pagination](pagination.md).
 
 TODO: add a note about dedupe_id!
+TODO: add note about id generation util
 TODO: add a note about amount being in minor units
 
 ## `.deposit(potId, args)`
@@ -75,7 +76,7 @@ const t2 = "2019-01-01T00:00:00.00Z";
 const potsBetween = await monzo.pots.list(accountId, { since: t1, before: t2 });
 ```
 
-### Return 1 account
+### Return last pot
 
 ```javascript
 const potsLimit = await monzo.pots.list(accountId, { limit: 1 });
