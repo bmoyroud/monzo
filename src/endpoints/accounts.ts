@@ -1,22 +1,21 @@
 import { assert } from "superstruct";
 import Endpoint from "./endpoint";
-import { AccountType } from "../structs/accounts";
-import { Pagination } from "../structs/common";
+import { List } from "../structs/accounts";
 import { AccountsRes } from "../types/monzo-api";
 import { buildAccountsUrl } from "../helpers/urls";
 import { filterResults } from "../helpers/pagination";
 
 class AccountEndpoint extends Endpoint {
-  async list(accountType: AccountType, pagination: Pagination = {}) {
-    assert(accountType, AccountType);
-    assert(pagination, Pagination);
+  async list(args: List = {}) {
+    assert(args, List);
 
     const endpointUrl = buildAccountsUrl();
 
+    const { account_type, ...pagination } = args;
+    const params = account_type ? { account_type } : {};
+
     const accounts = await this.client
-      .get<void, AccountsRes>(endpointUrl, {
-        params: { account_type: accountType },
-      })
+      .get<void, AccountsRes>(endpointUrl, { params })
       .then((data) => data.accounts);
 
     if (pagination) {
