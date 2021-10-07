@@ -9,10 +9,10 @@ import { EmptyRes, ReceiptRes } from "../types/monzo-api";
 const endpointUrl = buildReceiptsUrl();
 
 class ReceiptsEndpoint extends Endpoint {
-  save(args: ReceiptReq) {
-    assert(args, ReceiptReq);
-    checkReceipt(args);
-    return this.client.put<void, EmptyRes>(endpointUrl, args);
+  save(receipt: ReceiptReq) {
+    assert(receipt, ReceiptReq);
+    checkReceipt(receipt);
+    return this.client.put<void, EmptyRes>(endpointUrl, receipt);
   }
 
   retrieve(externalId: Id) {
