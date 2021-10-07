@@ -44,14 +44,14 @@ const Monzo = require("../dist").default;
     // accounts created before 2019
     const t2 = "2019-01-01T00:00:00.00Z";
     const accountsBefore = await monzo.accounts.list({ before: t2 });
-    console.log("Accounts created before 2018:", accountsBefore);
+    console.log("Accounts created before 2019:", accountsBefore);
 
     // accounts created between 2017 and 2019
     const accountsBetween = await monzo.accounts.list({
       since: t1,
       before: t2,
     });
-    console.log("Accounts created in 2017:", accountsBetween);
+    console.log("Accounts created between 2017 and 2019:", accountsBetween);
 
     // return 1 account
     const accountsLimit = await monzo.accounts.list({ limit: 1 });
