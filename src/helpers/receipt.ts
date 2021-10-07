@@ -38,7 +38,7 @@ function checkTotal(receipt: ReceiptReq) {
   }
 }
 
-export default function checkReceipt(receipt: any) {
+export default function checkReceipt(receipt: ReceiptReq) {
   checkTotal(receipt);
   checkSubItems(receipt.items);
 }
