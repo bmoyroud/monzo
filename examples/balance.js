@@ -10,7 +10,7 @@ const Monzo = require("../dist").default;
     const monzo = new Monzo(accessToken);
 
     // balance info for a specific account
-    const balanceInfo = await monzo.balance.retrieve({ account_id: accountId });
+    const balanceInfo = await monzo.balance.retrieve(accountId);
     console.log("Balance info:", balanceInfo);
 
     // amount spent today
