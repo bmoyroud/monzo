@@ -1,5 +1,5 @@
 import { object, string, enums, optional, dynamic, Infer } from "superstruct";
-import { Id, HexColor, URL } from "./common";
+import { HexColor, URL } from "./common";
 import { feedItemsTypes } from "../constants/arrays";
 
 const FeedItemType = enums(feedItemsTypes);
@@ -32,7 +32,6 @@ const FeedItemsParams = dynamic((_, ctx) => {
 
 export type FeedItem = Infer<typeof FeedItem>;
 export const FeedItem = object({
-  account_id: Id,
   type: FeedItemType,
   params: FeedItemsParams,
   url: optional(URL),
