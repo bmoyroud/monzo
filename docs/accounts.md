@@ -24,52 +24,78 @@ See pagination.md.
 
 ### All accounts
 
-    const accounts = await monzo.accounts.list();
+```javascript
+const accounts = await monzo.accounts.list();
+```
 
 ### Prepaid account
 
-    const prepaidAccounts = await monzo.accounts.list({ account_type: "uk_prepaid" });
-    const prepaidAccount = prepaidAccounts[0];
+```javascript
+const prepaidAccounts = await monzo.accounts.list({
+  account_type: "uk_prepaid",
+});
+const prepaidAccount = prepaidAccounts[0];
+```
 
 ### Current account
 
-    const currentAccounts = await monzo.accounts.list({ account_type: "uk_retail" });
-    const currentAccount = currentAccounts[0];
+```javascript
+const currentAccounts = await monzo.accounts.list({
+  account_type: "uk_retail",
+});
+const currentAccount = currentAccounts[0];
+```
 
 ### Joint account
 
-    const jointAccounts = await monzo.accounts.list({ account_type: "uk_retail_joint" });
-    const jointAccount = jointAccounts[0];
+```javascript
+const jointAccounts = await monzo.accounts.list({
+  account_type: "uk_retail_joint",
+});
+const jointAccount = jointAccounts[0];
+```
 
 ### Accounts created since 2017
 
-    const t1 = "2017-01-01T00:00:00.00Z";
-    const accountsSince = await monzo.accounts.list({ since: t1 });
+```javascript
+const t1 = "2017-01-01T00:00:00.00Z";
+const accountsSince = await monzo.accounts.list({ since: t1 });
+```
 
 ### Accounts created before 2019
 
-    const t2 = "2019-01-01T00:00:00.00Z";
-    const accountsBefore = await monzo.accounts.list({ before: t2 });
+```javascript
+const t2 = "2019-01-01T00:00:00.00Z";
+const accountsBefore = await monzo.accounts.list({ before: t2 });
+```
 
 ### Accounts created between 2017 and 2019
 
-    const t1 = "2017-01-01T00:00:00.00Z";
-    const t2 = "2019-01-01T00:00:00.00Z";
-    const accountsBetween = await monzo.accounts.list({
-      since: t1,
-      before: t2,
-    });
+```javascript
+const t1 = "2017-01-01T00:00:00.00Z";
+const t2 = "2019-01-01T00:00:00.00Z";
+const accountsBetween = await monzo.accounts.list({
+  since: t1,
+  before: t2,
+});
+```
 
 ### Return 1 account
 
-    const accountsLimit = await monzo.accounts.list({ limit: 1 });
+```javascript
+const accountsLimit = await monzo.accounts.list({ limit: 1 });
+```
 
 ### Open accounts
 
-    const accounts = await monzo.accounts.list();
-    const openAccounts = accounts.filter((acc) => !acc.closed);
+```javascript
+const accounts = await monzo.accounts.list();
+const openAccounts = accounts.filter((acc) => !acc.closed);
+```
 
 ### Closed accounts
 
-    const accounts = await monzo.accounts.list();
-    const closedAccounts = accounts.filter((acc) => acc.closed);
+```javascript
+const accounts = await monzo.accounts.list();
+const closedAccounts = accounts.filter((acc) => acc.closed);
+```
