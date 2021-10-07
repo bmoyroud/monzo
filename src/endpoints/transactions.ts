@@ -7,6 +7,18 @@ import { buildTransactionsUrl, buildTransactionUrl } from "../helpers/urls";
 import { encodeData } from "../helpers/http";
 
 class TransactionsEndpoint extends Endpoint {
+  retrieve(transactionId: Id, opts: ExpandMerchant = {}) {
+    assert(transactionId, Id);
+
+    const endpointUrl = buildTransactionUrl(transactionId);
+
+    const params = opts?.expandMerchant ? { "expand[]": "merchant" } : {};
+
+    return this.client
+      .get<void, TransactionRes>(endpointUrl, { params })
+      .then((data) => data.transaction);
+  }
+
   list(accountId: Id, opts: Options = {}) {
     assert(accountId, Id);
     assert(opts, Options);
@@ -29,18 +41,6 @@ class TransactionsEndpoint extends Endpoint {
     return this.client
       .get<void, TransactionsRes>(endpointUrl, { params })
       .then((data) => data.transactions);
-  }
-
-  retrieve(transactionId: Id, opts: ExpandMerchant = {}) {
-    assert(transactionId, Id);
-
-    const endpointUrl = buildTransactionUrl(transactionId);
-
-    const params = opts?.expandMerchant ? { "expand[]": "merchant" } : {};
-
-    return this.client
-      .get<void, TransactionRes>(endpointUrl, { params })
-      .then((data) => data.transaction);
   }
 
   annotate(transactionId: Id, annotations: Annotations) {

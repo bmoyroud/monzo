@@ -97,11 +97,11 @@ const transactions = await monzo.transactions.list(accountId, {
 
 ### Get top-ups
 
-Top-ups to an account are represented as transactions with a positive amount and is_load = true.
+Top-ups to an account are represented as transactions with a positive amount and `is_load = true`.
 
 ```javascript
 const transactions = await monzo.transactions.list(accountId);
-const topUps = transactions.filter((tx) => tx.is_load);
+const topUps = transactions.filter((tx) => tx.amount > 0 && tx.is_load);
 ```
 
 ### Get declined transactions
