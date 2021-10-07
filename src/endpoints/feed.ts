@@ -14,7 +14,7 @@ class FeedEndpoint extends Endpoint {
 
     const endpointUrl = buildFeedUrl();
 
-    const args = { accountId, ...feedItem };
+    const args = { account_id: accountId, ...feedItem };
     const formattedData = encodeData(args);
 
     return this.client.post<void, EmptyRes>(endpointUrl, formattedData);
