@@ -30,7 +30,7 @@ The SDK closely follows Monzo's public API detailed at [docs.monzo.com](https://
 
 ### /accounts
 
-- [`accounts.list()`](examples/accounts.md)
+- [`accounts.list()`](./examples/accounts.md)
 
 ### /balance
 
