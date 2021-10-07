@@ -33,12 +33,12 @@ class AttachmentsEndpoint extends Endpoint {
       .then((data) => data.attachment);
   }
 
-  deregister(id: Id) {
-    assert(id, Id);
+  deregister(attachmentId: Id) {
+    assert(attachmentId, Id);
 
     const endpointUrl = buildAttachmentDeregisterUrl();
 
-    const args = { id };
+    const args = { id: attachmentId };
     const data = encodeData(args);
 
     return this.client.post<void, EmptyRes>(endpointUrl, data);
